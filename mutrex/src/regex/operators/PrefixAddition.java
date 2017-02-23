@@ -20,7 +20,7 @@ import dk.brics.automaton.oo.ooregex;
  *
  */
 public class PrefixAddition extends RegexMutator {
-	static PrefixAddition mutator = new PrefixAddition();
+	public static PrefixAddition mutator = new PrefixAddition();
 
 	private PrefixAddition() {
 		super(new PrefixAdditionVisitor());

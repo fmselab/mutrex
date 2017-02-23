@@ -11,7 +11,7 @@ import dk.brics.automaton.oo.ooregex;
  *
  */
 public class QuantifierChange extends RegexMutator {
-	static QuantifierChange mutator = new QuantifierChange();
+	public static QuantifierChange mutator = new QuantifierChange();
 
 	private QuantifierChange() {
 		super(new QuantifierChangeVisitor());

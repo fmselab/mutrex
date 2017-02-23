@@ -21,6 +21,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
  */
 abstract class CollectDSSetGenerator extends DSSetGenerator {
 	private static Logger logger = Logger.getLogger(CollectDSSetGenerator.class.getName());
+	List<Integer> coveredMutsNum = new ArrayList<Integer>();
 
 	@Override
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
@@ -73,7 +74,12 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 		for (DistinguishingAutomaton da : das) {
 			genTest(result, da);
 		}
-		return;
+		/*System.out.println();
+		for(Integer c: coveredMutsNum) {
+			System.out.print(c + " ");
+		}
+		System.out.println();*/
+		System.out.print(coveredMutsNum.size() + "\t");
 	}
 
 	private void sortDAs(List<DistinguishingAutomaton> das) {
@@ -87,6 +93,8 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 	private void genTest(DSSet result, DistinguishingAutomaton da) {
 		DistinguishingString ds = new DistinguishingString(da.getExample(), da.isPositive());
 		result.add(ds, da.getMutants());
+		//logger.log(Level.INFO, da + " covers " + da.mutatedRegexes.size() + " mutants");
+		coveredMutsNum.add(da.mutatedRegexes.size());
 	}
 
 	abstract boolean stop(DistinguishingAutomaton da);

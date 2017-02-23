@@ -16,7 +16,7 @@ import dk.brics.automaton.oo.oosimpleexp;
  * 
  */
 public class Char2MetaChar extends RegexMutator {
-	static Char2MetaChar mutator = new Char2MetaChar();
+	public static Char2MetaChar mutator = new Char2MetaChar();
 
 	private Char2MetaChar() {
 		super(new Char2MetaCharVisitor());
