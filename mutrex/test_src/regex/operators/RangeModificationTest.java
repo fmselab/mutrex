@@ -17,7 +17,7 @@ import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
 
-public class OutOfOneInCharRangeTest extends RegexMutationTest {
+public class RangeModificationTest extends RegexMutationTest {
 
 	@BeforeClass
 	static public void setup() {

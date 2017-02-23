@@ -15,9 +15,6 @@ import dk.brics.automaton.oo.oosimpleexp;
  *
  * In MUTATION 2017 is CCC
  * 
- * TODO Qual e' la differenza con MissingCharacterClass?
- * Questa sembra migliore.
- *
  */
 public class CharacterClassCreation extends RegexMutator {
 	public static CharacterClassCreation mutator = new CharacterClassCreation();

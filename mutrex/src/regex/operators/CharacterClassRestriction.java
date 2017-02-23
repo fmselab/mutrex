@@ -16,9 +16,7 @@ import dk.brics.automaton.oo.ooregex;
  *
  */
 public class CharacterClassRestriction extends RegexMutator {
-
 	public static CharacterClassRestriction mutator = new CharacterClassRestriction();
-
 	private static Logger logger = Logger.getLogger(CharacterClassRestriction.class.getName());
 
 	private CharacterClassRestriction() {

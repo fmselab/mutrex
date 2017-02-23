@@ -17,11 +17,9 @@ import dk.brics.automaton.oo.ooregex;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
-public class MissingPrefixTest extends RegexMutationTest{
-
+public class PrefixAdditionTest extends RegexMutationTest {
 	static PrefixAddition mp = PrefixAddition.mutator;
 
-	
 	@Test
 	public void testMutateZeroOrMore() {
 		// with 0 no mutation is applied
@@ -38,7 +36,6 @@ public class MissingPrefixTest extends RegexMutationTest{
 		assertFalse(m.hasNext());
 	}
 
-	
 	@Test
 	public void testMutateValidID() {
 		String AB19 = "az19";
@@ -82,13 +79,12 @@ public class MissingPrefixTest extends RegexMutationTest{
 		assertOneEqualTo(m, "AAA[a-z0-9][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "AAA[A-Z0-9][a-zA-Z0-9]*");
 	}
-	
+
 	// if it is not a repeat, no fault is given
-	
-	
+
 	@Test
 	public void testGetsubsets() {
-		ooregex r = OORegexConverter.getOORegex( new RegExp("[a-zA-Z0-9]"));
+		ooregex r = OORegexConverter.getOORegex(new RegExp("[a-zA-Z0-9]"));
 		assertTrue(r instanceof REGEXP_UNION);
 		List<RegExp> parts = OORegexConverter.convertBackToRegex(REGEXP_UNION.splitUnion(r));
 		assertEquals(3, parts.size());
@@ -100,7 +96,7 @@ public class MissingPrefixTest extends RegexMutationTest{
 
 	@Test
 	public void testGetsubsetsExplUnion() {
-		ooregex r = OORegexConverter.getOORegex( new RegExp("[a-z]|[A-Z]|[0-9]"));
+		ooregex r = OORegexConverter.getOORegex(new RegExp("[a-z]|[A-Z]|[0-9]"));
 		assertTrue(r instanceof REGEXP_UNION);
 		List<RegExp> parts = OORegexConverter.convertBackToRegex(REGEXP_UNION.splitUnion(r));
 		assertEquals(3, parts.size());
@@ -109,5 +105,4 @@ public class MissingPrefixTest extends RegexMutationTest{
 		assertOneRegexEqualTo(parts, "[A-Z]");
 		assertOneRegexEqualTo(parts, "[0-9]");
 	}
-	
 }

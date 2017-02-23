@@ -15,15 +15,14 @@ import dk.brics.automaton.oo.ooregex;
  * 
  * In MUTATION 2017 is NCCO
  */
-public class NegatedCharacterClassEmpty extends RegexMutator {
+public class NegatedCharacterClassToOptional extends RegexMutator {
+	public static NegatedCharacterClassToOptional mutator = new NegatedCharacterClassToOptional();
 
-	public static NegatedCharacterClassEmpty mutator = new NegatedCharacterClassEmpty();
-
-	private NegatedCharacterClassEmpty() {
-		super(new NegatedCharacterClassEmptyVisitor());
+	private NegatedCharacterClassToOptional() {
+		super(new NegatedCharacterClassToOptionalVisitor());
 	}
 
-	static class NegatedCharacterClassEmptyVisitor extends RegexVisitorAdapterList {
+	static class NegatedCharacterClassToOptionalVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_INTERSECTION r) {

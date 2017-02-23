@@ -20,7 +20,6 @@ import regex.utils.IteratorUtils;
  *
  */
 public class CaseChangeTest extends RegexMutationTest {
-
 	static CaseChange mp = CaseChange.mutator;
 
 	@Test

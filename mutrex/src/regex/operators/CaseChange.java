@@ -21,7 +21,6 @@ import regex.operators.CaseAddition.CaseChar;
  * In MUTATION 2017 is CC
  */
 public class CaseChange extends RegexMutator {
-
 	public static CaseChange mutator = new CaseChange();
 
 	private CaseChange() {

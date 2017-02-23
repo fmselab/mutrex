@@ -19,8 +19,7 @@ import regex.utils.IteratorUtils;
  * In MUTATION 2017 is CA
  *
  */
-public class CaseUnsensetivenessTest extends RegexMutationTest {
-
+public class CaseAdditionTest extends RegexMutationTest {
 	static CaseAddition mp = CaseAddition.mutator;
 
 	@Test

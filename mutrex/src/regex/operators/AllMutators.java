@@ -30,7 +30,7 @@ public class AllMutators extends RegexMutator {
 		add(CharacterClassRestriction.mutator);
 		add(PrefixAddition.mutator);
 		add(CharacterClassNegation.mutator);
-		add(NegatedCharacterClassEmpty.mutator);
+		add(NegatedCharacterClassToOptional.mutator);
 		add(NegationAddition.mutator);
 		add(QuantifierChange.mutator);
 	}

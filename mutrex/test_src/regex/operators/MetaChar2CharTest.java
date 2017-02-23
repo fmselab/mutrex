@@ -18,43 +18,44 @@ public class MetaChar2CharTest extends RegexMutationTest {
 	@Test
 	public void testMutateIPAddess() {
 		RegExp re = new RegExp("[0-9]{3}.[0-9]{3}");
-		accept(re,"123.144","123A144");
+		accept(re, "123.144", "123A144");
 
-		Iterator<MutatedRegExp> res = mutator.mutate(re);// 
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
 		RegExp corrected = res.next().mutatedRexExp;
 		System.out.println(corrected);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
 		//
-		accept(corrected,"123.144");
-		acceptNot(corrected,"123A144");
+		accept(corrected, "123.144");
+		acceptNot(corrected, "123A144");
 		//
 		RegExp rec = new RegExp("[0-9]{3}\".\"[0-9]{3}");
-		accept(rec,"123.144");
-		acceptNot(rec,"123A144");
+		accept(rec, "123.144");
+		acceptNot(rec, "123A144");
 		RegExp rec2 = new RegExp("[0-9]{3}\\.[0-9]{3}");
-		accept(rec2,"123.144");
-		acceptNot(rec2,"123A144");
+		accept(rec2, "123.144");
+		acceptNot(rec2, "123A144");
 	}
 
 	@Test
 	public void testMutate() {
 		RegExp re = new RegExp("a|.");
-		accept(re,"a",".","b");
-		//mutate this expression
+		accept(re, "a", ".", "b");
+		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		RegExp corrected = res.next().mutatedRexExp;
 		System.out.println(corrected + " vs " + re);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
 		accept(corrected, "a", ".");
-		acceptNot(corrected, "b");		
+		acceptNot(corrected, "b");
 	}
+
 	@Test
 	public void testMutateAt() {
 		RegExp re = new RegExp("@a");
-		accept(re,"a","ba","@a");
-		//mutate this expression
+		accept(re, "a", "ba", "@a");
+		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		List<MutatedRegExp> iteratorToList = IteratorUtils.iteratorToList(res);
 		System.out.println(iteratorToList);
@@ -63,7 +64,7 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
 		accept(corrected, "@a");
-		acceptNot(corrected, "a", "ba");				
+		acceptNot(corrected, "a", "ba");
 	}
 
 }

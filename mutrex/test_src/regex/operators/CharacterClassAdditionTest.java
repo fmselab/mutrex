@@ -8,7 +8,7 @@ import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
-public class CharClassAdditionTest extends RegexMutationTest {
+public class CharacterClassAdditionTest extends RegexMutationTest {
 	static CharacterClassAddition mp = CharacterClassAddition.mutator;
 
 	@Test

@@ -15,8 +15,8 @@ import dk.brics.automaton.oo.ooregex;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
-public class NegatedCharacterClassEmptyTest extends RegexMutationTest {
-	static NegatedCharacterClassEmpty mp = NegatedCharacterClassEmpty.mutator;
+public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
+	static NegatedCharacterClassToOptional mp = NegatedCharacterClassToOptional.mutator;
 
 	@Test
 	public void testMutateIraq1() {

@@ -14,7 +14,7 @@ import dk.brics.automaton.oo.ooregex;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
-public class MissingNegatedCharacterClassTest extends RegexMutationTest {
+public class CharacterClassNegationTest extends RegexMutationTest {
 	static CharacterClassNegation mp = CharacterClassNegation.mutator;
 
 	@Test

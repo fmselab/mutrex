@@ -16,8 +16,8 @@ import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
-public class MissingCharacterClassTest extends RegexMutationTest {
-	MissingCharacterClass mutator = MissingCharacterClass.mutator;
+public class CharacterClassCreationTest extends RegexMutationTest {
+	CharacterClassCreation mutator = CharacterClassCreation.mutator;
 
 	@BeforeClass
 	static public void setup() {
@@ -52,4 +52,29 @@ public class MissingCharacterClassTest extends RegexMutationTest {
 		Iterator<MutatedRegExp> res = mutator.mutate(re);//
 		assertFalse(res.hasNext());
 	}
+
+	@Test
+	public void testSimplePlain() {
+		RegExp re = new RegExp("a-z");
+		accept(re, "a-z");
+		acceptNot(re, "a", "b", "d");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
+		RegExp corrected = res.next().mutatedRexExp;
+		System.out.println(corrected);
+		accept(corrected, "a", "b", "z");
+		acceptNot(corrected, "a-z", ".", "aa");
+	}
+
+	@Test
+	public void testRepeat() {
+		RegExp re = new RegExp("a-z+"); // questa non funziona perche' lo prende a-(z)+
+		accept(re, "a-z", "a-zzzz");
+		acceptNot(re, "a", "b", "d");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
+		RegExp corrected = res.next().mutatedRexExp;
+		System.out.println(corrected);
+		//
+		accept(corrected, "a", "b", "z", "aaa", "abbbaz");
+		acceptNot(corrected, "a-z", ".", "a-");
+	}	
 }
