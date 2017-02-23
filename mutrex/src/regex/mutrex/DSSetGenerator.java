@@ -14,7 +14,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
  * it extends the observable so it can be observed during the generation of tests
  * */
 
-public abstract class DSSetGenerator extends Observable{
+public abstract class DSSetGenerator extends Observable {
 
 	/**
 	 * Generate DS set.
