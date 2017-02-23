@@ -86,7 +86,7 @@ td {
 		<thead>
 			<tr>
 				<th>String</th>
-				<th>Killed mutants</th>
+				<th>Distinguished mutants</th>
 			</tr>
 			<tr>
 				<th>Accepted</th><th></th>
