@@ -13,14 +13,14 @@ import dk.brics.automaton.oo.ooregex;
  * In MUTATION 2017 is RM
  *
  */
-public class OutOfOneInCharRange extends RegexMutator {
-	public static OutOfOneInCharRange mutator = new OutOfOneInCharRange();
+public class RangeModification extends RegexMutator {
+	public static RangeModification mutator = new RangeModification();
 
-	private OutOfOneInCharRange() {
-		super(new OutOfOneInCharRangeVisitor());
+	private RangeModification() {
+		super(new RangeModificationVisitor());
 	}
 
-	static class OutOfOneInCharRangeVisitor extends RegexVisitorAdapterList {
+	static class RangeModificationVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {

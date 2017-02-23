@@ -15,7 +15,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class MissingNegatedCharacterClassTest extends RegexMutationTest {
-	static MissingNegatedCharacterClass mp = MissingNegatedCharacterClass.mutator;
+	static CharacterClassNegation mp = CharacterClassNegation.mutator;
 
 	@Test
 	public void testMutateSimpleGroup() {

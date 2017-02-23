@@ -21,7 +21,7 @@ import regex.utils.IteratorUtils;
  */
 public class CaseUnsensetivenessTest extends RegexMutationTest {
 
-	static CaseUnsensetiveness mp = CaseUnsensetiveness.mutator;
+	static CaseAddition mp = CaseAddition.mutator;
 
 	@Test
 	public void testMutaterepeat() {

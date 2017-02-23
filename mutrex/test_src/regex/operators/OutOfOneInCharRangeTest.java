@@ -2,7 +2,7 @@ package regex.operators;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static regex.operators.OutOfOneInCharRange.mutator;
+import static regex.operators.RangeModification.mutator;
 
 import java.util.Iterator;
 import java.util.logging.ConsoleHandler;

@@ -10,14 +10,14 @@ import dk.brics.automaton.oo.ooregex;
  * In MUTATION 2017 is QC
  *
  */
-public class WrongCardinality extends RegexMutator {
-	static WrongCardinality mutator = new WrongCardinality();
+public class QuantifierChange extends RegexMutator {
+	static QuantifierChange mutator = new QuantifierChange();
 
-	private WrongCardinality() {
-		super(new WrongCardinalityVisitor());
+	private QuantifierChange() {
+		super(new QuantifierChangeVisitor());
 	}
 
-	private static class WrongCardinalityVisitor extends RegexVisitorAdapterList {
+	private static class QuantifierChangeVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_REPEAT r) {

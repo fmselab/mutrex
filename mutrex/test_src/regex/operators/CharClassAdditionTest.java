@@ -9,7 +9,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class CharClassAdditionTest extends RegexMutationTest {
-	static CharClassAddition mp = CharClassAddition.mutator;
+	static CharacterClassAddition mp = CharacterClassAddition.mutator;
 
 	@Test
 	public void test_a_z() {

@@ -19,7 +19,7 @@ import regex.utils.IteratorUtils;
 
 public class MissingPrefixTest extends RegexMutationTest{
 
-	static MissingPrefix mp = MissingPrefix.mutator;
+	static PrefixAddition mp = PrefixAddition.mutator;
 
 	
 	@Test

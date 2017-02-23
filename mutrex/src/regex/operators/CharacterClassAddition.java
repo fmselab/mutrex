@@ -15,19 +15,19 @@ import dk.brics.automaton.oo.ooregex;
  * In MUTATION 2017 is CCA
  *
  */
-public class CharClassAddition extends RegexMutator {
-	public static CharClassAddition mutator = new CharClassAddition();
-	private static Logger logger = Logger.getLogger(CharClassAddition.class.getName());
+public class CharacterClassAddition extends RegexMutator {
+	public static CharacterClassAddition mutator = new CharacterClassAddition();
+	private static Logger logger = Logger.getLogger(CharacterClassAddition.class.getName());
 	private static REGEXP_CHAR_RANGE[] intervals = new REGEXP_CHAR_RANGE[] {
 			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
 			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
 			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
 
-	private CharClassAddition() {
-		super(new IntervalAdditionVisitor());
+	private CharacterClassAddition() {
+		super(new CharacterClassAdditionVisitor());
 	}
 
-	static class IntervalAdditionVisitor extends RegexVisitorAdapterList {
+	static class CharacterClassAdditionVisitor extends RegexVisitorAdapterList {
 
 		/* (non-Javadoc)
 		 * @see regexrepair.operators.RegexVisitorAdapterList#visit(dk.brics.automaton.oo.REGEXP_CHAR_RANGE)

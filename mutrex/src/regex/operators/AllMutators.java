@@ -20,19 +20,19 @@ public class AllMutators extends RegexMutator {
 	// probably a file or a plugin mechanism or reflection could be better
 	static {
 		add(CaseChange.mutator);
-		add(CaseUnsensetiveness.mutator);
+		add(CaseAddition.mutator);
 		add(MetaChar2Char.mutator);
 		add(Char2MetaChar.mutator);
 		//add(MissingCharacterClass.mutator);//questa sembra sbagliata
-		add(PutCharsInRange.mutator);//questa sembra migliore
-		add(CharClassAddition.mutator);
-		add(OutOfOneInCharRange.mutator);
+		add(CharacterClassCreation.mutator);//questa sembra migliore
+		add(CharacterClassAddition.mutator);
+		add(RangeModification.mutator);
 		add(CharacterClassRestriction.mutator);
-		add(MissingPrefix.mutator);
-		add(MissingNegatedCharacterClass.mutator);
+		add(PrefixAddition.mutator);
+		add(CharacterClassNegation.mutator);
 		add(NegatedCharacterClassEmpty.mutator);
-		add(MissingNegation.mutator);
-		add(WrongCardinality.mutator);
+		add(NegationAddition.mutator);
+		add(QuantifierChange.mutator);
 	}
 
 	@Override

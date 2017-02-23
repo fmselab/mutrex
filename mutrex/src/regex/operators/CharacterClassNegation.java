@@ -18,15 +18,14 @@ import dk.brics.automaton.oo.ooregex;
  * In MUTATION 2017 is CCN
  *
  */
-public class MissingNegatedCharacterClass extends RegexMutator {
+public class CharacterClassNegation extends RegexMutator {
+	public static CharacterClassNegation mutator = new CharacterClassNegation();
 
-	public static MissingNegatedCharacterClass mutator = new MissingNegatedCharacterClass();
-
-	private MissingNegatedCharacterClass() {
-		super(new MissingNegatedCharacterClassVisitor());
+	private CharacterClassNegation() {
+		super(new CharacterClassNegationVisitor());
 	}
 
-	static class MissingNegatedCharacterClassVisitor extends RegexVisitorAdapterList {
+	static class CharacterClassNegationVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {

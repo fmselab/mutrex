@@ -17,7 +17,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class PutsCharInRangeTest extends RegexMutationTest {
-	PutCharsInRange mutator = PutCharsInRange.mutator;
+	CharacterClassCreation mutator = CharacterClassCreation.mutator;
 
 	@BeforeClass
 	static public void setup() {

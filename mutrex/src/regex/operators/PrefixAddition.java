@@ -19,14 +19,14 @@ import dk.brics.automaton.oo.ooregex;
  * @author garganti
  *
  */
-public class MissingPrefix extends RegexMutator {
-	static MissingPrefix mutator = new MissingPrefix();
+public class PrefixAddition extends RegexMutator {
+	static PrefixAddition mutator = new PrefixAddition();
 
-	private MissingPrefix() {
-		super(new MissingPrefixVisitor());
+	private PrefixAddition() {
+		super(new PrefixAdditionVisitor());
 	}
 
-	static class MissingPrefixVisitor extends RegexVisitorAdapterList {
+	static class PrefixAdditionVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_REPEAT r) {

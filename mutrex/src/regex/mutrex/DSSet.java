@@ -35,10 +35,10 @@ public class DSSet implements Iterable<DistinguishingString>{
 			list = new RegExpSet();
 			dsKilledMutant.put(ds, list);
 		}
-		/*else {
+		else {
 			assert mutants.size() == 1;
-			System.out.println("present\t" + ds + "\t" + mutants.get(0).description);
-		}*/
+			System.out.println("present\t" + ds + "\t" + mutants.get(0).description + "\t" + mutants.get(0));
+		}
 		list.addAllWD(mutants);
 	}
 

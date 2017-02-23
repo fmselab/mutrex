@@ -11,7 +11,7 @@ import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.oobinregex;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;
-import regex.operators.CaseUnsensetiveness.CaseChar;
+import regex.operators.CaseAddition.CaseChar;
 
 /**
  * TODO
@@ -33,15 +33,15 @@ public class CaseChange extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {
 			// add also the
-			CaseChar fromCase = CaseUnsensetiveness.caseChar(r.from);
+			CaseChar fromCase = CaseAddition.caseChar(r.from);
 			if (fromCase == CaseChar.NOT_ALPHABETIC)
 				return Collections.EMPTY_LIST;
-			CaseChar toCase = CaseUnsensetiveness.caseChar(r.to);
+			CaseChar toCase = CaseAddition.caseChar(r.to);
 			if (toCase == CaseChar.NOT_ALPHABETIC)
 				return Collections.EMPTY_LIST;
 			if (fromCase == toCase) {
-				REGEXP_CHAR_RANGE ooRegexChangedCase = new REGEXP_CHAR_RANGE(CaseUnsensetiveness.changeCase(r.from),
-						CaseUnsensetiveness.changeCase(r.to));
+				REGEXP_CHAR_RANGE ooRegexChangedCase = new REGEXP_CHAR_RANGE(CaseAddition.changeCase(r.from),
+						CaseAddition.changeCase(r.to));
 				return Collections.singletonList((ooregex) ooRegexChangedCase);
 			}
 			return Collections.EMPTY_LIST;
@@ -49,7 +49,7 @@ public class CaseChange extends RegexMutator {
 
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR r) {
-			Character changeCase = CaseUnsensetiveness.changeCase(r.c);
+			Character changeCase = CaseAddition.changeCase(r.c);
 			if (changeCase == null) {
 				return Collections.EMPTY_LIST;
 			}
@@ -67,7 +67,7 @@ public class CaseChange extends RegexMutator {
 					parts.add(new oosimpleexp(first));
 				}
 				char mid = r.s.charAt(i);
-				Character nc = CaseUnsensetiveness.changeCase(mid);
+				Character nc = CaseAddition.changeCase(mid);
 				// if the char cannot be changed in the case, leave as it is
 				if (nc == null)
 					continue;

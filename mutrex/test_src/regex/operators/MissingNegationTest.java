@@ -1,6 +1,6 @@
 package regex.operators;
 
-import static regex.operators.MissingNegation.mutator;
+import static regex.operators.NegationAddition.mutator;
 
 import java.util.Iterator;
 import java.util.List;

@@ -18,15 +18,14 @@ import dk.brics.automaton.oo.oosimpleexp;
  *
  * In MUTATION 2017 is CA
  */
-public class CaseUnsensetiveness extends RegexMutator {
+public class CaseAddition extends RegexMutator {
+	public static CaseAddition mutator = new CaseAddition();
 
-	public static CaseUnsensetiveness mutator = new CaseUnsensetiveness();
-
-	private CaseUnsensetiveness() {
-		super(new CaseUnsensetivenessVisitor());
+	private CaseAddition() {
+		super(new CaseAdditionVisitor());
 	}
 
-	static class CaseUnsensetivenessVisitor extends RegexVisitorAdapterList {
+	static class CaseAdditionVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {

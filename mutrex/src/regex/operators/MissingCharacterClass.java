@@ -18,7 +18,7 @@ import dk.brics.automaton.oo.oosimpleexp;
  * 
  * In MUTATION 2017 is CCC
  * 
- * TODO Qual e' la differenza con PutCharsInRange?
+ * TODO Qual e' la differenza con CharacterClassCreation?
  * Questa sembra sbagliata.
  * 
  * TODO REMOVE

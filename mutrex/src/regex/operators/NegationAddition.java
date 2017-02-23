@@ -14,14 +14,14 @@ import dk.brics.automaton.oo.ooregex;
  * In MUTATION 2017 is NA
  *
  */
-public class MissingNegation extends RegexMutator {
-	public static MissingNegation mutator = new MissingNegation();
+public class NegationAddition extends RegexMutator {
+	public static NegationAddition mutator = new NegationAddition();
 
-	private MissingNegation() {
-		super(new MissingNegationVisitor());
+	private NegationAddition() {
+		super(new NegationAdditionVisitor());
 	}
 
-	static class MissingNegationVisitor extends RegexVisitorAdapterList {
+	static class NegationAdditionVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {

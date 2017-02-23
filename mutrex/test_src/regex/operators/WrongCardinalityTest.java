@@ -1,6 +1,6 @@
 package regex.operators;
 
-import static regex.operators.WrongCardinality.mutator;
+import static regex.operators.QuantifierChange.mutator;
 
 import java.util.Iterator;
 

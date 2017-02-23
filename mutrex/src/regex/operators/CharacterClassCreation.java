@@ -19,14 +19,14 @@ import dk.brics.automaton.oo.oosimpleexp;
  * Questa sembra migliore.
  *
  */
-public class PutCharsInRange extends RegexMutator {
-	public static PutCharsInRange mutator = new PutCharsInRange();
+public class CharacterClassCreation extends RegexMutator {
+	public static CharacterClassCreation mutator = new CharacterClassCreation();
 
-	private PutCharsInRange() {
-		super(new OutOfOneInCharRangeVisitor());
+	private CharacterClassCreation() {
+		super(new CharacterClassCreationVisitor());
 	}
 
-	static class OutOfOneInCharRangeVisitor extends RegexVisitorAdapterList {
+	static class CharacterClassCreationVisitor extends RegexVisitorAdapterList {
 
 		@Override
 		public List<ooregex> visit(oosimpleexp r) {
