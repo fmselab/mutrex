@@ -32,5 +32,15 @@ public class MissingNegation extends RegexMutator {
 		public List<ooregex> visit(REGEXP_CHAR r) {
 			return Collections.singletonList((ooregex) new REGEXP_COMPLEMENT(r));
 		}
+
+		@Override
+		public String getCode() {
+			return "NA";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "NA";
 	}
 }

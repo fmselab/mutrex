@@ -79,6 +79,16 @@ public class MissingCharacterClass extends RegexMutator {
 				return Collections.EMPTY_LIST;
 			}
 		}
+
+		@Override
+		public String getCode() {
+			return "CCC";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CCC";
 	}
 }
 /*

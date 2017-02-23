@@ -116,4 +116,9 @@ class RegexVisitorAdapterList implements RegexVisitor<List<ooregex>> {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("not supported yet");
 	}
+
+	@Override
+	public String getCode() {
+		return "ALL";
+	}
 }

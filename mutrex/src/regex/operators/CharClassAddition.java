@@ -46,5 +46,15 @@ public class CharClassAddition extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "CCA";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CCA";
 	}
 }

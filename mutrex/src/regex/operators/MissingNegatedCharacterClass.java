@@ -53,5 +53,15 @@ public class MissingNegatedCharacterClass extends RegexMutator {
 			partial.add(OORegexConverter.getOORegex(nr));
 			return partial;
 		}
+
+		@Override
+		public String getCode() {
+			return "CCN";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CCN";
 	}
 }

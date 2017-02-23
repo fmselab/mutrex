@@ -31,9 +31,14 @@ public class DSSet implements Iterable<DistinguishingString>{
 		assert !mutants.isEmpty();
 		RegExpSet list = dsKilledMutant.get(ds);
 		if (list == null) {
+			//System.out.println("new\t" + ds);
 			list = new RegExpSet();
 			dsKilledMutant.put(ds, list);
 		}
+		/*else {
+			assert mutants.size() == 1;
+			System.out.println("present\t" + ds + "\t" + mutants.get(0).description);
+		}*/
 		list.addAllWD(mutants);
 	}
 

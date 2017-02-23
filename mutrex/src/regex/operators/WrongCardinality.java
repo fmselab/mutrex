@@ -84,5 +84,15 @@ public class WrongCardinality extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "QC";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "QC";
 	}
 }

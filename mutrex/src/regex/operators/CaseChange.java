@@ -80,5 +80,15 @@ public class CaseChange extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "CC";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CC";
 	}
 }

@@ -61,5 +61,15 @@ public class PutCharsInRange extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "CCC";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CCC";
 	}
 }

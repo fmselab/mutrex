@@ -77,6 +77,11 @@ public class CaseUnsensetiveness extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "CA";
+		}
 	}
 
 	public static CaseChar caseChar(char c) {
@@ -97,5 +102,10 @@ public class CaseUnsensetiveness extends RegexMutator {
 
 	enum CaseChar {
 		UPPERCASE, LOWERCASE, NOT_ALPHABETIC
+	}
+
+	@Override
+	public String getCode() {
+		return "CA";
 	}
 }

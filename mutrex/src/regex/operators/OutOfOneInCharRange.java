@@ -48,5 +48,15 @@ public class OutOfOneInCharRange extends RegexMutator {
 				return new char[] { (char) (c + 1) };
 			return new char[] {};
 		}
+
+		@Override
+		public String getCode() {
+			return "RM";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "RM";
 	}
 }

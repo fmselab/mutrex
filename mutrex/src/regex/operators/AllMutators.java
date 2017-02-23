@@ -48,4 +48,9 @@ public class AllMutators extends RegexMutator {
 	private static void add(RegexMutator mutator) {
 		allMutators.add(mutator);
 	}
+
+	@Override
+	public String getCode() {
+		return "ALL";
+	}
 }

@@ -43,5 +43,15 @@ public class Char2MetaChar extends RegexMutator {
 			}
 			return Collections.EMPTY_LIST;
 		}
+
+		@Override
+		public String getCode() {
+			return "C2M";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "C2M";
 	}
 }

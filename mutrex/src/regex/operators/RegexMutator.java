@@ -30,7 +30,8 @@ public abstract class RegexMutator {
 			@Override
 			public MutatedRegExp next() {
 				String s = ToRegexString.convertToRegexString(resultsOO.next());
-				return new MutatedRegExp(mutator.getClass().getSimpleName(), new RegExp(s));
+				//return new MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(), new RegExp(s));
+				return new MutatedRegExp(mutator.getCode(), new RegExp(s));
 			}
 			
 		};
@@ -39,13 +40,17 @@ public abstract class RegexMutator {
 	static public class MutatedRegExp{
 		public String description;
 		public RegExp mutatedRexExp;
+
 		private MutatedRegExp(String simpleName, RegExp regExp) {
 			description = simpleName;
 			mutatedRexExp = regExp;
 		}
+
 		@Override
 		public String toString() {
 			return description + ": " + mutatedRexExp;
 		}
 	}
+
+	public abstract String getCode();
 }

@@ -107,7 +107,10 @@ public class ToSimpleString extends ToRegexString {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
+		@Override
+		public String getCode() {
+			return "PrecedenceIndex";
+		}
 	}
-	
 }

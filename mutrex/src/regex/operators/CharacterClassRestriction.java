@@ -47,5 +47,15 @@ public class CharacterClassRestriction extends RegexMutator {
 			result.addAll(l2);
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "CCR";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "CCR";
 	}
 }

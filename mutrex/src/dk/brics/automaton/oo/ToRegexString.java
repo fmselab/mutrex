@@ -135,4 +135,9 @@ public class ToRegexString implements RegexVisitor<Void> {
 		b.append(s2).append(">");
 		return null;
 	}
+
+	@Override
+	public String getCode() {
+		return "ToRegexString";
+	}
 }

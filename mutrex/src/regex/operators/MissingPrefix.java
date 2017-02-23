@@ -62,5 +62,15 @@ public class MissingPrefix extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "PA";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "PA";
 	}
 }

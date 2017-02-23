@@ -63,5 +63,15 @@ public class NegatedCharacterClassEmpty extends RegexMutator {
 			}
 			return result;
 		}
+
+		@Override
+		public String getCode() {
+			return "NCCO";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "NCCO";
 	}
 }

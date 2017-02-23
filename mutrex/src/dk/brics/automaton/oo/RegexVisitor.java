@@ -26,4 +26,6 @@ public interface RegexVisitor<T> {
 	T visit(REGEXP_AUTOMATON r);
 
 	T visit(REGEXP_INTERVAL r);
+	
+	String getCode();
 }

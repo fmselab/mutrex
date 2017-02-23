@@ -28,5 +28,15 @@ public class MetaChar2Char extends RegexMutator {
 			// convert to simple char class
 			return Collections.singletonList((ooregex) new REGEXP_CHAR(r.sc));
 		}
+
+		@Override
+		public String getCode() {
+			return "M2C";
+		}
+	}
+
+	@Override
+	public String getCode() {
+		return "M2C";
 	}
 }
