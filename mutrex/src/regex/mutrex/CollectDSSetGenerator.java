@@ -79,7 +79,7 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 			System.out.print(c + " ");
 		}
 		System.out.println();*/
-		System.out.print(coveredMutsNum.size() + "\t");
+		//System.out.print(coveredMutsNum.size() + "\t");
 	}
 
 	private void sortDAs(List<DistinguishingAutomaton> das) {

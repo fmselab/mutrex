@@ -23,8 +23,7 @@ public class AllMutators extends RegexMutator {
 		add(CaseAddition.mutator);
 		add(MetaChar2Char.mutator);
 		add(Char2MetaChar.mutator);
-		//add(MissingCharacterClass.mutator);//questa sembra sbagliata
-		add(CharacterClassCreation.mutator);//questa sembra migliore
+		add(CharacterClassCreation.mutator);
 		add(CharacterClassAddition.mutator);
 		add(RangeModification.mutator);
 		add(CharacterClassRestriction.mutator);
