@@ -31,7 +31,9 @@ public class ParallelCollectDSSetGenerator2 extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
-		Automaton rgxAut = regex.toAutomaton();
+		//Automaton rgxAut = regex.toAutomaton();
+		Automaton rexAut = null;
+		Automaton rexNegAut = null;
 		MutantsManager mutantsManager = new MutantsManager(mutants);
 		int nDAs = 0;// number of created distinguishing automata (da)
 		Set<DistinguishAutomatonTh> datS = new HashSet<DistinguishAutomatonTh>();
@@ -41,12 +43,15 @@ public class ParallelCollectDSSetGenerator2 extends DSSetGenerator {
 			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
 			if (mutant != null) {
 				assert mutant.isLocked();
+				Automaton mAut = null;
+				Automaton negMaut = null;
 				// randomly generate a positive or negative da
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
-					DistinguishingAutomaton newDa = new DistinguishingAutomaton(rgxAut, b);
-					if (newDa.add(mutant.getRegex(), null, null)) {
+					//DistinguishingAutomaton newDa = new DistinguishingAutomaton(rgxAut, b);
+					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
+					if (newDa.add(mutant.getRegex(), mAut, negMaut)) {
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
 						dat = new DistinguishAutomatonTh(newDa, mutantsManager, dsS);

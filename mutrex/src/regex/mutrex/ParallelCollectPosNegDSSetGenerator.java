@@ -28,9 +28,10 @@ public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		Automaton rgxAut = regex.toAutomaton();
+		Automaton rexNegAut = rgxAut.complement();
 		MutantsManager mutantsManager = new MutantsManager(mutants);
-		DATrunner datRunnerPos = new DATrunner(rgxAut, true, mutantsManager, dsS);
-		DATrunner datRunnerNeg = new DATrunner(rgxAut, false, mutantsManager, dsS);
+		DATrunner datRunnerPos = new DATrunner(regex, rgxAut, rexNegAut, true, mutantsManager, dsS);
+		DATrunner datRunnerNeg = new DATrunner(regex, rgxAut, rexNegAut, false, mutantsManager, dsS);
 		datRunnerPos.start();
 		datRunnerNeg.start();
 		try {
@@ -45,11 +46,15 @@ public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 	class DATrunner extends Thread {
 		private boolean positive;
 		private MutantsManager mutantsManager;
+		private RegExp regex;
 		private Automaton rgxAut;
+		private Automaton rexNegAut;
 		private DSSet dsS;
 
-		public DATrunner(Automaton rgxAut, boolean positive, MutantsManager mutantsManager, DSSet dsS) {
+		public DATrunner(RegExp regex, Automaton rgxAut, Automaton rexNegAut, boolean positive, MutantsManager mutantsManager, DSSet dsS) {
+			this.regex = regex;
 			this.rgxAut = rgxAut;
+			this.rexNegAut = rexNegAut;
 			this.positive = positive;
 			this.mutantsManager = mutantsManager;
 			this.dsS = dsS;
@@ -58,7 +63,7 @@ public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 		@Override
 		public void run() {
 			while (mutantsManager.areThereUncoveredMutants()) {
-				DistinguishAutomatonTh dat = new DistinguishAutomatonTh(new DistinguishingAutomaton(rgxAut, positive),
+				DistinguishAutomatonTh dat = new DistinguishAutomatonTh(new DistinguishingAutomaton(regex, rgxAut, rexNegAut, positive),
 						mutantsManager);
 				dat.start();
 				try {

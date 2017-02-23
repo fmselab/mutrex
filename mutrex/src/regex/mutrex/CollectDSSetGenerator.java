@@ -25,7 +25,9 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
-		Automaton rexAut = regex.toAutomaton();
+		//Automaton rexAut = regex.toAutomaton();
+		Automaton rexAut = null;
+		Automaton rexNegAut = null;
 		List<DistinguishingAutomaton> das = new ArrayList<>();
 		nextMut: while (mutants.hasNext()) {
 			RegExp mutant = mutants.next().mutatedRexExp;
@@ -57,7 +59,7 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 			// try to collect rexAut
 			Collections.shuffle(trueFalse);
 			for (boolean b : trueFalse) {
-				DistinguishingAutomaton newDa = new DistinguishingAutomaton(rexAut, b);
+				DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
 				if (newDa.add(mutant, mAut, negMaut)) {
 					das.add(newDa);
 					logger.log(Level.INFO, "new da for mutation " + mutant + " into " + newDa);

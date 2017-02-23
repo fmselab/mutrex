@@ -24,9 +24,25 @@ class DistinguishingAutomaton {
 	 *            generate strings rejected by regex and accepted by //
 	 *            mutations
 	 */
-	DistinguishingAutomaton(Automaton rexAut, boolean b) {
+	DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
 		positive = b;
-		content = b ? rexAut : rexAut.complement();
+		//content = b ? rexAut : rexAut.complement();
+		
+		if(positive) {
+			if(rexAut == null) {
+				rexAut = regex.toAutomaton();
+			}
+			content = rexAut;
+		}
+		else {
+			if(rexAut == null) {
+				rexAut = regex.toAutomaton();
+				assert rexNegAut == null;
+				rexNegAut = rexAut.complement();
+			}
+			content = rexNegAut;
+		}
+		
 		mutatedRegexes = new ArrayList<>();
 		//solution 2: invalidating the da
 		//isActive = true;
