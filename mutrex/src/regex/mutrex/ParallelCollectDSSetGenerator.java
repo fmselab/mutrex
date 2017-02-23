@@ -309,7 +309,16 @@ class RandomList<T> implements Iterable<T> {
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
-			List<Integer> indexes = IntStream.range(0, elements.size() - 1).boxed().collect(Collectors.toList());
+			//Java 8
+			//List<Integer> indexes = IntStream.range(0, elements.size() - 1).boxed().collect(Collectors.toList());
+			List<Integer> indexes;
+			{
+				indexes = new ArrayList<Integer>();
+				for(int i = 0; i < elements.size(); i++) {
+					indexes.add(i);
+				}
+			}
+			
 			Random rnd = new Random();
 
 			@Override

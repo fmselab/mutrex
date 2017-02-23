@@ -19,7 +19,7 @@ public abstract class RegexMutator {
 
 	/** given a regex, it builds all the possible mutations */
 	public Iterator<MutatedRegExp> mutate(RegExp re) {
-		Iterator<ooregex> resultsOO = OORegexConverter.getOORegex(re).accept(mutator).iterator();
+		final Iterator<ooregex> resultsOO = OORegexConverter.getOORegex(re).accept(mutator).iterator();
 		return new Iterator<MutatedRegExp>() {
 
 			@Override
