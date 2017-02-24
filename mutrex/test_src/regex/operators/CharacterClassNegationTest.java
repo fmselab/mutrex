@@ -33,6 +33,9 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_REPEAT;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		for(MutatedRegExp a: m) {
+			System.out.println(a);
+		}
 		assertOneEqualTo(m, "[^a-z]*");
 	}
 
@@ -42,10 +45,12 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_UNION;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		for(MutatedRegExp a: m) {
+			System.out.println(a);
+		}
 		assertOneEqualTo(m, "[^a-z]|[A-Z]");
 		assertOneEqualTo(m, "[a-z]|[^A-Z]");
 		re = new RegExp("[^a-zA-Z]");
-		System.out.println(re.toString());
 		assertOneEqualTo(m, "[^a-zA-Z]");
 	}
 
@@ -55,9 +60,11 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_UNION;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		for(MutatedRegExp a: m) {
+			System.out.println(a);
+		}
 		// voglio anche "[^AB]"
 		RegExp reN = new RegExp("[^AB]");
-		System.out.println(reN);
 		RunAutomaton ra = new RunAutomaton(reN.toAutomaton());
 		assert !ra.run("A");
 		assert !ra.run("B");
