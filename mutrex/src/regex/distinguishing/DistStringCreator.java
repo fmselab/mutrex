@@ -19,7 +19,7 @@ import dk.brics.automaton.Transition;
 public class DistStringCreator {
 
 	/** The Constant SEARCH_MEANINGFUL. */
-	private static final boolean SEARCH_MEANINGFUL = true;
+	public static boolean SEARCH_MEANINGFUL = true;
 
 	// PREF_POSITIVE: it tries to generate a positive distinguishing string
 	// first. If not possible, it tries to generate a negative one
@@ -249,8 +249,9 @@ public class DistStringCreator {
 		//System.out.println(ex);
 		//System.out.println();
 		
-		if (result == null)
+		if (result == null) {
 			return null;
+		}
 		if (SEARCH_MEANINGFUL) {
 			// try to make it nicer
 			char[] nicerChars = { 'A', 'B', 'a', '1', ')' }; // to be complete
