@@ -53,6 +53,6 @@ public class CharacterClassRestrictionTest {
 			System.out.println(res.next());
 			counter++;
 		}
-		assertEquals(6, counter);
+		assertEquals(3, counter);
 	}
 }

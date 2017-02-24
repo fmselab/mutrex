@@ -1,6 +1,7 @@
 package regex.operators;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ public class CharacterClassRestriction extends RegexMutator {
 
 		@Override
 		public List<ooregex> visit(REGEXP_UNION r) {
-			List<ooregex> l1 = r.exp1.accept(this);
+			/*List<ooregex> l1 = r.exp1.accept(this);
 			List<ooregex> l2 = r.exp2.accept(this);
 			logger.info(r.exp1.toString() + " => " + l1.toString());
 			// add independently (split the union)
@@ -43,6 +44,27 @@ public class CharacterClassRestriction extends RegexMutator {
 			}
 			result.add(r.exp2);
 			result.addAll(l2);
+			return result;*/
+			
+			ArrayList<ooregex> result = new ArrayList<ooregex>();
+			List<ooregex> parts = REGEXP_UNION.splitUnion(r);
+			for(int i = 0; i < parts.size(); i++) {
+				ooregex res = null;
+				for(int j = 0; j < parts.size(); j++) {
+					if(j != i) {
+						if(res == null) {
+							res = parts.get(j);
+						}
+						else {
+							res = new REGEXP_UNION(res, parts.get(j));
+						}
+					}
+				}
+				result.add(res);
+			}
+			for(ooregex p: parts) {
+				result.addAll(p.accept(this));
+			}
 			return result;
 		}
 
