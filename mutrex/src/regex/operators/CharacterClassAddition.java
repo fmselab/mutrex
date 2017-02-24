@@ -1,6 +1,7 @@
 package regex.operators;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -49,34 +50,26 @@ public class CharacterClassAddition extends RegexMutator {
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {
 			ArrayList<ooregex> result = new ArrayList<ooregex>();
 			for (REGEXP_CHAR_RANGE i : intervals) {
-				if (!r.toString().equals(i.toString())) {
+				if (!r.equals(i)) {
 					result.add(new REGEXP_UNION(r, i));
 				}
 			}
 			return result;
 		}
 
-		/*@Override
+		@Override
 		public List<ooregex> visit(REGEXP_UNION r) {
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r);
-			List<String> intrs = new ArrayList<String>();
-			intrs.add("[0-9]");
-			intrs.add("[a-z]");
-			intrs.add("[A-Z]");
-			for(ooregex p: parts) {
-				intrs.remove(p.toString());
-			}
-			intervals = new REGEXP_CHAR_RANGE[intrs.size()];
-			for(int i = 0; i < intrs.size(); i++) {
-				intervals[i] = (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp(intrs.get(i)));
-			}
+			// take only the interval not already in the unione
+			List<ooregex> intrs = new ArrayList<ooregex>(Arrays.asList(intervals));
+			intrs.removeAll(parts);
+			//
 			ArrayList<ooregex> result = new ArrayList<ooregex>();
-			for(ooregex p: parts) {
-				result.addAll(p.accept(this));
+			for (ooregex i : intrs) {
+				result.add(new REGEXP_UNION(r, i));
 			}
-			intervals = ALLintervals;
 			return result;
-		}*/
+		}
 
 		@Override
 		public String getCode() {
