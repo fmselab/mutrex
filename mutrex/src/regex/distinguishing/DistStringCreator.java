@@ -2,12 +2,9 @@ package regex.distinguishing;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import com.sun.xml.internal.ws.api.ha.HaInfo;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
@@ -277,8 +274,9 @@ public class DistStringCreator {
 			} while (!nicest);
 		}
 		return result;
+		//return ex;
 	}
-	
+
 	public static String getExample(Automaton a, State s, Set<State> visited, List<Transition> test) {
 		visited.add(s);
 		if(s.isAccept()) {
@@ -286,16 +284,20 @@ public class DistStringCreator {
 			for(Transition t: test) {
 				sb.append((char)(rnd.nextInt((t.getMax() - t.getMin()) + 1) + t.getMin()));
 			}
+			assert a.run(sb.toString());
 			return sb.toString();
 		}
 		else {
-			for(Transition t: s.getTransitions()) {
+			ArrayList<Transition> trans = new ArrayList<Transition>(s.getTransitions());
+			Collections.shuffle(trans);
+			for(Transition t: trans) {
 				if(!visited.contains(t.getDest())) {
 					test.add(t);
 					String res = getExample(a, t.getDest(), visited, test);
 					if(res != null) {
 						return res;
 					}
+					test.remove(t);
 				}
 			}
 		}
