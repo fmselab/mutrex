@@ -49,4 +49,13 @@ public class NegationAdditionTest extends RegexMutationTest {
 		System.out.println(m);
 		assertOneEqualTo(m, "[^a-z]");
 	}
+	
+
+	@Test
+	public void testMutateCC() {
+		RegExp re = new RegExp("(5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
+		System.out.println(m.size());
+	}
+
 }
