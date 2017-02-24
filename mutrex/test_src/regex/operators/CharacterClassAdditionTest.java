@@ -28,4 +28,13 @@ public class CharacterClassAdditionTest extends RegexMutationTest {
 			System.out.println(a);
 		}
 	}
+
+	@Test
+	public void test_a_z_A_Z_0_9() {
+		RegExp re = new RegExp("[a-zA-Z0-9]");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		for (MutatedRegExp a : m) {
+			System.out.println(a);
+		}
+	}
 }
