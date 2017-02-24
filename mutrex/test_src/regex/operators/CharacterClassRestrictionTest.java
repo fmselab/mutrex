@@ -55,4 +55,16 @@ public class CharacterClassRestrictionTest {
 		}
 		assertEquals(3, counter);
 	}
+
+	@Test
+	public void testUnion4() {
+		RegExp re = new RegExp("a-f|!(0-2|4-6)|p-t");
+		Iterator<MutatedRegExp> res = mp.mutate(re);
+		int counter = 0;
+		while(res.hasNext()) {
+			System.out.println(res.next());
+			counter++;
+		}
+		assertEquals(5, counter);
+	}
 }

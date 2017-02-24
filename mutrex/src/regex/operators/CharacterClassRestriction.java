@@ -61,9 +61,10 @@ public class CharacterClassRestriction extends RegexMutator {
 					}
 				}
 				result.add(res);
-			}
-			for(ooregex p: parts) {
-				result.addAll(p.accept(this));
+				List<ooregex> subRes = parts.get(i).accept(this);
+				for(ooregex p: subRes) {
+					result.add(new REGEXP_UNION(p, res));
+				}
 			}
 			return result;
 		}
