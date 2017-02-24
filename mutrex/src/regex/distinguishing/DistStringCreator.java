@@ -1,11 +1,18 @@
 package regex.distinguishing;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import com.sun.xml.internal.ws.api.ha.HaInfo;
+
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.State;
+import dk.brics.automaton.Transition;
 
 /**
  * creates a distinguishing string among two regex.
@@ -240,6 +247,11 @@ public class DistStringCreator {
 	public static String getExample(Automaton a) {
 		// get the first example provided by the library
 		String result = a.getShortestExample(true);
+		//String ex = getExample(a, a.getInitialState(), new HashSet<State>(), new ArrayList<Transition>());
+		//System.out.println(result);
+		//System.out.println(ex);
+		//System.out.println();
+		
 		if (result == null)
 			return null;
 		if (SEARCH_MEANINGFUL) {
@@ -265,5 +277,28 @@ public class DistStringCreator {
 			} while (!nicest);
 		}
 		return result;
+	}
+	
+	public static String getExample(Automaton a, State s, Set<State> visited, List<Transition> test) {
+		visited.add(s);
+		if(s.isAccept()) {
+			StringBuilder sb = new StringBuilder();
+			for(Transition t: test) {
+				sb.append((char)(rnd.nextInt((t.getMax() - t.getMin()) + 1) + t.getMin()));
+			}
+			return sb.toString();
+		}
+		else {
+			for(Transition t: s.getTransitions()) {
+				if(!visited.contains(t.getDest())) {
+					test.add(t);
+					String res = getExample(a, t.getDest(), visited, test);
+					if(res != null) {
+						return res;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }
