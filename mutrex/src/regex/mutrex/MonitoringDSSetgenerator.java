@@ -48,6 +48,7 @@ mutLoop: while (mutants.hasNext()) {
 			DistinguishingString ds = DistStringCreator.getDS(r, mutant, DSgenPolicy.RANDOM);
 			if (ds != null) {
 				assert ds.isConfirming() == r.toAutomaton().run(ds.getDs());
+				assert ds.isConfirming() != mutAutom.run(ds.getDs());
 				if (ds.isConfirming()) {
 					DSsAcceptedByR.add(ds.getDs());
 				}

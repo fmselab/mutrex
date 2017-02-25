@@ -50,53 +50,57 @@ public class DistStringCreator {
 	 *            the forbidden words
 	 * @return the ds
 	 */
-	// other one
 	private static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy,
+			Set<String> forbiddenWords) {
+		return getDS(r1.toAutomaton(), r2.toAutomaton(), dsGenPolicy, forbiddenWords);
+	}
+
+	private static DistinguishingString getDS(Automaton a1, Automaton a2, DSgenPolicy dsGenPolicy,
 			Set<String> forbiddenWords) {
 		switch (dsGenPolicy) {
 		case RANDOM:
 			// se quello generato e' null, genera l'altro
 			boolean pos = rnd.nextBoolean();
-			DistinguishingString dsRnd = pos ? getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords)
-					: getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
+			DistinguishingString dsRnd = pos ? getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords)
+					: getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
 			if (dsRnd == null) {
-				dsRnd = !pos ? getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords)
-						: getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
+				dsRnd = !pos ? getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords)
+						: getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
 			}
 			return dsRnd;
 		case PREF_POSITIVE:
-			DistinguishingString dsPrefPos = getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
+			DistinguishingString dsPrefPos = getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
 			if (dsPrefPos == null) {
-				dsPrefPos = getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
+				dsPrefPos = getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
 			}
 			return dsPrefPos;
 		case PREF_NEGATIVE:
-			DistinguishingString dsPrefNeg = getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
+			DistinguishingString dsPrefNeg = getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
 			if (dsPrefNeg == null) {
-				dsPrefNeg = getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
+				dsPrefNeg = getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
 			}
 			return dsPrefNeg;
 		case STRICTLY_POSITIVE:
 			// we try to generate the negative ds only of the positive one
 			// exists
-			DistinguishingString strictPos = getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
-			if (strictPos != null && getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE) == null) {
+			DistinguishingString strictPos = getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords);
+			if (strictPos != null && getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE) == null) {
 				return strictPos;
 			}
 			return null;
 		case STRICTLY_NEGATIVE:
 			// we try to generate the positive ds only of the negative one
 			// exists
-			DistinguishingString strictNeg = getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
-			if (strictNeg != null && getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE) == null) {
+			DistinguishingString strictNeg = getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);
+			if (strictNeg != null && getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE) == null) {
 				return strictNeg;
 			}
 			return null;
 		case ONLY_POSITIVE:
-			String onlyPosDS = getDS(r1, r2, forbiddenWords);
+			String onlyPosDS = getDS(a1, a2, forbiddenWords);
 			return onlyPosDS != null ? new DistinguishingString(onlyPosDS, true) : null;
 		case ONLY_NEGATIVE:
-			String onlyNegDS = getDS(r2, r1, forbiddenWords);
+			String onlyNegDS = getDS(a2, a1, forbiddenWords);
 			return onlyNegDS != null ? new DistinguishingString(onlyNegDS, false) : null;
 		default:
 			break;
@@ -117,6 +121,10 @@ public class DistStringCreator {
 	 */
 	public static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy) {
 		return getDS(r1, r2, dsGenPolicy, Collections.EMPTY_SET);
+	}
+
+	public static DistinguishingString getDS(Automaton a1, Automaton a2, DSgenPolicy dsGenPolicy) {
+		return getDS(a1, a2, dsGenPolicy, Collections.EMPTY_SET);
 	}
 
 	/**
@@ -144,16 +152,15 @@ public class DistStringCreator {
 	 * @return the ds
 	 */
 	public static String getDS(RegExp r1, RegExp r2, Set<String> forbiddenWords) {
-		Automaton a1 = r1.toAutomaton();
-		Automaton a2 = r2.toAutomaton();
-		// a1 and not a2 - confirming string (of r1)
-		// Automaton na2ia1 = a2.complement().intersection(a1);
-		Automaton na2ia1 = a1.minus(a2);
+		return getDS(r1.toAutomaton(), r2.toAutomaton(), forbiddenWords);
+	}
+
+	public static String getDS(Automaton a1, Automaton a2, Set<String> forbiddenWords) {
+		Automaton a1MinusA2 = a1.minus(a2);
 		for (String word : forbiddenWords) {
-			na2ia1 = na2ia1.minus(new RegExp(word).toAutomaton());
+			a1MinusA2 = a1MinusA2.minus(new RegExp(word).toAutomaton());
 		}
-		String ds1 = getExample(na2ia1);
-		return ds1;
+		return getExample(a1MinusA2);
 	}
 
 	/**
