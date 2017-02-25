@@ -16,7 +16,6 @@ public class MutRexTest {
 		for (DistinguishingString ds : DSs) {
 			assertNotNull(ds);
 			assertNotNull(ds.getDs());
-			assertNotNull(ds.getType());
 		}
 	}
 

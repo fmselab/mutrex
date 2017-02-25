@@ -40,21 +40,12 @@ public class DistinguishingString {
 		return isConfirming;
 	}
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	public String getType() {
-		return isConfirming?"CONF":"REJECT";
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "\"" +  ds + "\" (" + getType() + ")";
+		return "\"" +  ds + "\" (" + (isConfirming?"CONF":"REJECT") + ")";
 	}
 
 	/* (non-Javadoc)
