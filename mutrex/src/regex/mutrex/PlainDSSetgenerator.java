@@ -3,6 +3,7 @@ package regex.mutrex;
 import java.util.Collections;
 import java.util.Iterator;
 
+import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
@@ -24,10 +25,12 @@ public class PlainDSSetgenerator extends DSSetGenerator {
 
 	@Override
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
+		Automaton regexAut = regex.toAutomaton();
 		while (mutants.hasNext()) {
 			MutatedRegExp mutant = mutants.next();
 			// generate a distinguishing string
-			DistinguishingString ds = DistStringCreator.getDS(regex, mutant.mutatedRexExp, DSgenPolicy.RANDOM);
+			//DistinguishingString ds = DistStringCreator.getDS(regex, mutant.mutatedRexExp, DSgenPolicy.RANDOM);
+			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutant.mutatedRexExp.toAutomaton(), DSgenPolicy.RANDOM);
 			if (ds != null) {
 				result.addWMD(ds, Collections.singletonList(mutant));
 			}

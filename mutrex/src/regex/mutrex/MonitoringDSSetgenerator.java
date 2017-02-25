@@ -27,7 +27,8 @@ public class MonitoringDSSetgenerator extends DSSetGenerator {
 	}
 
 	@Override
-	public void addStringsToDSSet(DSSet result, RegExp r, Iterator<MutatedRegExp> mutants) {
+	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
+		Automaton regexAut = regex.toAutomaton();
 		Set<String> DSsAcceptedByR = new HashSet<String>();
 mutLoop: while (mutants.hasNext()) {
 			RegExp mutant = mutants.next().mutatedRexExp;
@@ -45,9 +46,10 @@ mutLoop: while (mutants.hasNext()) {
 				}
 			}
 			// generation
-			DistinguishingString ds = DistStringCreator.getDS(r, mutant, DSgenPolicy.RANDOM);
+			//DistinguishingString ds = DistStringCreator.getDS(regex, mutant, DSgenPolicy.RANDOM);
+			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutAutom, DSgenPolicy.RANDOM);
 			if (ds != null) {
-				assert ds.isConfirming() == r.toAutomaton().run(ds.getDs());
+				assert ds.isConfirming() == regexAut.run(ds.getDs());
 				assert ds.isConfirming() != mutAutom.run(ds.getDs());
 				if (ds.isConfirming()) {
 					DSsAcceptedByR.add(ds.getDs());
