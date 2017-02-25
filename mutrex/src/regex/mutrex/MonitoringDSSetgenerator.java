@@ -37,6 +37,8 @@ mutLoop: while (mutants.hasNext()) {
 			for (DistinguishingString ds : result) {
 				String dsStr = ds.toString();
 				boolean acceptedByR = DSsAcceptedByR.contains(dsStr);
+				assert acceptedByR == regexAut.run(dsStr);
+				assert acceptedByR == ds.isConfirming(): acceptedByR;
 				boolean acceptedByMut = BasicOperations.run(mutAutom, dsStr);
 				//boolean acceptedByMut = mutAutom.run(dsStr);
 				if (acceptedByR != acceptedByMut) {
