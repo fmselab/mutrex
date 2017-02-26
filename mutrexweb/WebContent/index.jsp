@@ -36,6 +36,24 @@ td {
 </style>
 </head>
 <body>
+	<%!
+	public void printDs(javax.servlet.jsp.JspWriter out, DSSet ds, boolean confirming) throws java.io.IOException{
+		for (DistinguishingString d : ds) {
+			if (d.isConfirming() == confirming) {
+				out.println("<tr>");
+				out.println("<td>\"" + d.getDs() + "\"</td>");
+				out.println("<td>");
+				RegExpSet rs = ds.getKilledMutants(d);
+				out.println("(size: " + rs.size() + ")");
+				for (RegExp r : rs) {
+					out.println(rs.getDesctiption(r));
+					out.println(ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(r)));
+				}
+				out.println("</td></tr>");
+			}
+		}
+}
+%>
 	<h1>MutRex: the mutation-based test generator for regular
 		expressions</h1>
 	<%
@@ -64,17 +82,6 @@ td {
 	<hr>
 	Some examples can be downloaded
 	<a href="mutation2017experiments.txt">here</a>
-	<hr>
-	mutrex is still experimental - see paper:
-	<br> P. Arcaini, A. Gargantini, E. Riccobene
-	<br>
-	<i>MutRex: a mutation-based generator of fault detecting strings
-		for regular expressions</i>
-	<br> in 12th International Workshop on Mutation Analysis (Mutation
-	2017), Tokyo, Japan, March 13, 2017 (to appear)
-	<br>
-	<a href="http://d3s.mff.cuni.cz/~arcaini/papers/mutrexMUTATION2017.pdf">[download
-		the pdf]</a>
 	<%
 		} else {
 			out.println("Strings for <b>" + request.getParameter("regex") + "</b>:<p	>");
@@ -89,48 +96,37 @@ td {
 				<th>Distinguished mutants</th>
 			</tr>
 			<tr>
-				<th>Accepted</th><th></th>
+				<th>Accepted</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<%
-				for (DistinguishingString d : ds) {
-						if (d.isConfirming()) {
-							out.println("<tr>");
-							out.println("<td>\"" + d.getDs() + "\"</td>");
-							out.println("<td>");
-							RegExpSet rs = ds.getKilledMutants(d);
-							out.println("(size: " + rs.size() + ")");
-							for (RegExp r : rs) {
-								out.println(ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(r)));
-							}
-							out.println("</td></tr>");
-						}
-					}
+			printDs(out,ds,true);
 			%>
-
 			<tr>
-				<th>Rejected</th><th></th>
+				<th>Rejected</th>
+				<th></th>
 			</tr>
 			<%
-				for (DistinguishingString d : ds) {
-						if (!d.isConfirming()) {
-							out.println("<tr>");
-							out.println("<td>\"" + d.getDs() + "\"</td>");
-							out.println("<td>");
-							RegExpSet rs = ds.getKilledMutants(d);
-							out.println("(size: " + rs.size() + ")");
-							for (RegExp r : rs) {
-								out.println(ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(r)));
-							}
-							out.println("</td></tr>");
-						}
-					}
+			printDs(out,ds,false);
 			%>
 		</tbody>
 	</table>
 	<%
 		}
 	%>
+	<hr>
+	mutrex is still experimental - see paper:
+	<br> P. Arcaini, A. Gargantini, E. Riccobene
+	<br>
+	<i>MutRex: a mutation-based generator of fault detecting strings
+		for regular expressions</i>
+	<br> in 12th International Workshop on Mutation Analysis (Mutation
+	2017), Tokyo, Japan, March 13, 2017 (to appear)
+	<br>
+	<a href="http://d3s.mff.cuni.cz/~arcaini/papers/mutrexMUTATION2017.pdf">[download
+		the pdf]</a>
+
 </body>
 </html>
