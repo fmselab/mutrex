@@ -14,7 +14,6 @@ import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingString;
-import regex.mutrex.ParallelCollectLimitThDSSetGenerator.DistinguishAutomatonTh;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**
@@ -240,6 +239,8 @@ public class ParallelCollectLimitThDSSetGenerator extends DSSetGenerator {
 
 		void coverMutant(Mutant mutant) {
 			mutant.isCovered = true;
+			mutant.mutAut = null;
+			mutant.mutNegAut = null;
 		}
 	}
 
@@ -250,6 +251,8 @@ public class ParallelCollectLimitThDSSetGenerator extends DSSetGenerator {
 		private boolean testedPositiveWithR;
 		private boolean testedNegativeWithR;
 		boolean isCovered;
+		Automaton mutAut;
+		Automaton mutNegAut;
 
 		public Mutant(RegExp mutant) {
 			this.mutant = mutant;

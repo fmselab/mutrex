@@ -1,12 +1,9 @@
 package regex.mutrex;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import dk.brics.automaton.Automaton;
-import dk.brics.automaton.BasicOperations;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;

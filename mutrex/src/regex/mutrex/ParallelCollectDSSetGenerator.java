@@ -246,6 +246,8 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 
 		void coverMutant(Mutant mutant) {
 			mutant.isCovered = true;
+			mutant.mutAut = null;
+			mutant.mutNegAut = null;
 		}
 	}
 
