@@ -36,6 +36,7 @@ public class DistinguishAutomatonTh extends Thread {
 				}
 				mutant.unlock();
 			}
+			mutantsManager.mutantConsidered();
 		}
 		List<RegExp> daCoveredMuts = da.getMutants();
 		assert daCoveredMuts.size() > 0;
