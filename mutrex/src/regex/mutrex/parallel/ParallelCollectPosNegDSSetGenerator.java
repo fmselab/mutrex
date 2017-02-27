@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
-import regex.mutrex.DSSet;
-import regex.mutrex.DSSetGenerator;
-import regex.mutrex.DistinguishingAutomaton;
-import regex.mutrex.DistinguishingAutomaton.RegexWAutomata;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
+import regex.mutrex.ds.DistinguishingAutomaton;
+import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**

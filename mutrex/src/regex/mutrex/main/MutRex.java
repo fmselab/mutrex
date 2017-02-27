@@ -1,5 +1,10 @@
-package regex.mutrex;
+package regex.mutrex.main;
 
+import regex.mutrex.CollectDSSetGeneratorNoLimit;
+import regex.mutrex.MonitoringDSSetgenerator;
+import regex.mutrex.PlainDSSetgenerator;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.parallel.ParallelCollectLimitThDSSetGenerator;
 import regex.mutrex.parallel.ParallelCollectNoLimitDSSetGenerator;
 import regex.mutrex.parallel.ParallelCollectPosNegDSSetGenerator;

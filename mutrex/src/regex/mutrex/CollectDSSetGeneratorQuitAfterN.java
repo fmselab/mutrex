@@ -1,5 +1,7 @@
 package regex.mutrex;
 
+import regex.mutrex.ds.DistinguishingAutomaton;
+
 public class CollectDSSetGeneratorQuitAfterN extends CollectDSSetGenerator {
 	private int numCollectedMutantTH;
 
@@ -9,6 +11,6 @@ public class CollectDSSetGeneratorQuitAfterN extends CollectDSSetGenerator {
 
 	@Override
 	boolean stop(DistinguishingAutomaton da) {
-		return da.mutatedRegexes.size() >= numCollectedMutantTH;
+		return da.size() >= numCollectedMutantTH;
 	}
 }

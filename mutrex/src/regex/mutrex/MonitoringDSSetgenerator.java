@@ -8,6 +8,8 @@ import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**

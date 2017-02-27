@@ -2,7 +2,7 @@ package regex.mutrex.parallel;
 
 import java.util.Iterator;
 
-import regex.mutrex.DSSetGenerator;
+import regex.mutrex.ds.DSSetGenerator;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class ParallelCollectNoLimitDSSetGenerator extends ParallelCollectDSSetGenerator {

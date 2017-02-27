@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.ds;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -115,6 +115,10 @@ public class DistinguishingAutomaton {
 			return negMaut;
 		}
 		
+	}
+
+	public int size() {
+		return mutatedRegexes.size();
 	}
 }
 

@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
-import regex.mutrex.DSSet;
-import regex.mutrex.DistinguishingAutomaton;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DistinguishingAutomaton;
 
 public class DistinguishAutomatonTh extends Thread {
 	private static Logger logger = Logger.getLogger(DistinguishAutomatonTh.class.getName());

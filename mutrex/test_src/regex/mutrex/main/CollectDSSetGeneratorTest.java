@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.main;
 
 import static org.junit.Assert.assertFalse;
 
@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
+import regex.mutrex.CollectDSSetGeneratorNoLimit;
 
 public class CollectDSSetGeneratorTest {
 

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import dk.brics.automaton.RegExp;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 

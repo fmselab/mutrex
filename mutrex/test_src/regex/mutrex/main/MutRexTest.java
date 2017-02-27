@@ -1,12 +1,18 @@
-package regex.mutrex;
+package regex.mutrex.main;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import org.junit.Test;
 
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
+import regex.mutrex.ds.RegExpSet;
+import regex.mutrex.main.GeneratorType;
+import regex.mutrex.main.MutRex;
 
 public class MutRexTest {
 
@@ -69,10 +75,12 @@ public class MutRexTest {
 	 */
 	static void generateAndCheck(String regex, DSSetGenerator dsgen) {
 		DSSet x = dsgen.generateDSSet(regex);
-		for (Entry<DistinguishingString, RegExpSet> d : x.dsKilledMutant.entrySet()) {
-			RegExpSet value = d.getValue();
+		Iterator<DistinguishingString> it = x.iterator();
+		while(it.hasNext()) {
+			DistinguishingString ds = it.next();
+			RegExpSet value = x.getKilledMutants(ds);
 			assert !value.isEmpty();
-			System.out.println(d.getKey() + " kills " + value);
+			System.out.println(ds + " kills " + value);
 		}
 	}
 }

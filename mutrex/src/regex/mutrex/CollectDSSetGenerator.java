@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.ds.DSSet;
+import regex.mutrex.ds.DSSetGenerator;
+import regex.mutrex.ds.DistinguishingAutomaton;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**
@@ -94,7 +97,7 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 		DistinguishingString ds = new DistinguishingString(da.getExample(), da.isPositive());
 		result.add(ds, da.getMutants());
 		//logger.log(Level.INFO, da + " covers " + da.mutatedRegexes.size() + " mutants");
-		coveredMutsNum.add(da.mutatedRegexes.size());
+		coveredMutsNum.add(da.size());
 	}
 
 	abstract boolean stop(DistinguishingAutomaton da);

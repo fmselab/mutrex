@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.ds;
 
 import java.util.Iterator;
 import java.util.List;
