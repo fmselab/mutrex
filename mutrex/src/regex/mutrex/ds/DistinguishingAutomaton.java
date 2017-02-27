@@ -82,6 +82,11 @@ public class DistinguishingAutomaton {
 	public List<RegExp> getMutants() {
 		return Collections.unmodifiableList(mutatedRegexes);
 	}
+	
+	public int size() {
+		return mutatedRegexes.size();
+	}
+
 
 	// a regex with its automata (positive and negative
 	public static class RegexWAutomata {
@@ -108,17 +113,6 @@ public class DistinguishingAutomaton {
 			}
 			return negMaut;
 		}
-<<<<<<< HEAD:mutrex/src/regex/mutrex/ds/DistinguishingAutomaton.java
-		
-	}
-
-	public int size() {
-		return mutatedRegexes.size();
-	}
-}
-=======
->>>>>>> origin/master:mutrex/src/regex/mutrex/DistinguishingAutomaton.java
-
 		public RegExp getMutant() {
 			return mutant;
 		}
