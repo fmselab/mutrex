@@ -44,15 +44,13 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
 			if (mutant != null) {
 				assert mutant.isLocked();
-				Automaton mAut = null;
-				Automaton negMaut = null;
 				// randomly generate a positive or negative da
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
 					//DistinguishingAutomaton newDa = new DistinguishingAutomaton(rgxAut, b);
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
-					if (newDa.add(mutant.getRegex(), mAut, negMaut)) {
+					if (newDa.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
 						dat = new DistinguishAutomatonTh(newDa, mutantsManager, dsS);
@@ -146,7 +144,7 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 			while (run) {
 				Mutant mutant = mutantsManager.getMutant(this);
 				if (mutant != null) {
-					if (da.add(mutant.getRegex(), null, null)) {
+					if (da.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
 						//System.out.println("getMutant " + mutant + " " + mutant.getRegex() + "covered by " + this);
 						assert da.getMutants().size() > 1;
 						mutantsManager.coverMutant(mutant);
@@ -258,6 +256,8 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 		private boolean testedPositiveWithR;
 		private boolean testedNegativeWithR;
 		boolean isCovered;
+		Automaton mutAut;
+		Automaton mutNegAut;
 
 		public Mutant(RegExp mutant) {
 			this.mutant = mutant;

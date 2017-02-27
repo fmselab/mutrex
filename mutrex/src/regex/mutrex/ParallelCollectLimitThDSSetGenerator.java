@@ -14,18 +14,20 @@ import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.ParallelCollectLimitThDSSetGenerator.DistinguishAutomatonTh;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**
- * generates a ds that tries to kill as many mutants as possible. Parallel
- * version 2
+ * generates a ds that tries to kill as many mutants as possible.
+ * 
+ * Limit threads
  * 
  */
-public class ParallelCollectDSSetGenerator2 extends DSSetGenerator {
-	private static Logger logger = Logger.getLogger(ParallelCollectDSSetGenerator2.class.getName());
-	public static DSSetGenerator generator = new ParallelCollectDSSetGenerator2();
+public class ParallelCollectLimitThDSSetGenerator extends DSSetGenerator {
+	private static Logger logger = Logger.getLogger(ParallelCollectLimitThDSSetGenerator.class.getName());
+	public static DSSetGenerator generator = new ParallelCollectLimitThDSSetGenerator();
 
-	protected ParallelCollectDSSetGenerator2() {
+	protected ParallelCollectLimitThDSSetGenerator() {
 	}
 
 	@Override
@@ -91,42 +93,7 @@ public class ParallelCollectDSSetGenerator2 extends DSSetGenerator {
 		return;
 	}
 
-	private void assertCheck(RegExp regex, MutantsManager mutantsManager, DSSet dsS) {
-		assert !mutantsManager.areThereUncoveredMutants();
-		assert !mutantsManager.itMutants.hasNext();
-		int numEquiv = 0;
-		for (Mutant m : mutantsManager.mutants) {
-			assert !m.isLocked();
-			assert (m.isEquivalent() && !m.isCovered) || (!m.isEquivalent() && m.isCovered);
-			if (m.isEquivalent()) {
-				numEquiv++;
-				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) == null: m.getRegex();
-			} else {
-				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) != null: m.getRegex();
-			}
-		}
-		//System.out.println("\nnumEquiv " + numEquiv);
-		Set<String> mSet = new HashSet<String>();
-		for (Mutant m : mutantsManager.mutants) {
-			mSet.add(m.getRegex().toString());
-		}
-		//System.out.println("size before " + mSet.size());
-		int numCovered = 0;
-		for (DistinguishingString s : dsS) {
-			for (RegExp r : dsS.getKilledMutants(s)) {
-				assert DistStringCreator.getDS(regex, r, DSgenPolicy.RANDOM) != null: r;
-				while(mSet.remove(r.toString()));
-				numCovered++;
-			}
-		}
-		//System.out.println("numCovered " + numCovered);
-		//System.out.println("size after " + mSet.size());
-		for (String r : mSet) {
-			assert DistStringCreator.getDS(regex, new RegExp(r), DSgenPolicy.RANDOM) == null: r;
-		}
-	}
-
-	private class DistinguishAutomatonTh extends Thread {
+	class DistinguishAutomatonTh extends Thread {
 		private DistinguishingAutomaton da;
 		private MutantsManager mutantsManager;
 		private boolean run;
@@ -323,6 +290,41 @@ public class ParallelCollectDSSetGenerator2 extends DSSetGenerator {
 
 		public boolean isEquivalent() {
 			return testedPositiveWithR && testedNegativeWithR;
+		}
+	}
+
+	private static void assertCheck(RegExp regex, MutantsManager mutantsManager, DSSet dsS) {
+		assert !mutantsManager.areThereUncoveredMutants();
+		assert !mutantsManager.itMutants.hasNext();
+		int numEquiv = 0;
+		for (Mutant m : mutantsManager.mutants) {
+			assert !m.isLocked();
+			assert (m.isEquivalent() && !m.isCovered) || (!m.isEquivalent() && m.isCovered);
+			if (m.isEquivalent()) {
+				numEquiv++;
+				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) == null: m.getRegex();
+			} else {
+				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) != null: m.getRegex();
+			}
+		}
+		//System.out.println("\nnumEquiv " + numEquiv);
+		Set<String> mSet = new HashSet<String>();
+		for (Mutant m : mutantsManager.mutants) {
+			mSet.add(m.getRegex().toString());
+		}
+		//System.out.println("size before " + mSet.size());
+		int numCovered = 0;
+		for (DistinguishingString s : dsS) {
+			for (RegExp r : dsS.getKilledMutants(s)) {
+				assert DistStringCreator.getDS(regex, r, DSgenPolicy.RANDOM) != null: r;
+				while(mSet.remove(r.toString()));
+				numCovered++;
+			}
+		}
+		//System.out.println("numCovered " + numCovered);
+		//System.out.println("size after " + mSet.size());
+		for (String r : mSet) {
+			assert DistStringCreator.getDS(regex, new RegExp(r), DSgenPolicy.RANDOM) == null: r;
 		}
 	}
 }

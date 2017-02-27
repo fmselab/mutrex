@@ -22,7 +22,7 @@ public class MutRex {
 		case COLLECTING_PAR:
 			return ParallelCollectDSSetGenerator.generator.generateDSSet(extregex);
 		case COLLECTING_PAR2:
-			return ParallelCollectDSSetGenerator2.generator.generateDSSet(extregex);
+			return ParallelCollectLimitThDSSetGenerator.generator.generateDSSet(extregex);
 		default:
 			throw new RuntimeException();
 		}
