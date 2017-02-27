@@ -4,7 +4,7 @@ package regex.mutrex;
 public class MutRex {
 
 	public static DSSetGenerator[] generators = { PlainDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
-			CollectDSSetGeneratorNoLimit.generator, ParallelCollectPosNegDSSetGenerator.generator, ParallelCollectDSSetGenerator.generator };
+			CollectDSSetGeneratorNoLimit.generator, ParallelCollectPosNegDSSetGenerator.generator, ParallelCollectNoLimitDSSetGenerator.generator};
 
 	/** build the distinguishing strings + mutant killed */
 	public static DSSet generateStrings(String extregex, GeneratorType type) {
@@ -19,9 +19,9 @@ public class MutRex {
 			throw new RuntimeException("Use constructor");
 		case COLLECTING_PAR_ONLY_POS_AND_NEG:
 			return ParallelCollectPosNegDSSetGenerator.generator.generateDSSet(extregex);
-		case COLLECTING_PAR:
-			return ParallelCollectDSSetGenerator.generator.generateDSSet(extregex);
-		case COLLECTING_PAR2:
+		case COLLECTING_PAR_NO_LIMIT:
+			return ParallelCollectNoLimitDSSetGenerator.generator.generateDSSet(extregex);
+		case COLLECTING_PAR_LIMIT:
 			return ParallelCollectLimitThDSSetGenerator.generator.generateDSSet(extregex);
 		default:
 			throw new RuntimeException();
