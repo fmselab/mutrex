@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,4 +26,6 @@ abstract class MutantsManager {
 		mutant.mutAut = null;
 		mutant.mutNegAut = null;
 	}
+
+	abstract public void mutantConsidered();
 }

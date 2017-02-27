@@ -1,5 +1,9 @@
 package regex.mutrex;
 
+import regex.mutrex.parallel.ParallelCollectLimitThDSSetGenerator;
+import regex.mutrex.parallel.ParallelCollectNoLimitDSSetGenerator;
+import regex.mutrex.parallel.ParallelCollectPosNegDSSetGenerator;
+
 /** generates all the string to kill the mutation of a given regex */
 public class MutRex {
 

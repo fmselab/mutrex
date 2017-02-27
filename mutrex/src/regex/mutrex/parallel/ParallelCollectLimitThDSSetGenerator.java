@@ -1,8 +1,9 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import regex.mutrex.DSSetGenerator;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**

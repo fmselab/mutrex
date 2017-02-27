@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.DSSet;
+import regex.mutrex.DistinguishingAutomaton;
 
 public class DistinguishAutomatonTh extends Thread {
 	private static Logger logger = Logger.getLogger(DistinguishAutomatonTh.class.getName());
@@ -14,7 +16,7 @@ public class DistinguishAutomatonTh extends Thread {
 	private boolean run;
 	private DSSet dsS;
 
-	DistinguishAutomatonTh(DistinguishingAutomaton da, MutantsManager mutantsManager, DSSet dsS) {
+	public DistinguishAutomatonTh(DistinguishingAutomaton da, MutantsManager mutantsManager, DSSet dsS) {
 		this.da = da;
 		this.mutantsManager = mutantsManager;
 		run = true;
@@ -42,7 +44,7 @@ public class DistinguishAutomatonTh extends Thread {
 		logger.log(Level.INFO, da + " exiting");
 	}
 
-	void stopThread() {
+	public void stopThread() {
 		run = false;
 	}
 }

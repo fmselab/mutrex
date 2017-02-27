@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +15,9 @@ import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
+import regex.mutrex.DSSet;
+import regex.mutrex.DSSetGenerator;
+import regex.mutrex.DistinguishingAutomaton;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {

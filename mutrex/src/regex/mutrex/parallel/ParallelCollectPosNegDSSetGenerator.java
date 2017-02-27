@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
+import regex.mutrex.DSSet;
+import regex.mutrex.DSSetGenerator;
+import regex.mutrex.DistinguishingAutomaton;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**

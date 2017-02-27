@@ -1,7 +1,8 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.Iterator;
 
+import regex.mutrex.DSSetGenerator;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class ParallelCollectNoLimitDSSetGenerator extends ParallelCollectDSSetGenerator {

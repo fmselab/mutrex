@@ -1,4 +1,4 @@
-package regex.mutrex;
+package regex.mutrex.parallel;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -6,9 +6,17 @@ import java.util.Set;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class MutantsManagerLimit extends MutantsManager {
+	private int runningThs = 0;
 
 	public MutantsManagerLimit(Iterator<MutatedRegExp> itMutants) {
 		super(itMutants);
+	}
+
+	public synchronized void decrRunningThs() {
+		runningThs--;
+		if (runningThs < Runtime.getRuntime().availableProcessors()) {
+			notifyAll();
+		}
 	}
 
 	@Override
@@ -16,15 +24,24 @@ public class MutantsManagerLimit extends MutantsManager {
 		if (noUncoveredMutants)
 			return false;
 		if (itMutants.hasNext()) {
+			synchronized (this) {
+				notifyAll();
+			}
 			return true;
 		} else {
 			for (Mutant m : mutants) {
 				if (!m.isEquivalent() && !m.isCovered) {
+					synchronized (this) {
+						notifyAll();
+					}
 					return true;
 				}
 			}
 		}
 		noUncoveredMutants = true;
+		synchronized (this) {
+			notifyAll();
+		}
 		return false;
 	}
 
@@ -54,6 +71,15 @@ public class MutantsManagerLimit extends MutantsManager {
 
 	@Override
 	public synchronized Mutant getMutant(DistinguishAutomatonTh s) {
+		if (runningThs >= Runtime.getRuntime().availableProcessors()) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		runningThs++;
+		// System.out.println(runningThs);
 		boolean stopDA = true;
 		if (!noUncoveredMutants) {
 			if (itMutants.hasNext()) {
@@ -63,7 +89,7 @@ public class MutantsManagerLimit extends MutantsManager {
 				mutants.add(mutant);
 				return mutant;
 			} else {
-				// Collections.shuffle(mutants);
+				//Collections.shuffle(mutants);
 				for (Mutant mutant : mutants) {
 					if (!mutant.isCovered && !mutant.isEquivalent() && !mutant.hasVisitedDA(s)) {
 						stopDA = false;
@@ -80,5 +106,10 @@ public class MutantsManagerLimit extends MutantsManager {
 			s.stopThread();
 		}
 		return null;
+	}
+
+	@Override
+	public void mutantConsidered() {
+		decrRunningThs();
 	}
 }

@@ -8,8 +8,8 @@ import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistStringCreator;
 
-class DistinguishingAutomaton {
-	boolean positive;
+public class DistinguishingAutomaton {
+	public boolean positive;
 	private Automaton content;
 	List<RegExp> mutatedRegexes;
 	//solution 2: invalidating the da
@@ -24,7 +24,7 @@ class DistinguishingAutomaton {
 	 *            generate strings rejected by regex and accepted by //
 	 *            mutations
 	 */
-	DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
+	public DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
 		positive = b;
 		//content = b ? rexAut : rexAut.complement();
 		
@@ -61,7 +61,7 @@ class DistinguishingAutomaton {
 	 *            automata many times)
 	 * @return true, if successful
 	 */
-	boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
+	public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
 		// try to add
 		Automaton result;
 		if (positive) {
