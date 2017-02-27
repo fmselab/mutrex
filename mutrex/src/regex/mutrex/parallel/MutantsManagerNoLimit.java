@@ -1,6 +1,7 @@
 package regex.mutrex.parallel;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import regex.operators.RegexMutator.MutatedRegExp;
 
@@ -25,6 +26,42 @@ public class MutantsManagerNoLimit extends MutantsManager {
 		}
 		noUncoveredMutants = true;
 		return false;
+	}
+
+	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS) {
+		if (!noUncoveredMutants) {
+			/*if (mutants.size() == 0) {
+				if (itMutants.hasNext()) {
+					Mutant mutant = new Mutant(itMutants.next());
+					mutants.add(mutant);
+					mutant.lock();
+					return mutant;
+				}
+			} else {
+				// Collections.shuffle(mutants);
+				for (Mutant mutant : mutants) {
+					if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+							&& !mutant.isLocked()) {
+						mutant.lock();
+						return mutant;
+					}
+				}
+			}*/
+			for (Mutant mutant : mutants) {
+				if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+						&& !mutant.isLocked()) {
+					mutant.lock();
+					return mutant;
+				}
+			}
+			if (itMutants.hasNext()) {
+				Mutant mutant = new Mutant(itMutants.next());
+				mutants.add(mutant);
+				mutant.lock();
+				return mutant;
+			}
+		}
+		return null;
 	}
 
 	@Override

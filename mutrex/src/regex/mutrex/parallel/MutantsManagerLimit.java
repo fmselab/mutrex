@@ -1,6 +1,7 @@
 package regex.mutrex.parallel;
 
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,9 +17,52 @@ public class MutantsManagerLimit extends MutantsManager {
 
 	public synchronized void decrRunningThs() {
 		runningThs--;
-		if (runningThs < Runtime.getRuntime().availableProcessors()) {
-			notifyAll();
+		notifyAll();
+	}
+
+	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS) {
+		if (!noUncoveredMutants) {
+			/*if (mutants.size() == 0) {
+				if (itMutants.hasNext()) {
+					Mutant mutant = new Mutant(itMutants.next());
+					mutants.add(mutant);
+					mutant.lock();
+					return mutant;
+				}
+			} else {
+				// Collections.shuffle(mutants);
+				for (Mutant mutant : mutants) {
+					if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+							&& !mutant.isLocked()) {
+						mutant.lock();
+						return mutant;
+					}
+				}
+			}*/
+			while (runningThs >= Runtime.getRuntime().availableProcessors()) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			for (Mutant mutant : mutants) {
+				if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+						&& !mutant.isLocked()) {
+					mutant.lock();
+					runningThs++;
+					return mutant;
+				}
+			}
+			if (itMutants.hasNext()) {
+				Mutant mutant = new Mutant(itMutants.next());
+				mutants.add(mutant);
+				mutant.lock();
+				runningThs++;
+				return mutant;
+			}
 		}
+		return null;
 	}
 
 	@Override
@@ -49,14 +93,13 @@ public class MutantsManagerLimit extends MutantsManager {
 
 	@Override
 	public synchronized Mutant getMutant(DistinguishAutomatonTh s) {
-		if (runningThs >= Runtime.getRuntime().availableProcessors()) {
+		while (runningThs >= Runtime.getRuntime().availableProcessors()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		runningThs++;
 		// System.out.println(runningThs);
 		boolean stopDA = true;
 		if (!noUncoveredMutants) {
@@ -66,6 +109,7 @@ public class MutantsManagerLimit extends MutantsManager {
 				mutant.lock();
 				mutants.add(mutant);
 				logger.log(Level.INFO, "getting next mutant " + mutant);
+				runningThs++;
 				return mutant;
 			} else {
 				//Collections.shuffle(mutants);
@@ -76,6 +120,7 @@ public class MutantsManagerLimit extends MutantsManager {
 							mutant.setVisitedDA(s);
 							mutant.lock();
 							logger.log(Level.INFO, "getting mutant " + mutant);
+							runningThs++;
 							return mutant;
 						}
 					}

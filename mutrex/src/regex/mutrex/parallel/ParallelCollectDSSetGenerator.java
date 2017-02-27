@@ -53,8 +53,8 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 						mutant.setVisitedDA(dat);
 						mutantsManager.coverMutant(mutant);
 						mutant.unlock();
-						mutantsManager.mutantConsidered();
 						dat.start();
+						mutantsManager.mutantConsidered();
 						break;
 					}
 				}
@@ -66,6 +66,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 					mutant.setTestedNegativeWithR();
 					assert mutant.isEquivalent();
 					mutant.unlock();
+					mutantsManager.mutantConsidered();
 					assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) == null;
 				}
 			}
