@@ -32,7 +32,7 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
-		//Automaton rgxAut = regex.toAutomaton();
+		// Automaton rgxAut = regex.toAutomaton();
 		Automaton rexAut = null;
 		Automaton rexNegAut = null;
 		MutantsManager mutantsManager = new MutantsManager(mutants);
@@ -48,13 +48,16 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
-					//DistinguishingAutomaton newDa = new DistinguishingAutomaton(rgxAut, b);
+					// DistinguishingAutomaton newDa = new
+					// DistinguishingAutomaton(rgxAut, b);
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
 					if (newDa.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
 						dat = new DistinguishAutomatonTh(newDa, mutantsManager, dsS);
-						//System.out.println("getNotCoveredByCurrentDAs " + mutant + " " + mutant.getRegex() + " covered by " + dat);
+						// System.out.println("getNotCoveredByCurrentDAs " +
+						// mutant + " " + mutant.getRegex() + " covered by " +
+						// dat);
 						datS.add(dat);
 						mutant.setVisitedDA(dat);
 						mutant.isCovered = true;
@@ -71,7 +74,8 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 					mutant.setTestedPositiveWithR();
 					mutant.setTestedNegativeWithR();
 					assert mutant.isEquivalent();
-					//System.out.println("getNotCoveredByCurrentDAs " + mutant + " " + mutant.getRegex() + " equivalent");
+					// System.out.println("getNotCoveredByCurrentDAs " + mutant
+					// + " " + mutant.getRegex() + " equivalent");
 					mutant.unlock();
 					assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) == null;
 				}
@@ -84,45 +88,14 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				e.printStackTrace();
 			}
 		}
-		/*if (this.getClass().desiredAssertionStatus()) {
-			assertCheck(regex, mutantsManager, dsS);
-		}*/
+		// assert mutantsManager.mutants.parallelStream().allMatch(m ->
+		// (m.isCovered || m.isEquivalent()));
+		if (this.getClass().desiredAssertionStatus()) {
+			for (Mutant m : mutantsManager.mutants) {
+				assert m.isCovered || m.isEquivalent();
+			}
+		}
 		return;
-	}
-
-	private void assertCheck(RegExp regex, MutantsManager mutantsManager, DSSet dsS) {
-		assert !mutantsManager.areThereUncoveredMutants();
-		assert !mutantsManager.itMutants.hasNext();
-		int numEquiv = 0;
-		for (Mutant m : mutantsManager.mutants) {
-			assert !m.isLocked();
-			assert (m.isEquivalent() && !m.isCovered) || (!m.isEquivalent() && m.isCovered);
-			if (m.isEquivalent()) {
-				numEquiv++;
-				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) == null: m.getRegex();
-			} else {
-				assert DistStringCreator.getDS(regex, m.getRegex(), DSgenPolicy.RANDOM) != null: m.getRegex();
-			}
-		}
-		//System.out.println("\nnumEquiv " + numEquiv);
-		Set<String> mSet = new HashSet<String>();
-		for (Mutant m : mutantsManager.mutants) {
-			mSet.add(m.getRegex().toString());
-		}
-		//System.out.println("size before " + mSet.size());
-		int numCovered = 0;
-		for (DistinguishingString s : dsS) {
-			for (RegExp r : dsS.getKilledMutants(s)) {
-				assert DistStringCreator.getDS(regex, r, DSgenPolicy.RANDOM) != null: r;
-				while(mSet.remove(r.toString()));
-				numCovered++;
-			}
-		}
-		//System.out.println("numCovered " + numCovered);
-		//System.out.println("size after " + mSet.size());
-		for (String r : mSet) {
-			assert DistStringCreator.getDS(regex, new RegExp(r), DSgenPolicy.RANDOM) == null: r;
-		}
 	}
 
 	private class DistinguishAutomatonTh extends Thread {
@@ -145,7 +118,8 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				Mutant mutant = mutantsManager.getMutant(this);
 				if (mutant != null) {
 					if (da.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
-						//System.out.println("getMutant " + mutant + " " + mutant.getRegex() + "covered by " + this);
+						// System.out.println("getMutant " + mutant + " " +
+						// mutant.getRegex() + "covered by " + this);
 						assert da.getMutants().size() > 1;
 						mutantsManager.coverMutant(mutant);
 					}
@@ -155,6 +129,7 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 			List<RegExp> daCoveredMuts = da.getMutants();
 			assert daCoveredMuts.size() > 0;
 			dsS.add(new DistinguishingString(da.getExample(), da.positive), daCoveredMuts);
+			da = null;
 		}
 
 		private void stopThread() {
@@ -172,7 +147,7 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 			this.mutants = new ArrayList<Mutant>();
 		}
 
-		private boolean areThereUncoveredMutants() {
+		private synchronized boolean areThereUncoveredMutants() {
 			if (noUncoveredMutants)
 				return false;
 			if (itMutants.hasNext()) {
@@ -200,11 +175,10 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 						return mutant;
 					}
 				} else {
-					//Collections.shuffle(mutants);
+					// Collections.shuffle(mutants);
 					for (Mutant mutant : mutants) {
-						// if (!mutant.isEquivalent() && !mutant.isCovered &&
-						// mutant.visited.size() == n) {
-						if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS) && !mutant.isLocked()) {
+						if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+								&& !mutant.isLocked()) {
 							mutant.lock();
 							return mutant;
 						}
@@ -225,7 +199,7 @@ public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 					mutants.add(mutant);
 					return mutant;
 				} else {
-					//Collections.shuffle(mutants);
+					// Collections.shuffle(mutants);
 					for (Mutant mutant : mutants) {
 						if (!mutant.isCovered && !mutant.isEquivalent() && !mutant.hasVisitedDA(s)) {
 							stopDA = false;
@@ -314,16 +288,17 @@ class RandomList<T> implements Iterable<T> {
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
-			//Java 8
-			//List<Integer> indexes = IntStream.range(0, elements.size() - 1).boxed().collect(Collectors.toList());
+			// Java 8
+			// List<Integer> indexes = IntStream.range(0, elements.size() -
+			// 1).boxed().collect(Collectors.toList());
 			List<Integer> indexes;
 			{
 				indexes = new ArrayList<Integer>();
-				for(int i = 0; i < elements.size(); i++) {
+				for (int i = 0; i < elements.size(); i++) {
 					indexes.add(i);
 				}
 			}
-			
+
 			Random rnd = new Random();
 
 			@Override
