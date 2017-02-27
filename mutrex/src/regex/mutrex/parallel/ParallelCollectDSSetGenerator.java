@@ -40,10 +40,10 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				// randomly generate a positive or negative da
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
-				logger.log(Level.INFO, "new da for " + mutant);
 				for (boolean b : trueFalse) {
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
 					if (newDa.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
+						logger.log(Level.INFO, "new da for " + mutant);
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
 						dat = new DistinguishAutomatonTh(newDa, mutantsManager, dsS);
@@ -58,7 +58,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				// if no da has been created, it means that the mutant is
 				// equivalent (tested both with positive and negative das)
 				if (dat == null) {
-					// System.out.println("Equiv " + mutant.getRegex());
+					logger.log(Level.INFO, "Equiv " + mutant);
 					mutant.setTestedPositiveWithR();
 					mutant.setTestedNegativeWithR();
 					assert mutant.isEquivalent();

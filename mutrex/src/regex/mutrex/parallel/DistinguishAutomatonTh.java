@@ -28,9 +28,11 @@ public class DistinguishAutomatonTh extends Thread {
 	public void run() {
 		while (run) {
 			Mutant mutant = mutantsManager.getMutant(this);
+			logger.log(Level.INFO, da + " retrieved mutant " + mutant);
 			if (mutant != null) {
 				if (da.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
-					logger.log(Level.INFO, "Adding " + mutant);
+				//if (da.add(mutant.getRegex(), null, null)) {
+					logger.log(Level.INFO, da + " added " + mutant);
 					assert da.getMutants().size() > 1;
 					mutantsManager.coverMutant(mutant);
 				}

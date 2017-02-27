@@ -2,10 +2,13 @@ package regex.mutrex.parallel;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class MutantsManagerLimit extends MutantsManager {
+	private static Logger logger = Logger.getLogger(MutantsManagerLimit.class.getName());
 	private int runningThs = 0;
 
 	public MutantsManagerLimit(Iterator<MutatedRegExp> itMutants) {
@@ -87,6 +90,7 @@ public class MutantsManagerLimit extends MutantsManager {
 				mutant.setVisitedDA(s);
 				mutant.lock();
 				mutants.add(mutant);
+				logger.log(Level.INFO, "getting next mutant " + mutant);
 				return mutant;
 			} else {
 				//Collections.shuffle(mutants);
@@ -96,6 +100,7 @@ public class MutantsManagerLimit extends MutantsManager {
 						if (!mutant.isLocked()) {
 							mutant.setVisitedDA(s);
 							mutant.lock();
+							logger.log(Level.INFO, "getting mutant " + mutant);
 							return mutant;
 						}
 					}
