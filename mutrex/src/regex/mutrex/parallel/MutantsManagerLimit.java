@@ -51,7 +51,7 @@ public class MutantsManagerLimit extends MutantsManager {
 	@Override
 	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS) {
 		if (!noUncoveredMutants) {
-			if (mutants.size() == 0) {
+			/*if (mutants.size() == 0) {
 				if (itMutants.hasNext()) {
 					Mutant mutant = new Mutant(itMutants.next());
 					mutants.add(mutant);
@@ -67,6 +67,19 @@ public class MutantsManagerLimit extends MutantsManager {
 						return mutant;
 					}
 				}
+			}*/
+			for (Mutant mutant : mutants) {
+				if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+						&& !mutant.isLocked()) {
+					mutant.lock();
+					return mutant;
+				}
+			}
+			if (itMutants.hasNext()) {
+				Mutant mutant = new Mutant(itMutants.next());
+				mutants.add(mutant);
+				mutant.lock();
+				return mutant;
 			}
 		}
 		return null;

@@ -51,6 +51,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 						mutant.setVisitedDA(dat);
 						mutantsManager.coverMutant(mutant);
 						mutant.unlock();
+						mutantsManager.mutantConsidered();
 						dat.start();
 						break;
 					}
@@ -84,7 +85,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 	}
 }
 
-class RandomList<T> implements Iterable<T> {
+/*class RandomList<T> implements Iterable<T> {
 	private List<T> elements;
 
 	public RandomList() {
@@ -120,4 +121,4 @@ class RandomList<T> implements Iterable<T> {
 			}
 		};
 	}
-}
+}*/
