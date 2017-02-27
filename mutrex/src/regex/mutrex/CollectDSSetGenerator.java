@@ -34,8 +34,6 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 		nextMut: while (mutants.hasNext()) {
 			RegExp mutant = mutants.next().mutatedRexExp;
 			sortDAs(das);
-			//Automaton mAut = null;
-			//Automaton negMaut = null;
 			DistinguishingAutomaton.RegexWAutomata m = new DistinguishingAutomaton.RegexWAutomata(mutant);
 			Iterator<DistinguishingAutomaton> dasIt = das.iterator();
 			while (dasIt.hasNext()) {

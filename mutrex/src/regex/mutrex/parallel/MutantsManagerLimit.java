@@ -1,5 +1,6 @@
 package regex.mutrex.parallel;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
@@ -30,6 +31,7 @@ public class MutantsManagerLimit extends MutantsManager {
 					e.printStackTrace();
 				}
 			}
+			//Collections.shuffle(mutants);
 			for (Mutant mutant : mutants) {
 				if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
 						&& !mutant.isLocked()) {
@@ -96,7 +98,7 @@ public class MutantsManagerLimit extends MutantsManager {
 				runningThs++;
 				return mutant;
 			} else {
-				// Collections.shuffle(mutants);
+				//Collections.shuffle(mutants);
 				for (Mutant mutant : mutants) {
 					if (!mutant.isCovered && !mutant.isEquivalent() && !mutant.hasVisitedDA(s)) {
 						stopDA = false;
