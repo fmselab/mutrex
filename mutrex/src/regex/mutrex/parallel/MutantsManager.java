@@ -18,7 +18,43 @@ abstract class MutantsManager {
 	}
 
 	public abstract boolean areThereUncoveredMutants();
-	public abstract Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS);
+
+	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS) {
+		if (!noUncoveredMutants) {
+			/*if (mutants.size() == 0) {
+				if (itMutants.hasNext()) {
+					Mutant mutant = new Mutant(itMutants.next());
+					mutants.add(mutant);
+					mutant.lock();
+					return mutant;
+				}
+			} else {
+				// Collections.shuffle(mutants);
+				for (Mutant mutant : mutants) {
+					if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+							&& !mutant.isLocked()) {
+						mutant.lock();
+						return mutant;
+					}
+				}
+			}*/
+			for (Mutant mutant : mutants) {
+				if (!mutant.isCovered && !mutant.isEquivalent() && mutant.visited.containsAll(datS)
+						&& !mutant.isLocked()) {
+					mutant.lock();
+					return mutant;
+				}
+			}
+			if (itMutants.hasNext()) {
+				Mutant mutant = new Mutant(itMutants.next());
+				mutants.add(mutant);
+				mutant.lock();
+				return mutant;
+			}
+		}
+		return null;
+	}
+
 	public abstract Mutant getMutant(DistinguishAutomatonTh s);
 
 	public void coverMutant(Mutant mutant) {
