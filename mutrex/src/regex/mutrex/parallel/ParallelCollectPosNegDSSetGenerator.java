@@ -14,6 +14,7 @@ import regex.distinguishing.DistinguishingString;
 import regex.mutrex.DSSet;
 import regex.mutrex.DSSetGenerator;
 import regex.mutrex.DistinguishingAutomaton;
+import regex.mutrex.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**
@@ -66,7 +67,8 @@ public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 		@Override
 		public void run() {
 			while (mutantsManager.areThereUncoveredMutants()) {
-				DistinguishAutomatonTh dat = new DistinguishAutomatonTh(new DistinguishingAutomaton(regex, rgxAut, rexNegAut, positive),
+				RegexWAutomata r = new RegexWAutomata(regex);
+				DistinguishAutomatonTh dat = new DistinguishAutomatonTh(new DistinguishingAutomaton(r, positive),
 						mutantsManager);
 				dat.start();
 				try {
@@ -99,7 +101,8 @@ public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 			while (run) {
 				Mutant mutant = mutantsManager.getMutant(this);
 				if (mutant != null) {
-					if (da.add(mutant.getMutant(), null, null)) {
+					RegexWAutomata m = new RegexWAutomata(mutant.getMutant());
+					if (da.add(m )) {
 						mutantsManager.coverMutant(mutant);
 					} else if (da.getMutants().size() == 0) {
 						if (da.isPositive()) {

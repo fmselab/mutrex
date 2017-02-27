@@ -16,6 +16,7 @@ import regex.distinguishing.DistStringCreator;
 import regex.mutrex.DSSet;
 import regex.mutrex.DSSetGenerator;
 import regex.mutrex.DistinguishingAutomaton;
+import regex.mutrex.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
@@ -39,8 +40,11 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
-					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
-					if (newDa.add(mutant.getRegex(), mutant.mutAut, mutant.mutNegAut)) {
+					RegexWAutomata r= new RegexWAutomata(regex);
+					//DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
+					DistinguishingAutomaton newDa = new DistinguishingAutomaton(r, b);
+					RegexWAutomata m= new RegexWAutomata(mutant.getRegex());					
+					if (newDa.add(m)) {
 						logger.log(Level.INFO, "new da for " + mutant);
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;

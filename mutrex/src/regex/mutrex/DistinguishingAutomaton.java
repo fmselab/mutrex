@@ -24,23 +24,16 @@ public class DistinguishingAutomaton {
 	 *            generate strings rejected by regex and accepted by //
 	 *            mutations
 	 */
-	public DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
+	//public DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
+	public DistinguishingAutomaton(RegexWAutomata r, boolean b) {
 		positive = b;
 		//content = b ? rexAut : rexAut.complement();
 		
 		if(positive) {
-			if(rexAut == null) {
-				rexAut = regex.toAutomaton();
-			}
-			content = rexAut;
+			content = r.getmAut();
 		}
 		else {
-			if(rexAut == null) {
-				rexAut = regex.toAutomaton();
-				assert rexNegAut == null;
-				rexNegAut = rexAut.complement();
-			}
-			content = rexNegAut;
+			content = r.getNegMaut();
 		}
 		
 		mutatedRegexes = new ArrayList<>();
@@ -61,28 +54,20 @@ public class DistinguishingAutomaton {
 	 *            automata many times)
 	 * @return true, if successful
 	 */
-	public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
+	//public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
+	public boolean add(RegexWAutomata mutant) {
 		// try to add
 		Automaton result;
 		if (positive) {
-			if (negMaut == null) {
-				if (mAut == null) {
-					mAut = mutant.toAutomaton();
-				}
-				negMaut = mAut.complement();
-			}
-			result = content.intersection(negMaut);
+			result = content.intersection(mutant.getNegMaut());
 		} else {
-			if (mAut == null) {
-				mAut = mutant.toAutomaton();
-			}
-			result = content.intersection(mAut);
+			result = content.intersection(mutant.getmAut());
 		}
 		// if no intersection is possible
 		if (result.isEmpty()) {
 			return false;
 		}
-		mutatedRegexes.add(mutant);
+		mutatedRegexes.add(mutant.mutant);
 		//System.out.println(result.getNumberOfStates() + "\t" + result.getNumberOfTransitions());
 		content = result;
 		//content.reduce();
@@ -104,4 +89,32 @@ public class DistinguishingAutomaton {
 	public List<RegExp> getMutants() {
 		return Collections.unmodifiableList(mutatedRegexes);
 	}
+	
+	// a regex with its automata (positive and negative
+	public static class RegexWAutomata{
+		RegExp mutant;
+		
+		public RegexWAutomata(RegExp m){
+			mutant = m;
+		}
+		public Automaton getmAut() {
+			if (mAut == null) {
+				mAut = mutant.toAutomaton();
+			}
+			return mAut;
+		}
+		Automaton mAut, negMaut;
+		
+		public Automaton getNegMaut() {
+			if (negMaut == null) {
+				if (mAut == null) {
+					mAut = mutant.toAutomaton();
+				}
+				negMaut = mAut.complement();
+			}
+			return negMaut;
+		}
+		
+	}
 }
+

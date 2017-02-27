@@ -27,14 +27,14 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
 		//Automaton rexAut = regex.toAutomaton();
-		Automaton rexAut = null;
-		Automaton rexNegAut = null;
+		DistinguishingAutomaton.RegexWAutomata r = new DistinguishingAutomaton.RegexWAutomata(regex);
 		List<DistinguishingAutomaton> das = new ArrayList<>();
 		nextMut: while (mutants.hasNext()) {
 			RegExp mutant = mutants.next().mutatedRexExp;
 			sortDAs(das);
-			Automaton mAut = null;
-			Automaton negMaut = null;
+			//Automaton mAut = null;
+			//Automaton negMaut = null;
+			DistinguishingAutomaton.RegexWAutomata m = new DistinguishingAutomaton.RegexWAutomata(mutant);
 			Iterator<DistinguishingAutomaton> dasIt = das.iterator();
 			while (dasIt.hasNext()) {
 				DistinguishingAutomaton da = dasIt.next();
@@ -43,7 +43,7 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 					continue;
 				}*/
 
-				if (da.add(mutant, mAut, negMaut)) {
+				if (da.add(m)) {
 					logger.log(Level.INFO, "collected mutation " + mutant + " into " + da);
 					if (stop(da)) {
 						// solution 1: removing the da
@@ -60,8 +60,8 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 			// try to collect rexAut
 			Collections.shuffle(trueFalse);
 			for (boolean b : trueFalse) {
-				DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
-				if (newDa.add(mutant, mAut, negMaut)) {
+				DistinguishingAutomaton newDa = new DistinguishingAutomaton(r, b);
+				if (newDa.add(m)) {
 					das.add(newDa);
 					logger.log(Level.INFO, "new da for mutation " + mutant + " into " + newDa);
 					continue nextMut;
