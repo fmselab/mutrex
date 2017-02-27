@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DSgenPolicy;
 import regex.distinguishing.DistStringCreator;
@@ -27,10 +26,9 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
-		Automaton rexAut = null;
-		Automaton rexNegAut = null;
 		MutantsManager mutantsManager = getMutantManager(mutants);
 		Set<DistinguishAutomatonTh> datS = new HashSet<DistinguishAutomatonTh>();
+		RegexWAutomata regexWithAutomata = new RegexWAutomata(regex);
 		while (mutantsManager.areThereUncoveredMutants()) {
 			// mutant not covered by the created distinguishing automata
 			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
@@ -40,11 +38,8 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				DistinguishAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
-					RegexWAutomata r= new RegexWAutomata(regex);
-					//DistinguishingAutomaton newDa = new DistinguishingAutomaton(regex, rexAut, rexNegAut, b);
-					DistinguishingAutomaton newDa = new DistinguishingAutomaton(r, b);
-					RegexWAutomata m= new RegexWAutomata(mutant.getRegex());					
-					if (newDa.add(m)) {
+					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regexWithAutomata, b);
+					if (newDa.add(mutant.getRegexWithAutomata())) {
 						logger.log(Level.INFO, "new da for " + mutant);
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;

@@ -12,33 +12,32 @@ public class DistinguishingAutomaton {
 	public boolean positive;
 	private Automaton content;
 	List<RegExp> mutatedRegexes;
-	//solution 2: invalidating the da
-	//boolean isActive;
+	// solution 2: invalidating the da
+	// boolean isActive;
 
 	/**
 	 * 
 	 * @param rexAut
 	 * @param b
-	 *            positive? those that generate strings accepted by regex
-	 *            and rejected by mutations are positive // those that
-	 *            generate strings rejected by regex and accepted by //
-	 *            mutations
+	 *            positive? those that generate strings accepted by regex and
+	 *            rejected by mutations are positive // those that generate
+	 *            strings rejected by regex and accepted by // mutations
 	 */
-	//public DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton rexNegAut, boolean b) {
+	// public DistinguishingAutomaton(RegExp regex, Automaton rexAut, Automaton
+	// rexNegAut, boolean b) {
 	public DistinguishingAutomaton(RegexWAutomata r, boolean b) {
 		positive = b;
-		//content = b ? rexAut : rexAut.complement();
-		
-		if(positive) {
+		// content = b ? rexAut : rexAut.complement();
+
+		if (positive) {
 			content = r.getmAut();
-		}
-		else {
+		} else {
 			content = r.getNegMaut();
 		}
-		
+
 		mutatedRegexes = new ArrayList<>();
-		//solution 2: invalidating the da
-		//isActive = true;
+		// solution 2: invalidating the da
+		// isActive = true;
 	}
 
 	/**
@@ -47,14 +46,14 @@ public class DistinguishingAutomaton {
 	 * @param mutant
 	 *            the mutant (as regex)
 	 * @param mAut
-	 *            the automaton (passed in order to avoid to build each
-	 *            automata many times)
+	 *            the automaton (passed in order to avoid to build each automata
+	 *            many times)
 	 * @param negMaut
 	 *            the negated automaton (passed in order to avoid to build each
 	 *            automata many times)
 	 * @return true, if successful
 	 */
-	//public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
+	// public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
 	public boolean add(RegexWAutomata mutant) {
 		// try to add
 		Automaton result;
@@ -68,13 +67,7 @@ public class DistinguishingAutomaton {
 			return false;
 		}
 		mutatedRegexes.add(mutant.mutant);
-		//System.out.println(result.getNumberOfStates() + "\t" + result.getNumberOfTransitions());
 		content = result;
-		//content.reduce();
-		//content.minimize();
-		//System.out.println(this + "\t" + content.getNumberOfStates() + "\t" + content.getNumberOfTransitions());
-		//System.out.println(content.getNumberOfStates() + "\t" + content.getNumberOfTransitions());
-		//System.out.println();
 		return true;
 	}
 
@@ -89,22 +82,23 @@ public class DistinguishingAutomaton {
 	public List<RegExp> getMutants() {
 		return Collections.unmodifiableList(mutatedRegexes);
 	}
-	
+
 	// a regex with its automata (positive and negative
-	public static class RegexWAutomata{
-		RegExp mutant;
-		
-		public RegexWAutomata(RegExp m){
+	public static class RegexWAutomata {
+		private RegExp mutant;
+		private Automaton mAut, negMaut;
+
+		public RegexWAutomata(RegExp m) {
 			mutant = m;
 		}
+
 		public Automaton getmAut() {
 			if (mAut == null) {
 				mAut = mutant.toAutomaton();
 			}
 			return mAut;
 		}
-		Automaton mAut, negMaut;
-		
+
 		public Automaton getNegMaut() {
 			if (negMaut == null) {
 				if (mAut == null) {
@@ -114,7 +108,9 @@ public class DistinguishingAutomaton {
 			}
 			return negMaut;
 		}
-		
+
+		public RegExp getMutant() {
+			return mutant;
+		}
 	}
 }
-

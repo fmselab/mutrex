@@ -5,10 +5,11 @@ import java.util.Set;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
+import regex.mutrex.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class Mutant {
-	private MutatedRegExp mutant;
+	private RegexWAutomata mutant;
 	Set<DistinguishAutomatonTh> visited;
 	private boolean locked;
 	private boolean testedPositiveWithR;
@@ -18,7 +19,7 @@ public class Mutant {
 	Automaton mutNegAut;
 
 	public Mutant(MutatedRegExp mutatedRegExp) {
-		this.mutant = mutatedRegExp;
+		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishAutomatonTh>();
 	}
 
@@ -43,7 +44,11 @@ public class Mutant {
 	}
 
 	public RegExp getRegex() {
-		return mutant.mutatedRexExp;
+		return mutant.getMutant();
+	}
+
+	public RegexWAutomata getRegexWithAutomata() {
+		return mutant;
 	}
 
 	public void setTestedPositiveWithR() {

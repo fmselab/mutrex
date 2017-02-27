@@ -30,8 +30,7 @@ public class DistinguishAutomatonTh extends Thread {
 			Mutant mutant = mutantsManager.getMutant(this);
 			logger.log(Level.INFO, da + " retrieved mutant " + mutant);
 			if (mutant != null) {
-				DistinguishingAutomaton.RegexWAutomata m = new DistinguishingAutomaton.RegexWAutomata(mutant.getRegex());			
-				if (da.add(m)) {
+				if (da.add(mutant.getRegexWithAutomata())) {
 					logger.log(Level.INFO, da + " added " + mutant);
 					assert da.getMutants().size() > 1;
 					mutantsManager.coverMutant(mutant);
