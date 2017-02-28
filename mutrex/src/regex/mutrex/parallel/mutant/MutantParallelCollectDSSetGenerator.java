@@ -46,32 +46,50 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
-		List<Boolean> trueFalse = Arrays.asList(true, false);
+		
 		RegexWAutomata regexWithAutomata = new RegexWAutomata(regex);
 		DasManager dasManager = new DasManager();
 		Mutant mutant = null;
 loopMut:while ((mutant = getMutant(mutants)) != null) {
-			while(!mutant.isCovered) {
-				DistinguishingAutomatonClass da = dasManager.getDA(mutant);
-				if(da == null) {
-					Collections.shuffle(trueFalse);
-					for (boolean b : trueFalse) {
-						DistinguishingAutomaton newDa = new DistinguishingAutomaton(mutant.mutant, b);
-						if (newDa.add(mutant.mutant)) {
-							mutant.isCovered = true;
-							DistinguishingAutomatonClass newDaC = new DistinguishingAutomatonClass(newDa);
-							dasManager.addDA(newDaC);
-							continue loopMut;
-						}
+			
+		}
+	}
+}
+
+class MutTh extends Thread {
+	Mutant mutant;
+	DasManager dasManager;
+
+	public MutTh(Mutant mutant, DasManager dasManager) {
+		this.mutant = mutant;
+		this.dasManager = dasManager;
+	}
+	
+	@Override
+	public void run() {
+		List<Boolean> trueFalse = Arrays.asList(true, false);
+		boolean isCovered = false;
+		while(!isCovered) {
+			DistinguishingAutomatonClass da = dasManager.getDA(mutant);
+			if(da == null) {
+				Collections.shuffle(trueFalse);
+				for (boolean b : trueFalse) {
+					DistinguishingAutomaton newDa = new DistinguishingAutomaton(mutant.mutant, b);
+					if (newDa.add(mutant.mutant)) {
+						DistinguishingAutomatonClass newDaC = new DistinguishingAutomatonClass(newDa);
+						dasManager.addDA(newDaC);
+						break;
 					}
-					mutant.isEquivalent = true;
 				}
-				else {
-					
-				}
+				isCovered = true;
+				mutant.isEquivalent = true;
+			}
+			else {
+				
 			}
 		}
 	}
+	
 }
 
 class DasManager {
@@ -83,30 +101,16 @@ class DasManager {
 	}
 	
 	public synchronized DistinguishingAutomatonClass getDA(Mutant mutant) {
-		boolean addNewDa = true;
 		Set<DistinguishingAutomatonClass> checkedByMut = mutant.visited;
 		for (DistinguishingAutomatonClass da : daS) {
 			if (!checkedByMut.contains(da)) {
-				addNewDa = false;
 				if (!da.locked) {
 					da.locked = true;
 					return da;
 				}
 			}
 		}
-		if (addNewDa) {
-			Collections.shuffle(trueFalse);
-			for (boolean b : trueFalse) {
-				DistinguishingAutomaton newDa = new DistinguishingAutomaton(mutant.mutant, b);
-				if (newDa.add(mutant.mutant)) {
-					mutant.isCovered = true;
-					DistinguishingAutomatonClass newDaC = new DistinguishingAutomatonClass(newDa);
-					daS.add(newDaC);
-					break;
-				}
-			}
-			mutant.isEquivalent = true;
-		} 
+		return null;
 	}
 }
 
@@ -123,7 +127,6 @@ class Mutant {
 	RegexWAutomata mutant;
 	Set<DistinguishingAutomatonClass> visited;
 	boolean isEquivalent;
-	boolean isCovered;
 
 	public Mutant(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
