@@ -1,6 +1,5 @@
 package regex.mutrex.parallel;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;

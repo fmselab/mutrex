@@ -3,7 +3,6 @@ package regex.mutrex.main;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Iterator;
-import java.util.Map.Entry;
 
 import org.junit.Test;
 
@@ -11,8 +10,6 @@ import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.ds.RegExpSet;
-import regex.mutrex.main.GeneratorType;
-import regex.mutrex.main.MutRex;
 
 public class MutRexTest {
 

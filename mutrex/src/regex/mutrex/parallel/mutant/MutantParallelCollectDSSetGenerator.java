@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dk.brics.automaton.RegExp;
@@ -16,7 +17,7 @@ import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
-	private static Logger logger = Logger.getLogger(MutantParallelCollectDSSetGenerator.class.getName());
+	static Logger logger = Logger.getLogger(MutantParallelCollectDSSetGenerator.class.getName());
 	public static DSSetGenerator generator = new MutantParallelCollectDSSetGenerator();
 	int numRunningMutants = 0;
 
@@ -39,6 +40,7 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 
 	public synchronized void decreaseRunningMuts() {
 		numRunningMutants--;
+		notifyAll();
 	}
 
 	@Override
@@ -46,12 +48,14 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 		DasManager dasManager = new DasManager(regex);
 		Mutant mutant = null;
 		while ((mutant = getMutant(mutants)) != null) {
+			logger.log(Level.INFO, "new mutant " + mutant);
 			new MutTh(mutant, dasManager, this).start();
 		}
 	}
 }
 
 class MutTh extends Thread {
+	static Logger logger = Logger.getLogger(MutTh.class.getName());
 	Mutant mutant;
 	DasManager dasManager;
 	MutantParallelCollectDSSetGenerator gen;
@@ -69,12 +73,14 @@ class MutTh extends Thread {
 		while(!isCovered) {
 			DistinguishingAutomatonClass dac = dasManager.getDA(mutant);
 			if(dac == null) {
+				logger.log(Level.INFO, "look for new da");
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(dasManager.regexWithAutomata, b);
 					if (newDa.add(mutant.mutant)) {
 						DistinguishingAutomatonClass newDaC = new DistinguishingAutomatonClass(newDa);
 						dasManager.addDA(newDaC);
+						logger.log(Level.INFO, "new da found");
 						break;
 					}
 				}
@@ -85,6 +91,7 @@ class MutTh extends Thread {
 				if(dac.da.add(mutant.mutant)) {
 					isCovered = true;
 				}
+				mutant.visited.add(dac);
 				dasManager.unlock(dac);
 			}
 		}
@@ -94,6 +101,7 @@ class MutTh extends Thread {
 }
 
 class DasManager {
+	static Logger logger = Logger.getLogger(DasManager.class.getName());
 	Set<DistinguishingAutomatonClass> daS = new HashSet<DistinguishingAutomatonClass>();
 	List<Boolean> trueFalse = Arrays.asList(true, false);
 	RegexWAutomata regexWithAutomata;
@@ -104,6 +112,7 @@ class DasManager {
 
 	public synchronized void addDA(DistinguishingAutomatonClass da) {
 		daS.add(da);
+		notifyAll();
 	}
 
 	public synchronized void unlock(DistinguishingAutomatonClass da) {
@@ -129,6 +138,7 @@ class DasManager {
 			}
 			else {
 				try {
+					logger.log(Level.INFO, mutant + " waits");
 					wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -155,14 +165,6 @@ class Mutant {
 	public Mutant(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishingAutomatonClass>();
-	}
-
-	public void setVisitedDA(DistinguishingAutomatonClass da) {
-		visited.add(da);
-	}
-
-	public boolean hasVisitedDA(DistinguishingAutomatonClass dat) {
-		return visited.contains(dat);
 	}
 
 	public RegExp getRegex() {
