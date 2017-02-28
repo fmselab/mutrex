@@ -19,9 +19,9 @@ abstract class MutantsManager {
 
 	public abstract boolean areThereUncoveredMutants();
 
-	public abstract Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS);
+	public abstract Mutant getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS);
 
-	public abstract Mutant getMutant(DistinguishAutomatonTh s);
+	public abstract Mutant getMutant(DistinguishingAutomatonTh s);
 
 	public void coverMutant(Mutant mutant) {
 		mutant.isCovered = true;

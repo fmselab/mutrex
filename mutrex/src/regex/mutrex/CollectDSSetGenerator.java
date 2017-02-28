@@ -74,6 +74,7 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 		for (DistinguishingAutomaton da : das) {
 			genTest(result, da);
 		}
+		//System.out.print(das.size() + "\t");
 		/*System.out.println();
 		for(Integer c: coveredMutsNum) {
 			System.out.print(c + " ");

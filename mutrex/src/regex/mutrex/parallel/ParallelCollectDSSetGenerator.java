@@ -27,7 +27,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
 		MutantsManager mutantsManager = getMutantManager(mutants);
-		Set<DistinguishAutomatonTh> datS = new HashSet<DistinguishAutomatonTh>();
+		Set<DistinguishingAutomatonTh> datS = new HashSet<DistinguishingAutomatonTh>();
 		RegexWAutomata regexWithAutomata = new RegexWAutomata(regex);
 		while (mutantsManager.areThereUncoveredMutants()) {
 			// mutant not covered by the created distinguishing automata
@@ -35,7 +35,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 			if (mutant != null) {
 				assert mutant.isLocked();
 				// randomly generate a positive or negative da
-				DistinguishAutomatonTh dat = null;
+				DistinguishingAutomatonTh dat = null;
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regexWithAutomata, b);
@@ -43,7 +43,7 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 						logger.log(Level.INFO, "new da for " + mutant);
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
-						dat = new DistinguishAutomatonTh(newDa, mutantsManager, dsS);
+						dat = new DistinguishingAutomatonTh(newDa, mutantsManager, dsS);
 						datS.add(dat);
 						mutant.setVisitedDA(dat);
 						mutantsManager.coverMutant(mutant);
@@ -66,13 +66,14 @@ abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 				}
 			}
 		}
-		for (DistinguishAutomatonTh dat : datS) {
+		for (DistinguishingAutomatonTh dat : datS) {
 			try {
 				dat.join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		//System.out.print(datS.size() + "\t");
 		// assert mutantsManager.mutants.parallelStream().allMatch(m ->
 		// (m.isCovered || m.isEquivalent()));
 		if (this.getClass().desiredAssertionStatus()) {

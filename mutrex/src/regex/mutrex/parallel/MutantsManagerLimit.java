@@ -2,6 +2,7 @@ package regex.mutrex.parallel;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 public class MutantsManagerLimit extends MutantsManager {
 	private static Logger logger = Logger.getLogger(MutantsManagerLimit.class.getName());
 	private int runningThs = 0;
+	private Random rnd = new Random(System.currentTimeMillis());
 
 	public MutantsManagerLimit(Iterator<MutatedRegExp> itMutants) {
 		super(itMutants);
@@ -22,7 +24,7 @@ public class MutantsManagerLimit extends MutantsManager {
 	}
 
 	@Override
-	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishAutomatonTh> datS) {
+	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS) {
 		if (!noUncoveredMutants) {
 			while (runningThs >= Runtime.getRuntime().availableProcessors()) {
 				try {
@@ -78,7 +80,7 @@ public class MutantsManagerLimit extends MutantsManager {
 	}
 
 	@Override
-	public synchronized Mutant getMutant(DistinguishAutomatonTh s) {
+	public synchronized Mutant getMutant(DistinguishingAutomatonTh s) {
 		while (runningThs >= Runtime.getRuntime().availableProcessors()) {
 			try {
 				wait();
@@ -93,7 +95,8 @@ public class MutantsManagerLimit extends MutantsManager {
 				Mutant mutant = new Mutant(itMutants.next());
 				mutant.setVisitedDA(s);
 				mutant.lock();
-				mutants.add(mutant);
+				//mutants.add(mutant);
+				mutants.add(rnd.nextInt(mutants.size()), mutant);
 				logger.log(Level.INFO, "getting next mutant " + mutant);
 				runningThs++;
 				return mutant;

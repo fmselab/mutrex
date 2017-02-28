@@ -21,6 +21,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
  * generates a ds that tries to kill as many mutants as possible. Parallel
  * version
  * 
+ * 
  */
 public class ParallelCollectPosNegDSSetGenerator extends DSSetGenerator {
 	private static Logger logger = Logger.getLogger(ParallelCollectPosNegDSSetGenerator.class.getName());

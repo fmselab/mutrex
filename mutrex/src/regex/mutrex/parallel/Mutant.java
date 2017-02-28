@@ -10,7 +10,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 
 public class Mutant {
 	private RegexWAutomata mutant;
-	Set<DistinguishAutomatonTh> visited;
+	Set<DistinguishingAutomatonTh> visited;
 	private boolean locked;
 	private boolean testedPositiveWithR;
 	private boolean testedNegativeWithR;
@@ -20,14 +20,14 @@ public class Mutant {
 
 	public Mutant(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
-		visited = new HashSet<DistinguishAutomatonTh>();
+		visited = new HashSet<DistinguishingAutomatonTh>();
 	}
 
-	public void setVisitedDA(DistinguishAutomatonTh da) {
+	public void setVisitedDA(DistinguishingAutomatonTh da) {
 		visited.add(da);
 	}
 
-	public boolean hasVisitedDA(DistinguishAutomatonTh dat) {
+	public boolean hasVisitedDA(DistinguishingAutomatonTh dat) {
 		return visited.contains(dat);
 	}
 

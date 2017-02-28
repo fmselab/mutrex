@@ -9,14 +9,14 @@ import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DistinguishingAutomaton;
 
-public class DistinguishAutomatonTh extends Thread {
-	private static Logger logger = Logger.getLogger(DistinguishAutomatonTh.class.getName());
+public class DistinguishingAutomatonTh extends Thread {
+	private static Logger logger = Logger.getLogger(DistinguishingAutomatonTh.class.getName());
 	private DistinguishingAutomaton da;
 	private MutantsManager mutantsManager;
 	private boolean run;
 	private DSSet dsS;
 
-	public DistinguishAutomatonTh(DistinguishingAutomaton da, MutantsManager mutantsManager, DSSet dsS) {
+	public DistinguishingAutomatonTh(DistinguishingAutomaton da, MutantsManager mutantsManager, DSSet dsS) {
 		this.da = da;
 		this.mutantsManager = mutantsManager;
 		run = true;
