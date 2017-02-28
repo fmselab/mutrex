@@ -67,10 +67,6 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 			dsS.add(ds, dac.da.getMutants());
 		}
 	}
-
-	private void genTest(DSSet result, DistinguishingAutomaton da) {
-		
-	}
 }
 
 class MutTh extends Thread {

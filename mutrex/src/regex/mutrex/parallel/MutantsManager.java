@@ -11,6 +11,7 @@ abstract class MutantsManager {
 	protected Iterator<MutatedRegExp> itMutants;
 	List<Mutant> mutants;
 	protected boolean noUncoveredMutants;
+	protected boolean stop = false;
 
 	public MutantsManager(Iterator<MutatedRegExp> itMutants) {
 		this.itMutants = itMutants;

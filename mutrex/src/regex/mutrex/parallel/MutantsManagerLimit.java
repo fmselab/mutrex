@@ -24,7 +24,7 @@ public class MutantsManagerLimit extends MutantsManager {
 
 	@Override
 	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS) {
-		if (!noUncoveredMutants) {
+		/*if (!noUncoveredMutants) {
 			while (runningThs >= Runtime.getRuntime().availableProcessors()) {
 				try {
 					wait();
@@ -49,6 +49,44 @@ public class MutantsManagerLimit extends MutantsManager {
 				return mutant;
 			}
 		}
+		return null;*/
+		//Collections.shuffle(mutants);
+		boolean exit = false;
+		while(!exit) {
+			exit = true;
+			boolean stop = true;
+			for (Mutant mutant : mutants) {
+				if (!mutant.isCovered && !mutant.isEquivalent()) {
+					stop = false;
+					if(mutant.visited.containsAll(datS)) {
+						exit = false;
+						if(!mutant.isLocked()) {
+							mutant.lock();
+							runningThs++;
+							return mutant;
+						}
+					}
+				}
+			}
+			if (itMutants.hasNext()) {
+				Mutant mutant = new Mutant(itMutants.next());
+				mutants.add(mutant);
+				mutant.lock();
+				runningThs++;
+				return mutant;
+			}
+			if(stop) {
+				this.stop = true;
+				return null;
+			}
+			if(!exit) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return null;
 	}
 
@@ -57,24 +95,18 @@ public class MutantsManagerLimit extends MutantsManager {
 		if (noUncoveredMutants)
 			return false;
 		if (itMutants.hasNext()) {
-			synchronized (this) {
-				notifyAll();
-			}
+			notifyAll();
 			return true;
 		} else {
 			for (Mutant m : mutants) {
 				if (!m.isEquivalent() && !m.isCovered) {
-					synchronized (this) {
-						notifyAll();
-					}
+					notifyAll();
 					return true;
 				}
 			}
 		}
 		noUncoveredMutants = true;
-		synchronized (this) {
-			notifyAll();
-		}
+		notifyAll();
 		return false;
 	}
 
