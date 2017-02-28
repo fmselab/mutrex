@@ -15,7 +15,7 @@ public class MutantsManager {
 	protected Iterator<MutatedRegExp> itMutants;
 	List<Mutant> mutants;
 	protected boolean noUncoveredMutants;
-	private Random rnd = new Random(System.currentTimeMillis());
+	//private Random rnd = new Random(System.currentTimeMillis());
 	protected boolean stop = false;
 	private int runningThs = 0;
 
@@ -32,6 +32,13 @@ public class MutantsManager {
 	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS) {
 		boolean exit = false;
 		while(!exit) {
+			while (runningThs >= Runtime.getRuntime().availableProcessors()) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			exit = true;
 			boolean stop = true;
 			for (Mutant mutant : mutants) {
@@ -84,8 +91,8 @@ public class MutantsManager {
 				Mutant mutant = new Mutant(itMutants.next());
 				mutant.setVisitedDA(s);
 				mutant.lock();
-				//mutants.add(mutant);
-				mutants.add(rnd.nextInt(mutants.size()), mutant);
+				mutants.add(mutant);
+				//mutants.add(rnd.nextInt(mutants.size()), mutant);
 				logger.log(Level.INFO, "getting next mutant " + mutant);
 				runningThs++;
 				return mutant;
