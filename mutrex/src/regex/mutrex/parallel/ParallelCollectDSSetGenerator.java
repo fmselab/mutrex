@@ -18,54 +18,16 @@ import regex.mutrex.ds.DistinguishingAutomaton;
 import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
-abstract public class ParallelCollectDSSetGenerator extends DSSetGenerator {
+public class ParallelCollectDSSetGenerator extends DSSetGenerator {
 	private static Logger logger = Logger.getLogger(ParallelCollectDSSetGenerator.class.getName());
+	public static DSSetGenerator generator = new ParallelCollectDSSetGenerator();
 
-	abstract public MutantsManager getMutantManager(Iterator<MutatedRegExp> mutants);
-	
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
-		MutantsManager mutantsManager = getMutantManager(mutants);
+		MutantsManager mutantsManager = new MutantsManager(mutants);
 		Set<DistinguishingAutomatonTh> datS = new HashSet<DistinguishingAutomatonTh>();
 		RegexWAutomata regexWithAutomata = new RegexWAutomata(regex);
-		/*while (mutantsManager.areThereUncoveredMutants()) {
-			// mutant not covered by the created distinguishing automata
-			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
-			if (mutant != null) {
-				assert mutant.isLocked();
-				// randomly generate a positive or negative da
-				DistinguishingAutomatonTh dat = null;
-				Collections.shuffle(trueFalse);
-				for (boolean b : trueFalse) {
-					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regexWithAutomata, b);
-					if (newDa.add(mutant.getRegexWithAutomata())) {
-						logger.log(Level.INFO, "new da for " + mutant);
-						assert newDa.getMutants().size() == 1;
-						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;
-						dat = new DistinguishingAutomatonTh(newDa, mutantsManager, dsS);
-						datS.add(dat);
-						mutant.setVisitedDA(dat);
-						mutantsManager.coverMutant(mutant);
-						mutant.unlock();
-						dat.start();
-						mutantsManager.mutantConsidered();
-						break;
-					}
-				}
-				// if no da has been created, it means that the mutant is
-				// equivalent (tested both with positive and negative das)
-				if (dat == null) {
-					logger.log(Level.INFO, "Equiv " + mutant);
-					mutant.setTestedPositiveWithR();
-					mutant.setTestedNegativeWithR();
-					assert mutant.isEquivalent();
-					mutant.unlock();
-					mutantsManager.mutantConsidered();
-					assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) == null;
-				}
-			}
-		}*/
 		while (!mutantsManager.stop) {
 			// mutant not covered by the created distinguishing automata
 			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
