@@ -5,14 +5,13 @@ import regex.mutrex.MonitoringDSSetgenerator;
 import regex.mutrex.PlainDSSetgenerator;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
-import regex.mutrex.parallel.ParallelCollectDSSetGenerator;
-import regex.mutrex.parallel.ParallelCollectPosNegDSSetGenerator;
+import regex.mutrex.parallel.DAsParallelCollectDSSetGenerator;
+import regex.mutrex.parallel.mutant.MutantParallelCollectDSSetGenerator;
 
 /** generates all the string to kill the mutation of a given regex */
 public class MutRex {
-
 	public static DSSetGenerator[] generators = { PlainDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
-			CollectDSSetGeneratorNoLimit.generator, ParallelCollectPosNegDSSetGenerator.generator};
+			CollectDSSetGeneratorNoLimit.generator };
 
 	/** build the distinguishing strings + mutant killed */
 	public static DSSet generateStrings(String extregex, GeneratorType type) {
@@ -25,10 +24,10 @@ public class MutRex {
 			return CollectDSSetGeneratorNoLimit.generator.generateDSSet(extregex);
 		case COLLECTING_QUIT_AFTER_N:
 			throw new RuntimeException("Use constructor");
-		case COLLECTING_PAR_ONLY_POS_AND_NEG:
-			return ParallelCollectPosNegDSSetGenerator.generator.generateDSSet(extregex);
-		case COLLECTING_PAR_DAS:
-			return ParallelCollectDSSetGenerator.generator.generateDSSet(extregex);
+		case COLLECTING_PAR_DAs:
+			return DAsParallelCollectDSSetGenerator.generator.generateDSSet(extregex);
+		case COLLECTING_PAR_MUTs:
+			return MutantParallelCollectDSSetGenerator.generator.generateDSSet(extregex);
 		default:
 			throw new RuntimeException();
 		}

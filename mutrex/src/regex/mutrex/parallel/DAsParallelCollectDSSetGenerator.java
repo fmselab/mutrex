@@ -18,9 +18,9 @@ import regex.mutrex.ds.DistinguishingAutomaton;
 import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
-public class ParallelCollectDSSetGenerator extends DSSetGenerator {
-	private static Logger logger = Logger.getLogger(ParallelCollectDSSetGenerator.class.getName());
-	public static DSSetGenerator generator = new ParallelCollectDSSetGenerator();
+public class DAsParallelCollectDSSetGenerator extends DSSetGenerator {
+	private static Logger logger = Logger.getLogger(DAsParallelCollectDSSetGenerator.class.getName());
+	public static DSSetGenerator generator = new DAsParallelCollectDSSetGenerator();
 
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
