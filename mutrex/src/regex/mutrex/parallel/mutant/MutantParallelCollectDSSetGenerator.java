@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dk.brics.automaton.RegExp;
+import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.ds.DistinguishingAutomaton;
@@ -47,10 +48,28 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		DasManager dasManager = new DasManager(regex);
 		Mutant mutant = null;
+		Set<MutTh> mutThs = new HashSet<MutTh>();
 		while ((mutant = getMutant(mutants)) != null) {
 			logger.log(Level.INFO, "new mutant " + mutant);
-			new MutTh(mutant, dasManager, this).start();
+			MutTh mutTh = new MutTh(mutant, dasManager, this);
+			mutTh.start();
+			mutThs.add(mutTh);
 		}
+		for(MutTh mutTh: mutThs) {
+			try {
+				mutTh.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		for (DistinguishingAutomatonClass dac: dasManager.daS) {
+			DistinguishingString ds = new DistinguishingString(dac.da.getExample(), dac.da.isPositive());
+			dsS.add(ds, dac.da.getMutants());
+		}
+	}
+
+	private void genTest(DSSet result, DistinguishingAutomaton da) {
+		
 	}
 }
 
