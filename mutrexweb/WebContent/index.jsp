@@ -131,6 +131,8 @@ td {
 	<br>
 	<a href="http://d3s.mff.cuni.cz/~arcaini/papers/mutrexMUTATION2017.pdf">[download
 		the pdf]</a>
+	<hr>
+	Source code is available <a href="https://github.com/fmselab/mutrex"> on github</a>
 
 </body>
 </html>
