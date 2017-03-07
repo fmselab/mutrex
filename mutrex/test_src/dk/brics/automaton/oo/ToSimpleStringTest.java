@@ -22,8 +22,15 @@ public class ToSimpleStringTest {
 	}
 
 	@Test
+	public void testConvertToRegexStringSomeExamplesOmo2() {
+		// these must be converted back to exactly the same string
+		checkOmoTrasformation("[a-zA-Z]*");		
+	}
+
+	@Test
 	public void testConvertToRegexStringSomeExamplesEquivalent() {
 		assertEquals("(a|b)*", convertBack("[ab]*"));
+		assertEquals("ab*", convertBack("a(b*)"));
 	}
 	
 	
@@ -38,5 +45,5 @@ public class ToSimpleStringTest {
 		String result = ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(regex));
 		return result;
 	}
-	
+		
 }

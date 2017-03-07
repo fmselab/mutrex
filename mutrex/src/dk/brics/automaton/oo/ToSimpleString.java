@@ -1,5 +1,7 @@
 package dk.brics.automaton.oo;
 
+import java.util.List;
+
 /**
  * 
  * It converts a ooregex to a readable String 
@@ -22,7 +24,29 @@ public class ToSimpleString extends ToRegexString {
 	@Override
 	public Void visit(REGEXP_REPEAT r) {
 		//		
-		visit(r,r.accept(precedence)<r.exp.accept(precedence));
+		boolean parenthesis = r.accept(precedence)<r.exp.accept(precedence);
+		visit(r,parenthesis);
+		return null;
+	}
+
+	@Override
+	public Void visit(REGEXP_UNION r) {
+		//
+		List<ooregex> splits = REGEXP_UNION.splitUnion(r);
+		boolean allcharrange = true;
+		String charranges = "";
+		for (ooregex rs:splits){
+			if (! (rs instanceof REGEXP_CHAR_RANGE)){
+				allcharrange = false;
+				break;
+			} else{
+				charranges += ((REGEXP_CHAR_RANGE)rs).from + "-"+ ((REGEXP_CHAR_RANGE)rs).to;				
+			}
+		}
+		if (allcharrange)
+			b.append("["+charranges + "]");
+		else
+			super.visit(r);
 		return null;
 	}
 	
@@ -31,6 +55,7 @@ public class ToSimpleString extends ToRegexString {
 		b.append(r.c);
 		return null;
 	}
+	
 
 	@Override
 	public Void visit(oosimpleexp r) {
@@ -47,6 +72,8 @@ public class ToSimpleString extends ToRegexString {
 	
 	private PrecedenceIndex precedence = new PrecedenceIndex();
 	
+	// precedenza minore vuol dire che ha più precedenza quando parsa
+	// ad esempio ab* is parsed as "a(b*)"
 	class PrecedenceIndex implements RegexVisitor<Integer>{
 
 		@Override
@@ -90,9 +117,10 @@ public class ToSimpleString extends ToRegexString {
 			return 7;
 		}
 		
+		// a single char does not need parenthesis
 		@Override
 		public Integer visit(REGEXP_CHAR r) {
-			return 8;
+			return -1;
 		}
 
 

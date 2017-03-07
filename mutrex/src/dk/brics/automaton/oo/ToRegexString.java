@@ -24,12 +24,16 @@ public class ToRegexString implements RegexVisitor<Void> {
 
 	@Override
 	public Void visit(REGEXP_UNION r) {
-		b.append("(");
-		r.exp1.accept(this);
-		b.append("|");
-		r.exp2.accept(this);
-		b.append(")");
+		visit(r, true);
 		return null;
+	}
+
+	protected void visit(REGEXP_UNION r, boolean parenthesis) {
+		if (parenthesis) b.append("(");
+		r.exp1.accept(this);
+		if (parenthesis) b.append("|");
+		r.exp2.accept(this);
+		if (parenthesis) b.append(")");
 	}
 
 	@Override
