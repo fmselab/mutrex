@@ -18,7 +18,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
  */
 public class DSSet implements Iterable<DistinguishingString>{
 		
-	Map<DistinguishingString, RegExpSet> dsKilledMutant = new HashMap<DistinguishingString, RegExpSet>();
+	private Map<DistinguishingString, RegExpSet> dsKilledMutant = new HashMap<DistinguishingString, RegExpSet>();
 
 	/**
 	 * add killed mutants with their description
