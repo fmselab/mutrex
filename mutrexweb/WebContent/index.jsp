@@ -22,6 +22,7 @@ h1 {
 	color: blue;
 	background: white;
 	margin-left: 0px;
+	vertical-align:middle;
 }
 
 table, th, td {
@@ -30,7 +31,7 @@ table, th, td {
 }
 
 th {
-	height: 50px;
+	height: 40px;
 }
 
 td {
@@ -57,7 +58,7 @@ td {
 		}
 }
 %>
-	<h1>MutRex: the mutation-based test generator for regular
+	<h1><img src="icon/mutrex_small.png" alt="mutrex logo" style="width:60px;height:60px;">MutRex: the mutation-based test generator for regular
 		expressions</h1>
 	<%
 		if (request.getParameter("regex") == null) {
