@@ -22,7 +22,7 @@ h1 {
 	color: blue;
 	background: white;
 	margin-left: 0px;
-	vertical-align:middle;
+	vertical-align: middle;
 }
 
 table, th, td {
@@ -58,8 +58,11 @@ td {
 		}
 }
 %>
-	<h1><img src="icon/mutrex_small.png" alt="mutrex logo" style="width:60px;height:60px;">MutRex: the mutation-based test generator for regular
-		expressions</h1>
+	<h1>
+		<img src="icon/mutrex_small.png" alt="mutrex logo"
+			style="width: 60px; height: 60px;">MutRex: the mutation-based
+		test generator for regular expressions
+	</h1>
 	<%
 		if (request.getParameter("regex") == null) {
 	%>
@@ -86,6 +89,22 @@ td {
 	<hr>
 	Some examples can be downloaded
 	<a href="mutation2017experiments.txt">here</a>
+	<script>
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script',
+				'https://www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-93568019-1', 'auto');
+		ga('send', 'pageview');
+	</script>
 	<%
 		} else {
 			String option = request.getParameter("option");
@@ -133,7 +152,8 @@ td {
 	<a href="http://d3s.mff.cuni.cz/~arcaini/papers/mutrexMUTATION2017.pdf">[download
 		the pdf]</a>
 	<hr>
-	Source code is available <a href="https://github.com/fmselab/mutrex"> on github</a>
+	Source code is available
+	<a href="https://github.com/fmselab/mutrex"> on github</a>
 
 </body>
 </html>
