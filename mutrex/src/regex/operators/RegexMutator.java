@@ -42,6 +42,7 @@ public abstract class RegexMutator {
 		public String description;
 		public RegExp mutatedRexExp;
 		
+		public MutatedRegExp(String simpleName, RegExp regex) {
 			//super(regex);
 			description = simpleName;
 			mutatedRexExp = regex;
