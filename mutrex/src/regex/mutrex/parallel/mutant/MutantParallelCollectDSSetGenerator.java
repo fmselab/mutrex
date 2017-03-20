@@ -92,7 +92,7 @@ class MutTh extends Thread {
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(dasManager.regexWithAutomata, b);
-					if (newDa.add(mutant.mutant)) {
+					if (newDa.add(mutant.description, mutant.mutant)) {
 						DistinguishingAutomatonClass newDaC = new DistinguishingAutomatonClass(newDa);
 						dasManager.addDA(newDaC);
 						logger.log(Level.INFO, "new da found");
@@ -103,7 +103,7 @@ class MutTh extends Thread {
 				mutant.isEquivalent = true;
 			}
 			else {
-				if(dac.da.add(mutant.mutant)) {
+				if(dac.da.add(mutant.description, mutant.mutant)) {
 					isCovered = true;
 				}
 				mutant.visited.add(dac);
@@ -172,14 +172,18 @@ class DistinguishingAutomatonClass {
 	}
 }
 
+// TODO there is already a class mutant: to merge the two classes
 class Mutant {
 	RegexWAutomata mutant;
 	Set<DistinguishingAutomatonClass> visited;
 	boolean isEquivalent;
+	String description;
+	
 
 	public Mutant(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishingAutomatonClass>();
+		description = mutatedRegExp.description;
 	}
 
 	public RegExp getRegex() {

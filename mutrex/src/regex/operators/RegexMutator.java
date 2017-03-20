@@ -7,6 +7,7 @@ import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.RegexVisitor;
 import dk.brics.automaton.oo.ToRegexString;
+import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 
 public abstract class RegexMutator {
@@ -31,24 +32,28 @@ public abstract class RegexMutator {
 			public MutatedRegExp next() {
 				String s = ToRegexString.convertToRegexString(resultsOO.next());
 				//return new MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(), new RegExp(s));
-				return new MutatedRegExp(mutator.getCode(), new RegExp(s));
+				return new MutatedRegExp(mutator.getCode(),s);
 			}
 			
 		};
 	}	
 	
-	static public class MutatedRegExp{
+	static public class MutatedRegExp{// extends RegExp{
 		public String description;
 		public RegExp mutatedRexExp;
-
-		private MutatedRegExp(String simpleName, RegExp regExp) {
+		
+			//super(regex);
 			description = simpleName;
-			mutatedRexExp = regExp;
+			mutatedRexExp = regex;
+		}
+
+		public MutatedRegExp(String simpleName, String s) {
+			this(simpleName, new RegExp(s));
 		}
 
 		@Override
 		public String toString() {
-			return description + ": " + mutatedRexExp;
+			return description + ": " + ToSimpleString.convertToReadableString(mutatedRexExp);
 		}
 	}
 

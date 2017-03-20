@@ -38,7 +38,7 @@ public class DAsParallelCollectDSSetGenerator extends DSSetGenerator {
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
 					DistinguishingAutomaton newDa = new DistinguishingAutomaton(regexWithAutomata, b);
-					if (newDa.add(mutant.getRegexWithAutomata())) {
+					if (newDa.add(mutant.description,mutant.getRegexWithAutomata())) {
 						logger.log(Level.INFO, "new da for " + mutant);
 						assert newDa.getMutants().size() == 1;
 						assert DistStringCreator.getDS(regex, mutant.getRegex(), DSgenPolicy.RANDOM) != null;

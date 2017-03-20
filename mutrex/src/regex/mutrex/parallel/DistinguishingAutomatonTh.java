@@ -8,6 +8,7 @@ import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DistinguishingAutomaton;
+import regex.operators.RegexMutator.MutatedRegExp;
 
 public class DistinguishingAutomatonTh extends Thread {
 	private static Logger logger = Logger.getLogger(DistinguishingAutomatonTh.class.getName());
@@ -30,7 +31,7 @@ public class DistinguishingAutomatonTh extends Thread {
 			Mutant mutant = mutantsManager.getMutant(this);
 			logger.log(Level.INFO, da + " retrieved mutant " + mutant);
 			if (mutant != null) {
-				if (da.add(mutant.getRegexWithAutomata())) {
+				if (da.add(mutant.description,mutant.getRegexWithAutomata())) {
 					logger.log(Level.INFO, da + " added " + mutant);
 					assert da.getMutants().size() > 1;
 					mutantsManager.coverMutant(mutant);
@@ -39,7 +40,7 @@ public class DistinguishingAutomatonTh extends Thread {
 			}
 			mutantsManager.mutantConsidered();
 		}
-		List<RegExp> daCoveredMuts = da.getMutants();
+		List<MutatedRegExp> daCoveredMuts = da.getMutants();
 		assert daCoveredMuts.size() > 0;
 		dsS.add(new DistinguishingString(da.getExample(), da.positive), daCoveredMuts);
 		da = null;

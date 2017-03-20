@@ -8,6 +8,7 @@ import dk.brics.automaton.RegExp;
 import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
+/** mutant with ?????*/
 public class Mutant {
 	private RegexWAutomata mutant;
 	Set<DistinguishingAutomatonTh> visited;
@@ -17,10 +18,12 @@ public class Mutant {
 	boolean isCovered;
 	Automaton mutAut;
 	Automaton mutNegAut;
+	String description;
 
 	public Mutant(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishingAutomatonTh>();
+		description = mutatedRegExp.description;
 	}
 
 	public void setVisitedDA(DistinguishingAutomatonTh da) {

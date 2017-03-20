@@ -42,7 +42,7 @@ public class ToSimpleStringTest {
 
 	private String convertBack(String s) {
 		RegExp regex = ExtendedRegex.getSimplifiedRegexp(s);		
-		String result = ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(regex));
+		String result = ToSimpleString.convertToReadableString(regex);
 		return result;
 	}
 		

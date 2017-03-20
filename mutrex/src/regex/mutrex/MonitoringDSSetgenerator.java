@@ -30,9 +30,9 @@ public class MonitoringDSSetgenerator extends DSSetGenerator {
 		Automaton regexAut = regex.toAutomaton();
 		// all the regexes that are accepted by regex
 mutLoop: while (mutants.hasNext()) {
-			RegExp mutant = mutants.next().mutatedRexExp;
+			MutatedRegExp mutant = mutants.next();
 			// monitoring
-			Automaton mutAutom = mutant.toAutomaton();
+			Automaton mutAutom = mutant.mutatedRexExp.toAutomaton();
 			// check if there exists a ds in results that covers this mutant
 			for (DistinguishingString ds : result) {
 				String dsStr = ds.getDs();

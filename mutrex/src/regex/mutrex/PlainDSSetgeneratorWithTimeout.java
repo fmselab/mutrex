@@ -28,7 +28,8 @@ public class PlainDSSetgeneratorWithTimeout extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		while (mutants.hasNext()) {
-			Generator g = new Generator(mutants.next().mutatedRexExp, regex, this);
+			MutatedRegExp mutant = mutants.next();
+			Generator g = new Generator(mutant.mutatedRexExp, regex, this);
 			g.start();
 			try {
 				g.join(TIMEOUT);
@@ -41,7 +42,7 @@ public class PlainDSSetgeneratorWithTimeout extends DSSetGenerator {
 				g.interrupt();
 			}
 			if (g.ds != null) {
-				result.add(g.ds, Collections.singletonList(g.mutant));
+				result.add(g.ds, Collections.singletonList(mutant));
 			}
 		}
 		return;

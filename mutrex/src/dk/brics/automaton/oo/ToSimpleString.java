@@ -2,6 +2,9 @@ package dk.brics.automaton.oo;
 
 import java.util.List;
 
+import dk.brics.automaton.OORegexConverter;
+import dk.brics.automaton.RegExp;
+
 /**
  * 
  * It converts a ooregex to a readable String 
@@ -11,6 +14,10 @@ import java.util.List;
  */
 public class ToSimpleString extends ToRegexString {
 	
+	public static String convertToReadableString(RegExp regex) {
+		return convertToReadableString(OORegexConverter.getOORegex(regex));
+	}
+
 	public static String convertToReadableString(ooregex r) {
 		ToSimpleString v = new ToSimpleString();
 		r.accept(v);

@@ -26,7 +26,7 @@ public abstract class DSSetGenerator extends Observable {
 		RegExp re = ExtendedRegex.getSimplifiedRegexp(regex);
 		DSSet dsS = new DSSet(){
 			@Override
-			public synchronized void add(DistinguishingString ds, List<RegExp> mutants) {
+			public synchronized void add(DistinguishingString ds, List<MutatedRegExp> mutants) {
 				super.add(ds, mutants);
 				// notify the observers
 				setChanged();

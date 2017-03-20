@@ -34,7 +34,7 @@ public class PlainDSSetgenerator extends DSSetGenerator {
 			//DistinguishingString ds = DistStringCreator.getDS(regex, mutant.mutatedRexExp, DSgenPolicy.RANDOM);
 			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutant.mutatedRexExp.toAutomaton(), DSgenPolicy.RANDOM);
 			if (ds != null) {
-				result.addWMD(ds, Collections.singletonList(mutant));
+				result.add(ds, Collections.singletonList(mutant));
 			}
 		}
 		return;

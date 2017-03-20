@@ -7,11 +7,12 @@ import java.util.List;
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistStringCreator;
+import regex.operators.RegexMutator.MutatedRegExp;
 
 public class DistinguishingAutomaton {
 	public boolean positive;
 	private Automaton content;
-	List<RegExp> mutatedRegexes;
+	List<MutatedRegExp> mutatedRegexes;
 	// solution 2: invalidating the da
 	// boolean isActive;
 
@@ -54,7 +55,7 @@ public class DistinguishingAutomaton {
 	 * @return true, if successful
 	 */
 	// public boolean add(RegExp mutant, Automaton mAut, Automaton negMaut) {
-	public boolean add(RegexWAutomata mutant) {
+	public boolean add(String mutantDescription, RegexWAutomata mutant) {
 		// try to add
 		Automaton result;
 		if (positive) {
@@ -66,7 +67,7 @@ public class DistinguishingAutomaton {
 		if (result.isEmpty()) {
 			return false;
 		}
-		mutatedRegexes.add(mutant.mutant);
+		mutatedRegexes.add(new MutatedRegExp(mutantDescription, mutant.getMutant()));
 		content = result;
 		return true;
 	}
@@ -79,7 +80,7 @@ public class DistinguishingAutomaton {
 		return positive;
 	}
 
-	public List<RegExp> getMutants() {
+	public List<MutatedRegExp> getMutants() {
 		return Collections.unmodifiableList(mutatedRegexes);
 	}
 	
