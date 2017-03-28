@@ -66,6 +66,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 			System.out.println(res.next());
 		}
 	}
+
 	@Test
 	public void testMutateGraffa() {
 		RegExp re = new RegExp("\\.}");
