@@ -147,9 +147,9 @@ td {
 	<i>MutRex: a mutation-based generator of fault detecting strings
 		for regular expressions</i>
 	<br> in 12th International Workshop on Mutation Analysis (Mutation
-	2017), Tokyo, Japan, March 13, 2017 (to appear)
+	2017), Tokyo, Japan, March 13, 2017
 	<br>
-	<a href="http://d3s.mff.cuni.cz/~arcaini/papers/mutrexMUTATION2017.pdf">[download
+	<a href="http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf">[download
 		the pdf]</a>
 	<hr>
 	Source code is available
