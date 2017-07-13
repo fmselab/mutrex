@@ -32,7 +32,7 @@ public class PrefixAddition extends RegexMutator {
 		public List<ooregex> visit(REGEXP_REPEAT r) {
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r.getContentExpr());
 			// apply only if splittable
-			// and min >0. If min ==0 o cambio la cardinalita' con la
+			// and min > 0. If min==0 o cambio la cardinalita' con la
 			// concatenazione, oppure non ha senso mettere prefisso opzionale
 			if (parts.size() == 1 || r.min == 0) {
 				return Collections.EMPTY_LIST;

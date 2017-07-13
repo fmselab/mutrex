@@ -23,7 +23,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutateZeroOrMore() {
 		// with 0 no mutation is applied
-		RegExp re = new RegExp("[a-z0-9]*");
+		RegExp re = new RegExp("[a-zA-Z0-9]*");
 		Iterator<MutatedRegExp> m = mp.mutate(re);
 		assertFalse(m.hasNext());
 	}
