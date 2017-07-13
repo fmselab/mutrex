@@ -25,10 +25,8 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		System.out.println(corrected);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
-		//
 		accept(corrected, "123.144");
 		acceptNot(corrected, "123A144");
-		//
 		RegExp rec = new RegExp("[0-9]{3}\".\"[0-9]{3}");
 		accept(rec, "123.144");
 		acceptNot(rec, "123A144");
@@ -66,5 +64,4 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		accept(corrected, "@a");
 		acceptNot(corrected, "a", "ba");
 	}
-
 }

@@ -68,8 +68,8 @@ public class CaseAdditionTest extends RegexMutationTest {
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assertOneEqualTo(m, "[Qq][^u]");
 	}
-	
-	@Test // 
+
+	@Test //
 	public void testMutateNumber() {
 		RegExp re = new RegExp("\"0x\"");
 		accept(re, "0x");
@@ -78,7 +78,7 @@ public class CaseAdditionTest extends RegexMutationTest {
 		assert oore instanceof oosimpleexp;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assert m.size() == 1;
-		assertOneEqualTo(m, "0(\\x|\\X)");		
+		assertOneEqualTo(m, "0(\\x|\\X)");
 		accept(m.get(0).mutatedRexExp, "0x", "0X");
 	}
 }

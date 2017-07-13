@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import dk.brics.automaton.ExtendedRegex;
-import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 
 public class ToSimpleStringTest {

@@ -67,7 +67,8 @@ public class CharacterClassCreationTest extends RegexMutationTest {
 
 	@Test
 	public void testRepeat() {
-		RegExp re = new RegExp("a-z+"); // questa non funziona perche' lo prende a-(z)+
+		RegExp re = new RegExp("a-z+"); // questa non funziona perche' lo prende
+										// a-(z)+
 		accept(re, "a-z", "a-zzzz");
 		acceptNot(re, "a", "b", "d");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);//
@@ -76,5 +77,5 @@ public class CharacterClassCreationTest extends RegexMutationTest {
 		//
 		accept(corrected, "a", "b", "z", "aaa", "abbbaz");
 		acceptNot(corrected, "a-z", ".", "a-");
-	}	
+	}
 }

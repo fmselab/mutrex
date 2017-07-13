@@ -31,6 +31,5 @@ public class REGEX_SPECIALCHARTest {
 		assertTrue(oore instanceof oosimpleexp);
 		//ToRegexString.convertToRegexString()
 	}
-
 	
 }

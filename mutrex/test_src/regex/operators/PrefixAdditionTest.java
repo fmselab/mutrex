@@ -41,14 +41,13 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		String AB19 = "az19";
 		String NUMLETTERS = "19az";
 		RegExp re = new RegExp("[a-z0-9]+");
-		//
 		RunAutomaton ra = new RunAutomaton(re.toAutomaton());
 		assertTrue(ra.run(AB19));
 		assertTrue(ra.run(NUMLETTERS));
 		//
 		Iterator<MutatedRegExp> m = mp.mutate(re);
 		// for the first, it must start with a letter
-		// fail becuase it returns that starting qwith a number
+		// fail because it returns that starting with a number
 		RegExp mutation = m.next().mutatedRexExp;
 		System.out.println(mutation);
 		ra = new RunAutomaton(mutation.toAutomaton());
@@ -81,7 +80,6 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	}
 
 	// if it is not a repeat, no fault is given
-
 	@Test
 	public void testGetsubsets() {
 		ooregex r = OORegexConverter.getOORegex(new RegExp("[a-zA-Z0-9]"));

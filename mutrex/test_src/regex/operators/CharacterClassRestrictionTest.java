@@ -16,18 +16,18 @@ public class CharacterClassRestrictionTest {
 	private CharacterClassRestriction mp = CharacterClassRestriction.mutator;
 
 	@BeforeClass
-	static public void setup(){
+	static public void setup() {
 		ConsoleHandler ch = new ConsoleHandler();
-		//Logger.getLogger(OORegexConverter.class.getName()).addHandler(ch);
-	    //Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.ALL);
-		//Logger.getLogger().setLevel(Level.ALL);
+		// Logger.getLogger(OORegexConverter.class.getName()).addHandler(ch);
+		// Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.ALL);
+		// Logger.getLogger().setLevel(Level.ALL);
 	}
 
 	@Test
 	public void testMutate() {
 		RegExp re = ExtendedRegex.getSimplifiedRegexp("\\w");
 		Iterator<MutatedRegExp> res = mp.mutate(re);
-		while(res.hasNext()) {
+		while (res.hasNext()) {
 			System.out.println(res.next());
 		}
 	}
@@ -37,7 +37,7 @@ public class CharacterClassRestrictionTest {
 		RegExp re = new RegExp("a-f|0-9");
 		Iterator<MutatedRegExp> res = mp.mutate(re);
 		int counter = 0;
-		while(res.hasNext()) {
+		while (res.hasNext()) {
 			System.out.println(res.next());
 			counter++;
 		}
@@ -49,7 +49,7 @@ public class CharacterClassRestrictionTest {
 		RegExp re = new RegExp("a-f|0-9|p-t");
 		Iterator<MutatedRegExp> res = mp.mutate(re);
 		int counter = 0;
-		while(res.hasNext()) {
+		while (res.hasNext()) {
 			System.out.println(res.next());
 			counter++;
 		}
@@ -61,7 +61,7 @@ public class CharacterClassRestrictionTest {
 		RegExp re = new RegExp("a-f|!(0-2|4-6)|p-t");
 		Iterator<MutatedRegExp> res = mp.mutate(re);
 		int counter = 0;
-		while(res.hasNext()) {
+		while (res.hasNext()) {
 			System.out.println(res.next());
 			counter++;
 		}

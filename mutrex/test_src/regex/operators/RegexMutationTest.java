@@ -46,16 +46,13 @@ public class RegexMutationTest {
 		}
 		fail("no regex in " + m + " is equal to " + regex);
 	}
-	
+
 	protected void assertOneRegexEqualTo(List<RegExp> m, String regex) {
 		Automaton a = new RegExp(regex).toAutomaton();
 		for (RegExp j : m) {
 			if (j.toAutomaton().equals(a))
 				return;
 		}
-		fail("no regex in " + m + " is equal to " + regex);		
+		fail("no regex in " + m + " is equal to " + regex);
 	}
 }
-
-
-

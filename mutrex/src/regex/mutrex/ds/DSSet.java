@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
 import regex.operators.RegexMutator.MutatedRegExp;
 

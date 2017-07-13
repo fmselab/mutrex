@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DistinguishingAutomaton;

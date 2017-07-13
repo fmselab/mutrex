@@ -23,7 +23,7 @@ public class NegationAdditionTest extends RegexMutationTest {
 		acceptNot(re, "B", ".", "^", "b");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		RegExp corrected = res.next().mutatedRexExp;
-		// 
+		System.out.println(corrected);
 		accept(corrected, "B", ".", "a", "b");
 		acceptNot(corrected, "A");
 	}
@@ -49,7 +49,6 @@ public class NegationAdditionTest extends RegexMutationTest {
 		System.out.println(m);
 		assertOneEqualTo(m, "[^a-z]");
 	}
-	
 
 	@Test
 	public void testMutateCC() {
@@ -57,5 +56,4 @@ public class NegationAdditionTest extends RegexMutationTest {
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m.size());
 	}
-
 }

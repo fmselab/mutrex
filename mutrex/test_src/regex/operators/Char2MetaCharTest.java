@@ -26,12 +26,12 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		RegExp re = new RegExp("-|\\.");
 		accept(re, "-", ".");
 		acceptNot(re, "a", "b");
-		Iterator<MutatedRegExp> res = mutator.mutate(re);// 
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
 		RegExp corrected = res.next().mutatedRexExp;
 		System.out.println(corrected);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
-		// 
+		//
 		accept(corrected, "-", ".", "a", "b");
 	}
 
@@ -40,7 +40,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		RegExp re = new RegExp("[a\\.]+");
 		accept(re, "a...", ".aaa", "aaa");
 		acceptNot(re, "bbb", "bb.");
-		//mutate this expression
+		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assertTrue(res.hasNext());
 		RegExp corrected = res.next().mutatedRexExp;
@@ -60,9 +60,9 @@ public class Char2MetaCharTest extends RegexMutationTest {
 	@Test
 	public void testCharMutateMinus() {
 		RegExp re = new RegExp("\\.{3}");
-		//accept(re, "a...", ".aaa", "aaa");
+		// accept(re, "a...", ".aaa", "aaa");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
-		while(res.hasNext()) {
+		while (res.hasNext()) {
 			System.out.println(res.next());
 		}
 	}
@@ -70,16 +70,15 @@ public class Char2MetaCharTest extends RegexMutationTest {
 	@Test
 	public void testMutateGraffa() {
 		RegExp re = new RegExp("\\.}");
-		//accept(re, "-", ".");
-		//acceptNot(re, "a", "b");
-		Iterator<MutatedRegExp> res = mutator.mutate(re);// 
+		// accept(re, "-", ".");
+		// acceptNot(re, "a", "b");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
 		RegExp corrected = res.next().mutatedRexExp;
 		System.out.println(corrected);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
-		// 
+		//
 		accept(corrected, "-", ".", "a", "b");
 	}
 
-	
 }

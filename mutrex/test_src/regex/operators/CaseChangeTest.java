@@ -41,7 +41,8 @@ public class CaseChangeTest extends RegexMutationTest {
 		System.out.println(m);
 		assertOneEqualTo(m, "Abc");
 		assertOneEqualTo(m, "aBc");
-		assertOneEqualTo(m, "abC");;
+		assertOneEqualTo(m, "abC");
+		;
 	}
 
 	@Test
@@ -71,7 +72,7 @@ public class CaseChangeTest extends RegexMutationTest {
 		assertOneEqualTo(m, "[A|b]");
 		assertOneEqualTo(m, "[a|B]");
 	}
-	
+
 	@Test
 	public void testMutateNumber() {
 		RegExp re = new RegExp("\"0x\"");
@@ -81,5 +82,6 @@ public class CaseChangeTest extends RegexMutationTest {
 		assert oore instanceof oosimpleexp;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assert m.size() == 1;
-		assertOneEqualTo(m, "0\\X");	}
+		assertOneEqualTo(m, "0\\X");
+	}
 }
