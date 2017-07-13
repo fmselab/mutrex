@@ -27,7 +27,7 @@ public class DistinguishingAutomatonTh extends Thread {
 	@Override
 	public void run() {
 		while (run) {
-			Mutant mutant = mutantsManager.getMutant(this);
+			MutantForDasParallelCollector mutant = mutantsManager.getMutant(this);
 			logger.log(Level.INFO, da + " retrieved mutant " + mutant);
 			if (mutant != null) {
 				if (da.add(mutant.description,mutant.getRegexWithAutomata())) {

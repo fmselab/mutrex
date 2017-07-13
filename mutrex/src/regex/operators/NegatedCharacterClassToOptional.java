@@ -36,18 +36,14 @@ public class NegatedCharacterClassToOptional extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_CONCATENATION r) {
 			// only the last one in a concatenation
-			/*List<ooregex> m2 = r.exp2.accept(this);
-			assert m2 != null;
-			// if both have not mutated the content
-			if (m2.isEmpty()) {
-				return m2;
-			}
-			List<ooregex> result = new ArrayList<>();
-			for (ooregex r2 : m2) {
-				result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, r.exp1, r2));
-			}
-			return result;*/
-			
+			/*
+			 * List<ooregex> m2 = r.exp2.accept(this); assert m2 != null; // if
+			 * both have not mutated the content if (m2.isEmpty()) { return m2;
+			 * } List<ooregex> result = new ArrayList<>(); for (ooregex r2 : m2)
+			 * { result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.
+			 * class, r.exp1, r2)); } return result;
+			 */
+
 			List<ooregex> m1 = r.exp1.accept(this);
 			assert m1 != null;
 			List<ooregex> result = new ArrayList<>();

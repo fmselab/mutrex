@@ -22,7 +22,7 @@ import dk.brics.automaton.oo.oosimpleexp;
 
 /**
  * returns the list of mutations. If an expression has no mutations, then the
- * empty list is returned !
+ * empty list is returned
  * 
  * @author garganti
  *

@@ -10,8 +10,6 @@ import regex.mutrex.parallel.mutant.MutantParallelCollectDSSetGenerator;
 
 /** generates all the string to kill the mutation of a given regex */
 public class MutRex {
-	
-	
 	static DSSetGenerator[] generators = { PlainDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
 			CollectDSSetGeneratorNoLimit.generator };
 

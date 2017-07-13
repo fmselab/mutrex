@@ -8,8 +8,7 @@ import dk.brics.automaton.RegExp;
 import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
-/** mutant with ?????*/
-public class Mutant {
+public class MutantForDasParallelCollector {
 	private RegexWAutomata mutant;
 	Set<DistinguishingAutomatonTh> visited;
 	private boolean locked;
@@ -20,7 +19,7 @@ public class Mutant {
 	Automaton mutNegAut;
 	String description;
 
-	public Mutant(MutatedRegExp mutatedRegExp) {
+	public MutantForDasParallelCollector(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishingAutomatonTh>();
 		description = mutatedRegExp.description;

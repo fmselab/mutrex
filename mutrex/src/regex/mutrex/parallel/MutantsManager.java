@@ -12,7 +12,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 public class MutantsManager {
 	private static Logger logger = Logger.getLogger(MutantsManager.class.getName());
 	protected Iterator<MutatedRegExp> itMutants;
-	List<Mutant> mutants;
+	List<MutantForDasParallelCollector> mutants;
 	protected boolean noUncoveredMutants;
 	//private Random rnd = new Random(System.currentTimeMillis());
 	protected boolean stop = false;
@@ -20,7 +20,7 @@ public class MutantsManager {
 
 	public MutantsManager(Iterator<MutatedRegExp> itMutants) {
 		this.itMutants = itMutants;
-		this.mutants = new ArrayList<Mutant>();
+		this.mutants = new ArrayList<MutantForDasParallelCollector>();
 	}
 
 	public synchronized void decrRunningThs() {
@@ -28,7 +28,7 @@ public class MutantsManager {
 		notifyAll();
 	}
 
-	public synchronized Mutant getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS) {
+	public synchronized MutantForDasParallelCollector getNotCoveredByCurrentDAs(Set<DistinguishingAutomatonTh> datS) {
 		boolean exit = false;
 		while(!exit) {
 			while (runningThs >= Runtime.getRuntime().availableProcessors()) {
@@ -40,7 +40,7 @@ public class MutantsManager {
 			}
 			exit = true;
 			boolean stop = true;
-			for (Mutant mutant : mutants) {
+			for (MutantForDasParallelCollector mutant : mutants) {
 				if (!mutant.isCovered && !mutant.isEquivalent()) {
 					stop = false;
 					if(mutant.visited.containsAll(datS)) {
@@ -54,7 +54,7 @@ public class MutantsManager {
 				}
 			}
 			if (itMutants.hasNext()) {
-				Mutant mutant = new Mutant(itMutants.next());
+				MutantForDasParallelCollector mutant = new MutantForDasParallelCollector(itMutants.next());
 				mutants.add(mutant);
 				mutant.lock();
 				runningThs++;
@@ -75,7 +75,7 @@ public class MutantsManager {
 		return null;
 	}
 
-	public synchronized Mutant getMutant(DistinguishingAutomatonTh s) {
+	public synchronized MutantForDasParallelCollector getMutant(DistinguishingAutomatonTh s) {
 		while (runningThs >= Runtime.getRuntime().availableProcessors()) {
 			try {
 				wait();
@@ -87,7 +87,7 @@ public class MutantsManager {
 		boolean stopDA = true;
 		if (!noUncoveredMutants) {
 			if (itMutants.hasNext()) {
-				Mutant mutant = new Mutant(itMutants.next());
+				MutantForDasParallelCollector mutant = new MutantForDasParallelCollector(itMutants.next());
 				mutant.setVisitedDA(s);
 				mutant.lock();
 				mutants.add(mutant);
@@ -97,7 +97,7 @@ public class MutantsManager {
 				return mutant;
 			} else {
 				//Collections.shuffle(mutants);
-				for (Mutant mutant : mutants) {
+				for (MutantForDasParallelCollector mutant : mutants) {
 					if (!mutant.isCovered && !mutant.isEquivalent() && !mutant.hasVisitedDA(s)) {
 						stopDA = false;
 						if (!mutant.isLocked()) {
@@ -121,7 +121,7 @@ public class MutantsManager {
 		decrRunningThs();
 	}
 
-	public void coverMutant(Mutant mutant) {
+	public void coverMutant(MutantForDasParallelCollector mutant) {
 		mutant.isCovered = true;
 		mutant.mutAut = null;
 		mutant.mutNegAut = null;

@@ -79,6 +79,16 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertOneEqualTo(m, "AAA[A-Z0-9][a-zA-Z0-9]*");
 	}
 
+	@Test
+	public void testMutate4() {
+		RegExp re = new RegExp("[a-zA-Z0-9]");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		System.out.println(m);
+		assertOneEqualTo(m, "[a-z]");
+		assertOneEqualTo(m, "[A-Z]");
+		assertOneEqualTo(m, "[0-9]");
+	}
+
 	// if it is not a repeat, no fault is given
 	@Test
 	public void testGetsubsets() {

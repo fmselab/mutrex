@@ -27,41 +27,34 @@ public class CharacterClassRestriction extends RegexMutator {
 
 		@Override
 		public List<ooregex> visit(REGEXP_UNION r) {
-			/*List<ooregex> l1 = r.exp1.accept(this);
-			List<ooregex> l2 = r.exp2.accept(this);
-			logger.info(r.exp1.toString() + " => " + l1.toString());
-			// add independently (split the union)
-			ArrayList<ooregex> result = new ArrayList<ooregex>();
-			// all the variations of e1
-			for (ooregex e1 : l1) {
-				result.add(new REGEXP_UNION(e1, r.exp2));
-			}
-			result.add(r.exp1);
-			result.addAll(l1);
-			for (ooregex e2 : l2) {
-				result.add(new REGEXP_UNION(r.exp1, e2));
-			}
-			result.add(r.exp2);
-			result.addAll(l2);
-			return result;*/
-			
+			/*
+			 * List<ooregex> l1 = r.exp1.accept(this); List<ooregex> l2 =
+			 * r.exp2.accept(this); logger.info(r.exp1.toString() + " => " +
+			 * l1.toString()); // add independently (split the union)
+			 * ArrayList<ooregex> result = new ArrayList<ooregex>(); // all the
+			 * variations of e1 for (ooregex e1 : l1) { result.add(new
+			 * REGEXP_UNION(e1, r.exp2)); } result.add(r.exp1);
+			 * result.addAll(l1); for (ooregex e2 : l2) { result.add(new
+			 * REGEXP_UNION(r.exp1, e2)); } result.add(r.exp2);
+			 * result.addAll(l2); return result;
+			 */
+
 			ArrayList<ooregex> result = new ArrayList<ooregex>();
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r);
-			for(int i = 0; i < parts.size(); i++) {
+			for (int i = 0; i < parts.size(); i++) {
 				ooregex res = null;
-				for(int j = 0; j < parts.size(); j++) {
-					if(j != i) {
-						if(res == null) {
+				for (int j = 0; j < parts.size(); j++) {
+					if (j != i) {
+						if (res == null) {
 							res = parts.get(j);
-						}
-						else {
+						} else {
 							res = new REGEXP_UNION(res, parts.get(j));
 						}
 					}
 				}
 				result.add(res);
 				List<ooregex> subRes = parts.get(i).accept(this);
-				for(ooregex p: subRes) {
+				for (ooregex p : subRes) {
 					result.add(new REGEXP_UNION(p, res));
 				}
 			}

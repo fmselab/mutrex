@@ -30,7 +30,7 @@ public class DAsParallelCollectDSSetGenerator extends DSSetGenerator {
 		RegexWAutomata regexWithAutomata = new RegexWAutomata(regex);
 		while (!mutantsManager.stop) {
 			// mutant not covered by the created distinguishing automata
-			Mutant mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
+			MutantForDasParallelCollector mutant = mutantsManager.getNotCoveredByCurrentDAs(datS);
 			if (mutant != null) {
 				assert mutant.isLocked();
 				// randomly generate a positive or negative da
@@ -76,7 +76,7 @@ public class DAsParallelCollectDSSetGenerator extends DSSetGenerator {
 		// assert mutantsManager.mutants.parallelStream().allMatch(m ->
 		// (m.isCovered || m.isEquivalent()));
 		if (this.getClass().desiredAssertionStatus()) {
-			for (Mutant m : mutantsManager.mutants) {
+			for (MutantForDasParallelCollector m : mutantsManager.mutants) {
 				assert m.isCovered || m.isEquivalent();
 			}
 		}

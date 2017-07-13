@@ -19,15 +19,17 @@ import dk.brics.automaton.oo.ooregex;
 public class CharacterClassAddition extends RegexMutator {
 	public static CharacterClassAddition mutator = new CharacterClassAddition();
 	private static Logger logger = Logger.getLogger(CharacterClassAddition.class.getName());
-	/*private static REGEXP_CHAR_RANGE[] intervals = new REGEXP_CHAR_RANGE[] {
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };*/
-	
+	/*
+	 * private static REGEXP_CHAR_RANGE[] intervals = new REGEXP_CHAR_RANGE[] {
+	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
+	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
+	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
+	 */
+
 	private static REGEXP_CHAR_RANGE[] ALLintervals = new REGEXP_CHAR_RANGE[] {
 			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
 			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };	
+			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
 
 	private CharacterClassAddition() {
 		super(new CharacterClassAdditionVisitor());
@@ -39,11 +41,14 @@ public class CharacterClassAddition extends RegexMutator {
 				(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
 				(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
 
-		/* (non-Javadoc)
-		 * @see regexrepair.operators.RegexVisitorAdapterList#visit(dk.brics.automaton.oo.REGEXP_CHAR_RANGE)
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * It can generate equivalent mutants.
-		 * We should avoid building something as [a-z]|[A-Z]
+		 * @see regexrepair.operators.RegexVisitorAdapterList#visit(dk.brics.
+		 * automaton.oo.REGEXP_CHAR_RANGE)
+		 * 
+		 * It can generate equivalent mutants. We should avoid building
+		 * something as [a-z]|[A-Z]
 		 * 
 		 */
 		@Override

@@ -57,15 +57,11 @@ public class QuantifierChange extends RegexMutator {
 			// exactly n times
 			if (min == max) {
 				assert min > 0;
-				if(min > 1) {
-					result.add(new REGEXP_REPEAT(contentExpr, min - 1, max - 1));// (n
-																					// -
-																					// 1)
-																					// times
-					result.add(new REGEXP_REPEAT(contentExpr, min + 1, max + 1));// (n
-																					// +
-																					// 1)
-																					// times
+				if (min > 1) {
+					// (n - 1) times
+					result.add(new REGEXP_REPEAT(contentExpr, min - 1, max - 1));
+					// (n + 1) times
+					result.add(new REGEXP_REPEAT(contentExpr, min + 1, max + 1));
 				}
 				return result;
 			}

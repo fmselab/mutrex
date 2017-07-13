@@ -31,19 +31,21 @@ public abstract class RegexMutator {
 			@Override
 			public MutatedRegExp next() {
 				String s = ToRegexString.convertToRegexString(resultsOO.next());
-				//return new MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(), new RegExp(s));
-				return new MutatedRegExp(mutator.getCode(),s);
+				// return new
+				// MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(),
+				// new RegExp(s));
+				return new MutatedRegExp(mutator.getCode(), s);
 			}
-			
+
 		};
-	}	
-	
-	static public class MutatedRegExp{// extends RegExp{
+	}
+
+	static public class MutatedRegExp {// extends RegExp{
 		public String description;
 		public RegExp mutatedRexExp;
-		
+
 		public MutatedRegExp(String simpleName, RegExp regex) {
-			//super(regex);
+			// super(regex);
 			description = simpleName;
 			mutatedRexExp = regex;
 		}

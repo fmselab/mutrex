@@ -7,7 +7,7 @@ import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.ooregex;
 
 /**
- * the user has used a char range but has a wrong boundaries (but the new
+ * the user has used a char range but has a wrong boundary (but the new
  * mutation will be a char again)
  * 
  * In MUTATION 2017 is RM

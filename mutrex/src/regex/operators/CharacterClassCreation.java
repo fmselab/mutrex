@@ -39,7 +39,6 @@ public class CharacterClassCreation extends RegexMutator {
 				}
 			}
 
-			//from MissingCharacterClass
 			List<ooregex> result = new ArrayList<>();
 			// find pattern of type C1-C2 where C1 and C2 are consecutive chars
 			Pattern pattern = Pattern.compile(".-.");

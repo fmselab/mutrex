@@ -41,18 +41,18 @@ public class PrefixAddition extends RegexMutator {
 			List<ooregex> prefixes = new ArrayList<ooregex>();
 			for (ooregex p : parts) {
 				// build all except p
-				List<ooregex> allbutone = new ArrayList<ooregex>(parts);
-				allbutone.remove(p);
+				List<ooregex> allButOne = new ArrayList<ooregex>(parts);
+				allButOne.remove(p);
 				// build the union if necessary
-				if (allbutone.size() > 1) {
-					prefixes.add(oobinregex.makeBinExpression(REGEXP_UNION.class, allbutone));
+				if (allButOne.size() > 1) {
+					prefixes.add(oobinregex.makeBinExpression(REGEXP_UNION.class, allButOne));
 				} else {
-					prefixes.add(allbutone.get(0));
+					prefixes.add(allButOne.get(0));
 				}
 			}
 			List<ooregex> result = new ArrayList<ooregex>();
 			int newMax = r.max == -1 ? -1 : r.max - 1;
-			if(newMax == 0) {
+			if (newMax == 0) {
 				return Collections.EMPTY_LIST;
 			}
 			// min = 1 becomes 1 + 0 or more

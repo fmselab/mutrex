@@ -22,7 +22,7 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 	public static DSSetGenerator generator = new MutantParallelCollectDSSetGenerator();
 	int numRunningMutants = 0;
 
-	public synchronized Mutant getMutant(Iterator<MutatedRegExp> mutants) {
+	public synchronized MutantForMutParallelCollector getMutant(Iterator<MutatedRegExp> mutants) {
 		while (mutants.hasNext()) {
 			if (numRunningMutants >= Runtime.getRuntime().availableProcessors()) {
 				try {
@@ -33,7 +33,7 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 				continue;
 			} else {
 				numRunningMutants++;
-				return new Mutant(mutants.next());
+				return new MutantForMutParallelCollector(mutants.next());
 			}
 		}
 		return null;
@@ -47,7 +47,7 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 	@Override
 	public void addStringsToDSSet(DSSet dsS, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		DasManager dasManager = new DasManager(regex);
-		Mutant mutant = null;
+		MutantForMutParallelCollector mutant = null;
 		Set<MutTh> mutThs = new HashSet<MutTh>();
 		while ((mutant = getMutant(mutants)) != null) {
 			logger.log(Level.INFO, "new mutant " + mutant);
@@ -55,14 +55,14 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 			mutTh.start();
 			mutThs.add(mutTh);
 		}
-		for(MutTh mutTh: mutThs) {
+		for (MutTh mutTh : mutThs) {
 			try {
 				mutTh.join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		for (DistinguishingAutomatonClass dac: dasManager.daS) {
+		for (DistinguishingAutomatonClass dac : dasManager.daS) {
 			DistinguishingString ds = new DistinguishingString(dac.da.getExample(), dac.da.isPositive());
 			dsS.add(ds, dac.da.getMutants());
 		}
@@ -71,23 +71,23 @@ public class MutantParallelCollectDSSetGenerator extends DSSetGenerator {
 
 class MutTh extends Thread {
 	static Logger logger = Logger.getLogger(MutTh.class.getName());
-	Mutant mutant;
+	MutantForMutParallelCollector mutant;
 	DasManager dasManager;
 	MutantParallelCollectDSSetGenerator gen;
 
-	public MutTh(Mutant mutant, DasManager dasManager, MutantParallelCollectDSSetGenerator gen) {
+	public MutTh(MutantForMutParallelCollector mutant, DasManager dasManager, MutantParallelCollectDSSetGenerator gen) {
 		this.mutant = mutant;
 		this.dasManager = dasManager;
 		this.gen = gen;
 	}
-	
+
 	@Override
 	public void run() {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
 		boolean isCovered = false;
-		while(!isCovered) {
+		while (!isCovered) {
 			DistinguishingAutomatonClass dac = dasManager.getDA(mutant);
-			if(dac == null) {
+			if (dac == null) {
 				logger.log(Level.INFO, "look for new da");
 				Collections.shuffle(trueFalse);
 				for (boolean b : trueFalse) {
@@ -101,9 +101,8 @@ class MutTh extends Thread {
 				}
 				isCovered = true;
 				mutant.isEquivalent = true;
-			}
-			else {
-				if(dac.da.add(mutant.description, mutant.mutant)) {
+			} else {
+				if (dac.da.add(mutant.description, mutant.mutant)) {
 					isCovered = true;
 				}
 				mutant.visited.add(dac);
@@ -112,7 +111,7 @@ class MutTh extends Thread {
 		}
 		gen.decreaseRunningMuts();
 	}
-	
+
 }
 
 class DasManager {
@@ -134,10 +133,10 @@ class DasManager {
 		da.locked = false;
 		notifyAll();
 	}
-	
-	public synchronized DistinguishingAutomatonClass getDA(Mutant mutant) {
+
+	public synchronized DistinguishingAutomatonClass getDA(MutantForMutParallelCollector mutant) {
 		Set<DistinguishingAutomatonClass> checkedByMut = mutant.visited;
-		while(true) {
+		while (true) {
 			boolean addNewDa = true;
 			for (DistinguishingAutomatonClass da : daS) {
 				if (!checkedByMut.contains(da)) {
@@ -148,10 +147,9 @@ class DasManager {
 					}
 				}
 			}
-			if(addNewDa) {
+			if (addNewDa) {
 				return null;
-			}
-			else {
+			} else {
 				try {
 					logger.log(Level.INFO, mutant + " waits");
 					wait();
@@ -172,15 +170,13 @@ class DistinguishingAutomatonClass {
 	}
 }
 
-// TODO there is already a class mutant: to merge the two classes
-class Mutant {
+class MutantForMutParallelCollector {
 	RegexWAutomata mutant;
 	Set<DistinguishingAutomatonClass> visited;
 	boolean isEquivalent;
 	String description;
-	
 
-	public Mutant(MutatedRegExp mutatedRegExp) {
+	public MutantForMutParallelCollector(MutatedRegExp mutatedRegExp) {
 		this.mutant = new RegexWAutomata(mutatedRegExp.mutatedRexExp);
 		visited = new HashSet<DistinguishingAutomatonClass>();
 		description = mutatedRegExp.description;
