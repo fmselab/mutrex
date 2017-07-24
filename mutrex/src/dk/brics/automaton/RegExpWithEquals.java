@@ -13,7 +13,7 @@ public class RegExpWithEquals {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof RegExpWithEquals) {
+		if (obj instanceof RegExpWithEquals) {
 			return ((RegExpWithEquals) obj).rgx.toAutomaton().equals(rgx.toAutomaton());
 		}
 		return false;

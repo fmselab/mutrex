@@ -12,7 +12,6 @@ package dk.brics.automaton.oo;
 	|	<n-m>	(numerical interval)	[OPTIONAL]*/
 
 // represents a STRING that matches with the STRING
-
 public class oosimpleexp extends ooregex {
 	public String s;
 

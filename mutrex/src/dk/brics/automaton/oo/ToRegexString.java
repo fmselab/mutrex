@@ -29,11 +29,14 @@ public class ToRegexString implements RegexVisitor<Void> {
 	}
 
 	protected void visit(REGEXP_UNION r, boolean parenthesis) {
-		if (parenthesis) b.append("(");
+		if (parenthesis)
+			b.append("(");
 		r.exp1.accept(this);
-		if (parenthesis) b.append("|");
+		if (parenthesis)
+			b.append("|");
 		r.exp2.accept(this);
-		if (parenthesis) b.append(")");
+		if (parenthesis)
+			b.append(")");
 	}
 
 	@Override
@@ -55,16 +58,18 @@ public class ToRegexString implements RegexVisitor<Void> {
 
 	@Override
 	public Void visit(REGEXP_REPEAT r) {
-		visit(r,true);
+		visit(r, true);
 		return null;
 	}
 
-	protected void visit(REGEXP_REPEAT r,boolean parenthesis) {
-		if (parenthesis) b.append("(");
+	protected void visit(REGEXP_REPEAT r, boolean parenthesis) {
+		if (parenthesis)
+			b.append("(");
 		r.exp.accept(this);
-		if (parenthesis) b.append(")");
+		if (parenthesis)
+			b.append(")");
 		if (r.isOptional()) {
-			//	(zero or one occurrence)
+			// (zero or one occurrence)
 			b.append("?");
 		} else {
 			if (r.max < 0) {

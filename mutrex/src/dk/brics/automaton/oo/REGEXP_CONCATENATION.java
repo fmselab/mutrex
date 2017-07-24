@@ -9,5 +9,5 @@ public class REGEXP_CONCATENATION extends oobinregex {
 	@Override
 	public <T> T accept(RegexVisitor<T> v) {
 		return v.visit(this);
-	}	
+	}
 }

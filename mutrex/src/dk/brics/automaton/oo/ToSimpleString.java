@@ -7,13 +7,13 @@ import dk.brics.automaton.RegExp;
 
 /**
  * 
- * It converts a ooregex to a readable String 
+ * It converts a ooregex to a readable String
  * 
  * @author garganti
  *
  */
 public class ToSimpleString extends ToRegexString {
-	
+
 	public static String convertToReadableString(RegExp regex) {
 		return convertToReadableString(OORegexConverter.getOORegex(regex));
 	}
@@ -30,9 +30,9 @@ public class ToSimpleString extends ToRegexString {
 
 	@Override
 	public Void visit(REGEXP_REPEAT r) {
-		//		
-		boolean parenthesis = r.accept(precedence)<r.exp.accept(precedence);
-		visit(r,parenthesis);
+		//
+		boolean parenthesis = r.accept(precedence) < r.exp.accept(precedence);
+		visit(r, parenthesis);
 		return null;
 	}
 
@@ -42,27 +42,26 @@ public class ToSimpleString extends ToRegexString {
 		List<ooregex> splits = REGEXP_UNION.splitUnion(r);
 		boolean allcharrange = true;
 		String charranges = "";
-		for (ooregex rs:splits){
-			if (! (rs instanceof REGEXP_CHAR_RANGE)){
+		for (ooregex rs : splits) {
+			if (!(rs instanceof REGEXP_CHAR_RANGE)) {
 				allcharrange = false;
 				break;
-			} else{
-				charranges += ((REGEXP_CHAR_RANGE)rs).from + "-"+ ((REGEXP_CHAR_RANGE)rs).to;				
+			} else {
+				charranges += ((REGEXP_CHAR_RANGE) rs).from + "-" + ((REGEXP_CHAR_RANGE) rs).to;
 			}
 		}
 		if (allcharrange)
-			b.append("["+charranges + "]");
+			b.append("[" + charranges + "]");
 		else
 			super.visit(r);
 		return null;
 	}
-	
+
 	@Override
 	public Void visit(REGEXP_CHAR r) {
 		b.append(r.c);
 		return null;
 	}
-	
 
 	@Override
 	public Void visit(oosimpleexp r) {
@@ -76,12 +75,12 @@ public class ToSimpleString extends ToRegexString {
 		b.append("[").append(r.from).append("-").append(r.to).append("]");
 		return null;
 	}
-	
+
 	private PrecedenceIndex precedence = new PrecedenceIndex();
-	
-	// precedenza minore vuol dire che ha più precedenza quando parsa
+
+	// precedenza minore vuol dire che ha piu' precedenza quando parsa
 	// ad esempio ab* is parsed as "a(b*)"
-	class PrecedenceIndex implements RegexVisitor<Integer>{
+	class PrecedenceIndex implements RegexVisitor<Integer> {
 
 		@Override
 		public Integer visit(REGEXP_UNION r) {
@@ -97,7 +96,6 @@ public class ToSimpleString extends ToRegexString {
 		public Integer visit(REGEXP_CONCATENATION r) {
 			return 2;
 		}
-
 
 		@Override
 		public Integer visit(REGEXP_REPEAT r) {
@@ -123,13 +121,12 @@ public class ToSimpleString extends ToRegexString {
 		public Integer visit(REGEXP_SPECIALCHAR r) {
 			return 7;
 		}
-		
+
 		// a single char does not need parenthesis
 		@Override
 		public Integer visit(REGEXP_CHAR r) {
 			return -1;
 		}
-
 
 		@Override
 		public Integer visit(REGEXP_AUTOMATON r) {

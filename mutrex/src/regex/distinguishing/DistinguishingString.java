@@ -4,18 +4,20 @@ package regex.distinguishing;
  * The Class DistinguishingString.
  */
 public class DistinguishingString {
-	
+
 	/** The ds. */
 	private String ds;
-	
+
 	/** The is confirming. */
 	private boolean isConfirming;
 
 	/**
 	 * Instantiates a new distinguishing string.
 	 *
-	 * @param ds the ds
-	 * @param isConfirming the is confirming
+	 * @param ds
+	 *            the ds
+	 * @param isConfirming
+	 *            the is confirming
 	 */
 	public DistinguishingString(String ds, boolean isConfirming) {
 		this.ds = ds;
@@ -40,15 +42,19 @@ public class DistinguishingString {
 		return isConfirming;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "\"" +  ds + "\" (" + (isConfirming?"CONF":"REJECT") + ")";
+		return "\"" + ds + "\" (" + (isConfirming ? "CONF" : "REJECT") + ")";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -60,7 +66,9 @@ public class DistinguishingString {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

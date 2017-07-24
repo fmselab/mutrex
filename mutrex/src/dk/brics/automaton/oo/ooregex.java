@@ -6,5 +6,5 @@ public abstract class ooregex implements VisitableRegex {
 	@Override
 	final public String toString() {
 		return ToRegexString.convertToRegexString(this);
-	}	
+	}
 }

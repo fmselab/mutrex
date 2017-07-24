@@ -13,7 +13,6 @@ package dk.brics.automaton.oo;
  * @author garganti
  *
  */
-
 final public class REGEXP_REPEAT extends oounaryregex {
 	public int min;
 	public int max;

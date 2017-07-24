@@ -59,7 +59,7 @@ public class DistStringCreator {
 			Set<String> forbiddenWords) {
 		switch (dsGenPolicy) {
 		case RANDOM:
-			// se quello generato e' null, genera l'altro
+			// if the generated one is null, it generates the other
 			boolean pos = rnd.nextBoolean();
 			DistinguishingString dsRnd = pos ? getDS(a1, a2, DSgenPolicy.ONLY_POSITIVE, forbiddenWords)
 					: getDS(a1, a2, DSgenPolicy.ONLY_NEGATIVE, forbiddenWords);

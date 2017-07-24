@@ -38,7 +38,6 @@ public class OORegexConverter {
 		return getOORegex(ExtendedRegex.getSimplifiedRegexp(reg));
 	}
 
-	
 	// take a regex and build its objects
 	public static ooregex getOORegex(RegExp reg) {
 		Kind kind = reg.kind;

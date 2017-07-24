@@ -21,19 +21,20 @@ package dk.brics.automaton;
 //\\uxxxx (con un solo \) 	Find the Unicode character specified by a hexadecimal number xxxx
 
 /**
- *  This class allows to build a regex from a string with more metachar than those supported by RegExp dk.brics.automaton library
- *  
+ * This class allows to build a regex from a string with more metachar than
+ * those supported by RegExp dk.brics.automaton library
+ * 
  * @author garganti
  */
 public class ExtendedRegex {
 
-	public static RegExp getSimplifiedRegexp(String s){
-		String ss = simplifyRegex(s);		
+	public static RegExp getSimplifiedRegexp(String s) {
+		String ss = simplifyRegex(s);
 		return new RegExp(ss);
 	}
 
 	public static String simplifyRegex(String s) {
-		//   word character
+		// word character
 		s = s.replaceAll("\\\\w", "[a-zA-Z0-9_]");
 		// \d is replaced by [0-9]
 		s = s.replaceAll("\\\\d", "[0-9]");
@@ -41,5 +42,5 @@ public class ExtendedRegex {
 		s = s.replaceAll("\\\\s", "[ \t\r\n\f]");
 		// TODO other metachars
 		return s;
-	}	
+	}
 }

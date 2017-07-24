@@ -12,7 +12,6 @@ package dk.brics.automaton.oo;
  * 
  */
 public class REGEXP_SPECIALCHAR extends ooregex {
-
 	// special char
 	public char sc;
 
@@ -34,5 +33,4 @@ public class REGEXP_SPECIALCHAR extends ooregex {
 	public <T> T accept(RegexVisitor<T> v) {
 		return v.visit(this);
 	}
-
 }

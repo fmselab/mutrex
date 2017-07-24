@@ -3,7 +3,7 @@ package dk.brics.automaton.oo;
 import java.util.List;
 
 /**
- * alls the regex with two arguments
+ * all the regexes with two arguments
  */
 public abstract class oobinregex extends ooregex {
 	public ooregex exp1;
@@ -24,22 +24,21 @@ public abstract class oobinregex extends ooregex {
 		}
 		throw new RuntimeException("class of binary " + clazz.getName());
 	}
-	
-	/** in case a list is given build the union
-	 * 	
+
+	/**
+	 * in case a list is given build the union
+	 * 
 	 * @param regexpes
 	 * @return
 	 */
-	public static <T extends oobinregex> T makeBinExpression(Class<? extends ooregex> clazz,List<ooregex> regexpes){
-		assert regexpes.size() >=2;
-		int last = regexpes.size()-1;
+	public static <T extends oobinregex> T makeBinExpression(Class<? extends ooregex> clazz, List<ooregex> regexpes) {
+		assert regexpes.size() >= 2;
+		int last = regexpes.size() - 1;
 		ooregex result = regexpes.get(last);
 		// try to build in the same order as is given in the
-		for (int i = last-1; i >=0 ; i--){
-			result = makeBinExpression(clazz,regexpes.get(i), result);
+		for (int i = last - 1; i >= 0; i--) {
+			result = makeBinExpression(clazz, regexpes.get(i), result);
 		}
 		return (T) result;
 	}
-
-
 }
