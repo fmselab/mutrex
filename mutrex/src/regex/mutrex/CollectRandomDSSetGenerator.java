@@ -12,11 +12,9 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 /**
- * generates a ds that tries to kill as many mutants as possible, in random order
- * SHUFFLE
+ * generates a ds that tries to kill as many mutants as possible, in random
+ * order SHUFFLE
  * 
- * @author garganti
- *
  */
 public final class CollectRandomDSSetGenerator extends CollectDSSetGeneratorNoLimit {
 	private static Logger logger = Logger.getLogger(CollectRandomDSSetGenerator.class.getName());
@@ -29,6 +27,6 @@ public final class CollectRandomDSSetGenerator extends CollectDSSetGeneratorNoLi
 	public void addStringsToDSSet(DSSet dsset, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<MutatedRegExp> iteratorToList = IteratorUtils.iteratorToList(mutants);
 		Collections.shuffle(iteratorToList);
-		super.addStringsToDSSet(dsset,regex, iteratorToList.iterator());
+		super.addStringsToDSSet(dsset, regex, iteratorToList.iterator());
 	}
 }

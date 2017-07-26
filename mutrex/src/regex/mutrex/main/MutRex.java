@@ -2,7 +2,7 @@ package regex.mutrex.main;
 
 import regex.mutrex.CollectDSSetGeneratorNoLimit;
 import regex.mutrex.MonitoringDSSetgenerator;
-import regex.mutrex.PlainDSSetgenerator;
+import regex.mutrex.BasicDSSetgenerator;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.parallel.DAsParallelCollectDSSetGenerator;
@@ -10,14 +10,14 @@ import regex.mutrex.parallel.mutant.MutantParallelCollectDSSetGenerator;
 
 /** generates all the string to kill the mutation of a given regex */
 public class MutRex {
-	static DSSetGenerator[] generators = { PlainDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
+	static DSSetGenerator[] generators = { BasicDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
 			CollectDSSetGeneratorNoLimit.generator };
 
 	/** build the distinguishing strings + mutant killed */
 	public static DSSet generateStrings(String extregex, GeneratorType type) {
 		switch (type) {
 		case BASIC:
-			return PlainDSSetgenerator.generator.generateDSSet(extregex);
+			return BasicDSSetgenerator.generator.generateDSSet(extregex);
 		case MONITORING:
 			return MonitoringDSSetgenerator.generator.generateDSSet(extregex);
 		case COLLECTING_NO_LIMIT:

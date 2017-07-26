@@ -18,11 +18,11 @@ import regex.operators.RegexMutator.MutatedRegExp;
  * with timeout
  *
  */
-public class PlainDSSetgeneratorWithTimeout extends DSSetGenerator {
-	public static DSSetGenerator generator = new PlainDSSetgeneratorWithTimeout();
-	public static long TIMEOUT = 1; 
+public class BasicDSSetgeneratorWithTimeout extends DSSetGenerator {
+	public static DSSetGenerator generator = new BasicDSSetgeneratorWithTimeout();
+	public static long TIMEOUT = 1;
 
-	protected PlainDSSetgeneratorWithTimeout() {
+	protected BasicDSSetgeneratorWithTimeout() {
 	}
 
 	@Override
@@ -36,9 +36,9 @@ public class PlainDSSetgeneratorWithTimeout extends DSSetGenerator {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(g.isAlive()) {
+			if (g.isAlive()) {
 				System.err.println("interrupt");
-				//assert g.ds == null;
+				// assert g.ds == null;
 				g.interrupt();
 			}
 			if (g.ds != null) {
@@ -47,24 +47,23 @@ public class PlainDSSetgeneratorWithTimeout extends DSSetGenerator {
 		}
 		return;
 	}
-	
 }
 
 class Generator extends Thread {
-		RegExp mutant;
-		DistinguishingString ds;
-		RegExp regex;
-		PlainDSSetgeneratorWithTimeout generator;
+	RegExp mutant;
+	DistinguishingString ds;
+	RegExp regex;
+	BasicDSSetgeneratorWithTimeout generator;
 
-		public Generator(RegExp mutant, RegExp regex, PlainDSSetgeneratorWithTimeout generator) {
-			this.mutant = mutant;
-			this.regex = regex;
-			this.generator = generator;
-		}
-
-		@Override
-		public void run() {
-			// generate a distinguishing string
-			ds = DistStringCreator.getDS(regex, mutant, DSgenPolicy.RANDOM);
-		}
+	public Generator(RegExp mutant, RegExp regex, BasicDSSetgeneratorWithTimeout generator) {
+		this.mutant = mutant;
+		this.regex = regex;
+		this.generator = generator;
 	}
+
+	@Override
+	public void run() {
+		// generate a distinguishing string
+		ds = DistStringCreator.getDS(regex, mutant, DSgenPolicy.RANDOM);
+	}
+}

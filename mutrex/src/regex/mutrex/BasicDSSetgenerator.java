@@ -19,10 +19,10 @@ import regex.operators.RegexMutator.MutatedRegExp;
  * @author garganti
  *
  */
-public class PlainDSSetgenerator extends DSSetGenerator {
-	public static DSSetGenerator generator = new PlainDSSetgenerator();
+public class BasicDSSetgenerator extends DSSetGenerator {
+	public static DSSetGenerator generator = new BasicDSSetgenerator();
 
-	protected PlainDSSetgenerator() {
+	protected BasicDSSetgenerator() {
 	}
 
 	@Override
