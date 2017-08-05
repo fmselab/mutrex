@@ -173,7 +173,12 @@ public class RegExp {
 	int min, max, digits;
 	char from, to;
 	
-	String b;
+	String originalRgxAsStr;
+
+	public String getOriginalRgxAsStr() {
+		return originalRgxAsStr;
+	}
+
 	int flags;
 	int pos;
 	
@@ -196,14 +201,15 @@ public class RegExp {
 	 * @exception IllegalArgumentException if an error occured while parsing the regular expression
 	 */
 	public RegExp(String s, int syntax_flags) throws IllegalArgumentException {
-		b = s;
+		assert s != null;
+		originalRgxAsStr = s;
 		flags = syntax_flags;
 		RegExp e;
 		if (s.length() == 0)
 			e = makeString("");
 		else {
 			e = parseUnionExp();
-			if (pos < b.length())
+			if (pos < originalRgxAsStr.length())
 				throw new IllegalArgumentException("end-of-string expected at position " + pos);
 		}
 		kind = e.kind;
@@ -216,9 +222,9 @@ public class RegExp {
 		digits = e.digits;
 		from = e.from;
 		to = e.to;
-		b = null;
+		//originalRgxAsStr = null;//PA: commented on Feb 9, 2017
 	}
-	
+
 	/** 
 	 * Constructs new <code>Automaton</code> from this <code>RegExp</code>. 
 	 * Same as <code>toAutomaton(null)</code> (empty automaton map).
@@ -503,6 +509,40 @@ public class RegExp {
 		return b;
 	}
 
+	public int countOperators() {
+		int counter = 0;
+		switch (kind) {
+		case REGEXP_UNION:
+		case REGEXP_CONCATENATION:
+		case REGEXP_INTERSECTION:
+			counter = 1;
+			counter += exp1.countOperators();
+			counter += exp2.countOperators();
+			break;
+		case REGEXP_OPTIONAL:
+		case REGEXP_REPEAT:
+		case REGEXP_REPEAT_MIN:
+		case REGEXP_REPEAT_MINMAX:
+		case REGEXP_COMPLEMENT:
+			counter = 1 + exp1.countOperators();
+			break;
+		case REGEXP_CHAR_RANGE:
+		case REGEXP_ANYCHAR:
+		case REGEXP_EMPTY:
+		case REGEXP_ANYSTRING:
+		case REGEXP_INTERVAL:
+			counter = 1;
+			break;
+		case REGEXP_AUTOMATON:
+			break;
+		case REGEXP_CHAR:
+			break;
+		case REGEXP_STRING:
+			break;
+		}
+		return counter;
+	}
+
 	/** 
 	 * Returns set of automaton identifiers that occur in this regular expression. 
 	 */
@@ -681,13 +721,13 @@ public class RegExp {
 	}
 
 	private boolean peek(String s) {
-		return more() && s.indexOf(b.charAt(pos)) != -1;
+		return more() && s.indexOf(originalRgxAsStr.charAt(pos)) != -1;
 	}
 
 	private boolean match(char c) {
-		if (pos >= b.length())
+		if (pos >= originalRgxAsStr.length())
 			return false;
-		if (b.charAt(pos) == c) {
+		if (originalRgxAsStr.charAt(pos) == c) {
 			pos++;
 			return true;
 		}
@@ -695,13 +735,13 @@ public class RegExp {
 	}
 
 	private boolean more() {
-		return pos < b.length();
+		return pos < originalRgxAsStr.length();
 	}
 
 	private char next() throws IllegalArgumentException {
 		if (!more())
 			throw new IllegalArgumentException("unexpected end-of-string");
-		return b.charAt(pos++);
+		return originalRgxAsStr.charAt(pos++);
 	}
 
 	private boolean check(int flag) {
@@ -744,14 +784,14 @@ public class RegExp {
 					next();
 				if (start == pos)
 					throw new IllegalArgumentException("integer expected at position " + pos);
-				int n = Integer.parseInt(b.substring(start, pos));
+				int n = Integer.parseInt(originalRgxAsStr.substring(start, pos));
 				int m = -1;
 				if (match(',')) {
 					start = pos;
 					while (peek("0123456789"))
 						next();
 					if (start != pos)
-						m = Integer.parseInt(b.substring(start, pos));
+						m = Integer.parseInt(originalRgxAsStr.substring(start, pos));
 				} else
 					m = n;
 				if (!match('}'))
@@ -818,7 +858,7 @@ public class RegExp {
 				next();
 			if (!match('"'))
 				throw new IllegalArgumentException("expected '\"' at position " + pos);
-			return makeString(b.substring(start, pos - 1));
+			return makeString(originalRgxAsStr.substring(start, pos - 1));
 		} else if (match('(')) {
 			if (match(')'))
 				return makeString("");
@@ -832,7 +872,7 @@ public class RegExp {
 				next();
 			if (!match('>'))
 				throw new IllegalArgumentException("expected '>' at position " + pos);
-			String s = b.substring(start, pos - 1);
+			String s = originalRgxAsStr.substring(start, pos - 1);
 			int i = s.indexOf('-');
 			if (i == -1) {
 				if (!check(AUTOMATON))
