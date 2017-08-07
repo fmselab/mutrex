@@ -1,5 +1,6 @@
 package regex.operators;
 
+import static org.junit.Assert.*;
 import static regex.operators.MetaChar2Char.mutator;
 
 import java.util.Iterator;
@@ -64,4 +65,32 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		accept(corrected, "@a");
 		acceptNot(corrected, "a", "ba");
 	}
+	
+	@Test
+	public void testMutatePlus() {
+		// + as char to + as metachar
+		RegExp re = new RegExp("1\\+1=2");
+		accept(re, "1+1=2");
+		// mutate this expression
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		assertTrue(res.hasNext());
+	}
+	@Test
+	public void testMutatePlusMC() {
+		// + as metachar to + as char
+		RegExp re = new RegExp("1+1=2");
+		accept(re, "11=2", "1111=2");
+		acceptNot(re, "1+1=2");
+		// mutate this expression
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		assertTrue(res.hasNext());
+		RegExp corrected = res.next().mutatedRexExp;
+		System.out.println(corrected + " vs " + re);
+		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
+		System.out.println(ds.toString());
+		accept(corrected, "a", ".");
+		acceptNot(corrected, "b");
+	}
+	
+	
 }
