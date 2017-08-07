@@ -57,6 +57,7 @@ public class DatatypesAutomatonProvider implements AutomatonProvider {
 		this.enable_xml = enable_xml;
 	}
 	
+	@Override
 	public Automaton getAutomaton(String name) {
 		if ((enable_unicodeblocks && Datatypes.isUnicodeBlockName(name))
 				|| (enable_unicodecategories && Datatypes.isUnicodeCategoryName(name))

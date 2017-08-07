@@ -17,6 +17,7 @@ final public class StringUnionOperations {
 	 * Lexicographic order of input sequences.
 	 */
 	public final static Comparator<CharSequence> LEXICOGRAPHIC_ORDER = new Comparator<CharSequence>() {
+		@Override
 		public int compare(CharSequence s1, CharSequence s2) {
 			final int lens1 = s1.length();
 			final int lens2 = s2.length();

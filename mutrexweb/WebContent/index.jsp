@@ -50,7 +50,8 @@ td {
 				RegExpSet rs = ds.getKilledMutants(d);
 				out.println("(size: " + rs.size() + ")");
 				for (RegExp r : rs) {
-					out.println(rs.getDesctiption(r));
+					// print the description for each regex killed
+					out.println(rs.getDesctiption(r).toString());
 					out.println(ToSimpleString.convertToReadableString(OORegexConverter.getOORegex(r)));
 				}
 				out.println("</td></tr>");

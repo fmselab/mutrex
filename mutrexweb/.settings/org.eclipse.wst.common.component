@@ -4,7 +4,10 @@
         <dependent-module archiveName="mutrex.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mutrex/mutrex">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="java-output-path" value="/mutrexweb/build/classes"/>
+        <dependent-module archiveName="mutrex.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mutrex/mutrex">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="mutrexweb"/>
+        <property name="java-output-path" value="/mutrexweb/build/classes"/>
     </wb-module>
 </project-modules>

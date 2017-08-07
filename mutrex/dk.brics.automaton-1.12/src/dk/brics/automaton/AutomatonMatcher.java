@@ -146,6 +146,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IllegalStateException if there has not been a match attempt or
 	 *  if the last attempt yielded no results.
 	 */
+	@Override
 	public int end() throws IllegalStateException {
 		matchGood();
 		return matchEnd;
@@ -166,6 +167,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IndexOutOfBoundsException if the specified capturing group does
 	 *  not exist in the underlying automaton.
 	 */
+	@Override
 	public int end(final int group) throws IndexOutOfBoundsException, IllegalStateException {
 		onlyZero(group);
 		return end();
@@ -178,6 +180,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IllegalStateException if there has not been a match attempt or
 	 *  if the last attempt yielded no results.
 	 */
+	@Override
 	public String group() throws IllegalStateException {
 		matchGood();
 		return chars.subSequence(matchStart, matchEnd).toString();
@@ -199,6 +202,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IndexOutOfBoundsException if the specified capturing group does
 	 *  not exist in the underlying automaton.
 	 */
+	@Override
 	public String group(final int group) throws IndexOutOfBoundsException, IllegalStateException {
 		onlyZero(group);
 		return group();
@@ -212,6 +216,7 @@ public class AutomatonMatcher implements MatchResult {
 	 *
 	 * @return The number of capturing groups in the underlying automaton.
 	 */
+	@Override
 	public int groupCount() {
 		return 0;
 	}
@@ -223,6 +228,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IllegalStateException if there has not been a match attempt or
 	 *  if the last attempt yielded no results.
 	 */
+	@Override
 	public int start() throws IllegalStateException {
 		matchGood();
 		return matchStart;
@@ -243,6 +249,7 @@ public class AutomatonMatcher implements MatchResult {
 	 * @throws IndexOutOfBoundsException if the specified capturing group does
 	 *  not exist in the underlying automaton.
 	 */
+	@Override
 	public int start(int group) throws IndexOutOfBoundsException, IllegalStateException {
 		onlyZero(group);
 		return start();

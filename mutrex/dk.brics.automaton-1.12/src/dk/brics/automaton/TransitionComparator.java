@@ -45,6 +45,7 @@ class TransitionComparator implements Comparator<Transition>, Serializable {
 	/** 
 	 * Compares by (min, reverse max, to) or (to, min, reverse max). 
 	 */
+	@Override
 	public int compare(Transition t1, Transition t2) {
 		if (to_first) {
 			if (t1.to != t2.to) {

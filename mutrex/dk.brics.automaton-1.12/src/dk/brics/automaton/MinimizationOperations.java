@@ -645,6 +645,7 @@ final public class MinimizationOperations {
 			this.labels = labels;
 		}
 
+		@Override
 		public int compare(Integer i, Integer j) {
 			IntPair p1 = labels[i];
 			IntPair p2 = labels[j];

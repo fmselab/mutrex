@@ -169,6 +169,7 @@ public class State implements Serializable, Comparable<State> {
 	 * Compares this object with the specified object for order.
 	 * States are ordered by the time of construction.
 	 */
+	@Override
 	public int compareTo(State s) {
 		return s.id - id;
 	}
