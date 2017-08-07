@@ -2,6 +2,7 @@ package regex.operators;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static regex.operators.MetaChar2Char.mutator;
 
 import java.util.Iterator;
 
@@ -81,4 +82,15 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		accept(corrected, "-", ".", "a", "b");
 	}
 
+	@Test
+	public void testMutatePlus() {
+		// + as char to + as metachar
+		RegExp re = new RegExp("1\\+1=2");
+		accept(re, "1+1=2");
+		// mutate this expression
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		assertTrue(res.hasNext());
+	}
+
+	
 }

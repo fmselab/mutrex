@@ -62,33 +62,16 @@ public class ToRegexString implements RegexVisitor<Void> {
 		return null;
 	}
 
-	protected void visit(REGEXP_REPEAT r, boolean parenthesis) {
+	protected Void visit(REGEXP_REPEAT r, boolean parenthesis) {
 		if (parenthesis)
 			b.append("(");
 		r.exp.accept(this);
 		if (parenthesis)
 			b.append(")");
-		if (r.isOptional()) {
-			// (zero or one occurrence)
-			b.append("?");
-		} else {
-			if (r.max < 0) {
-				if (r.min <= 0) {
-					// both are unset
-					b.append("*");
-				} else {
-					if (r.min == 1)
-						b.append("+");
-					// REGEXP_REPEAT_MIN
-					else
-						b.append("{").append(r.min).append(",}");
-				}
-			} else {
-				// REGEXP_REPEAT_MINMAX
-				b.append("{").append(r.min).append(",").append(r.max).append("}");
-			}
-		}
+		b.append(r.getQuantifier());
+		return null;
 	}
+
 
 	@Override
 	public Void visit(REGEXP_COMPLEMENT r) {

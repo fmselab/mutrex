@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.oo.ToSimpleString;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingStringsCouple;
 import regex.operators.RegexMutator.MutatedRegExp;
@@ -67,29 +68,21 @@ public class MetaChar2CharTest extends RegexMutationTest {
 	}
 	
 	@Test
-	public void testMutatePlus() {
-		// + as char to + as metachar
-		RegExp re = new RegExp("1\\+1=2");
-		accept(re, "1+1=2");
-		// mutate this expression
-		Iterator<MutatedRegExp> res = mutator.mutate(re);
-		assertTrue(res.hasNext());
-	}
-	@Test
 	public void testMutatePlusMC() {
 		// + as metachar to + as char
 		RegExp re = new RegExp("1+1=2");
 		accept(re, "11=2", "1111=2");
 		acceptNot(re, "1+1=2");
 		// mutate this expression
-		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		Iterator<MutatedRegExp> res = MetaChar2Char.mutator.mutate(re);
 		assertTrue(res.hasNext());
 		RegExp corrected = res.next().mutatedRexExp;
+		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs " + ToSimpleString.convertToReadableString(re));
 		System.out.println(corrected + " vs " + re);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
-		accept(corrected, "a", ".");
-		acceptNot(corrected, "b");
+		accept(corrected, "1+1=2");
+		acceptNot(corrected, "1111=2", "11=2");
 	}
 	
 	

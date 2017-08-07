@@ -14,6 +14,7 @@ package dk.brics.automaton.oo;
  *
  */
 final public class REGEXP_REPEAT extends oounaryregex {
+	// TODO put them private (or at least with accessor)
 	public int min;
 	public int max;
 
@@ -45,7 +46,33 @@ final public class REGEXP_REPEAT extends oounaryregex {
 		return new REGEXP_REPEAT(ooRegex, 0, 1);
 	}
 
-	public boolean isOptional() {
-		return min == 0 && max == 1;
+	// return the quantifier as a string (like ?, + , {3}...
+	public String getQuantifier() {
+		// check if it is optional
+		if (isOptional()){
+			// (zero or one occurrence)
+			return "?";
+		} else {
+			if (max < 0) {
+				if (min <= 0) {
+					// both are unset
+					return "*";
+				} else {
+					if (min == 1)
+						return "+";
+					// REGEXP_REPEAT_MIN
+					else
+						return ("{" + min + ",}");
+				}
+			} else {
+				// REGEXP_REPEAT_MINMAX
+				return ("{" + min + "," + max + "}");
+			}
+		}
 	}
+
+	public boolean isOptional() {
+		return  (min == 0 && max == 1); 
+	}
+
 }
