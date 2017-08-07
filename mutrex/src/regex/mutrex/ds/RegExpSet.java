@@ -53,12 +53,13 @@ public class RegExpSet extends HashSet<RegExp> {
 	 * 
 	 * @return the descriptions of the killed regex
 	 */
-	public List<String> getDesctiption(RegExp r) {
+	public List<String> getDescription(RegExp r) {
 		List<String> l = mutantDescription.get(r);
-		if (l == null)
+		if (l == null) {
 			return Collections.EMPTY_LIST;
-		else
+		} else {
 			return l;
+		}
 
 	}
 }

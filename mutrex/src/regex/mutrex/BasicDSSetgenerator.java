@@ -31,8 +31,10 @@ public class BasicDSSetgenerator extends DSSetGenerator {
 		while (mutants.hasNext()) {
 			MutatedRegExp mutant = mutants.next();
 			// generate a distinguishing string
-			//DistinguishingString ds = DistStringCreator.getDS(regex, mutant.mutatedRexExp, DSgenPolicy.RANDOM);
-			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutant.mutatedRexExp.toAutomaton(), DSgenPolicy.RANDOM);
+			// DistinguishingString ds = DistStringCreator.getDS(regex,
+			// mutant.mutatedRexExp, DSgenPolicy.RANDOM);
+			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutant.mutatedRexExp.toAutomaton(),
+					DSgenPolicy.RANDOM);
 			if (ds != null) {
 				result.add(ds, Collections.singletonList(mutant));
 			}
