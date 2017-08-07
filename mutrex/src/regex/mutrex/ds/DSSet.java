@@ -54,4 +54,15 @@ public class DSSet implements Iterable<DistinguishingString>{
 	public RegExpSet getKilledMutants(DistinguishingString ds) {
 		return dsKilledMutant.get(ds);
 	}
+
+	public DistinguishingString getDS(int index) {
+		if(index < size()) {
+			return (DistinguishingString)dsKilledMutant.keySet().toArray()[index];
+		}
+		return null;
+	}
+
+	public void remove(DistinguishingString ds) {
+		dsKilledMutant.remove(ds);
+	}
 }
