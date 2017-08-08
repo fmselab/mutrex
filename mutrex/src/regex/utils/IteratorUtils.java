@@ -7,7 +7,7 @@ import java.util.List;
 public class IteratorUtils {
 
 	/**
-	 * converts an iterator to a list
+	 * converts an iterator to a list (and brings the iterator to the end)
 	 * 
 	 * @param iter
 	 * @return

@@ -4,11 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
 import java.util.List;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
+import regex.utils.IteratorUtils;
 
 public class RegexMutationTest {
 
@@ -42,6 +44,15 @@ public class RegexMutationTest {
 		assertTrue("no regex in " + m + " is equal to " + regex, OneEqualTo(m, regex));
 	}
 	
+	protected void assertOneEqualTo(Iterator<MutatedRegExp> m, String regex) {
+		List<MutatedRegExp> iteratorToList = IteratorUtils.iteratorToList(m);
+		assertTrue("no regex in " + iteratorToList + " is equal to " + regex, OneEqualTo(m, regex));
+	}
+
+	protected boolean OneEqualTo(Iterator<MutatedRegExp> res, String regex) {
+		return OneEqualTo(IteratorUtils.iteratorToList(res),regex);
+	}
+
 	
 	protected boolean OneEqualTo(List<MutatedRegExp> m, String regex) {
 		Automaton a = new RegExp(regex).toAutomaton();
