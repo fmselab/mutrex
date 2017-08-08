@@ -1,8 +1,8 @@
 package regex.mutrex.main;
 
+import regex.mutrex.BasicDSSetgenerator;
 import regex.mutrex.CollectDSSetGeneratorNoLimit;
 import regex.mutrex.MonitoringDSSetgenerator;
-import regex.mutrex.BasicDSSetgenerator;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.parallel.DAsParallelCollectDSSetGenerator;

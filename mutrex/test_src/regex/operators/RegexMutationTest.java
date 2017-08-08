@@ -39,12 +39,16 @@ public class RegexMutationTest {
 	 * @param regex
 	 */
 	protected void assertOneEqualTo(List<MutatedRegExp> m, String regex) {
+		assertTrue("no regex in " + m + " is equal to " + regex, OneEqualTo(m, regex));
+	}
+
+	protected boolean OneEqualTo(List<MutatedRegExp> m, String regex) {
 		Automaton a = new RegExp(regex).toAutomaton();
 		for (MutatedRegExp j : m) {
 			if (j.mutatedRexExp.toAutomaton().equals(a))
-				return;
+				return true;
 		}
-		fail("no regex in " + m + " is equal to " + regex);
+		return false;
 	}
 
 	protected void assertOneRegexEqualTo(List<RegExp> m, String regex) {

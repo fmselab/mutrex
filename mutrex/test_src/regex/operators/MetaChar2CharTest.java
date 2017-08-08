@@ -1,6 +1,6 @@
 package regex.operators;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static regex.operators.MetaChar2Char.mutator;
 
 import java.util.Iterator;

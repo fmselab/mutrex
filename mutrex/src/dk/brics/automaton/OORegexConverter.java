@@ -26,7 +26,7 @@ import dk.brics.automaton.oo.oosimpleexp;
  */
 public class OORegexConverter {
 
-	private static Logger logger = Logger.getLogger(OORegexConverter.class.getName());
+	public static Logger logger = Logger.getLogger(OORegexConverter.class.getName());
 
 	// take a regex and build its objects
 	public static ooregex getOORegex(String reg) {
@@ -36,6 +36,16 @@ public class OORegexConverter {
 	// from an extended regex (with some metachars and so on)
 	public static ooregex getOOExtRegex(String reg) {
 		return getOORegex(ExtendedRegex.getSimplifiedRegexp(reg));
+	}
+
+	/** convert a list of ooregex back to list of RegExp */
+	public static List<RegExp> convertBackToRegex(List<ooregex> resultsOO) {
+		List<RegExp> exps = new ArrayList<>();
+		for (ooregex r : resultsOO) {
+			String s = ToRegexString.convertToRegexString(r);
+			exps.add(new RegExp(s));
+		}
+		return exps;
 	}
 
 	// take a regex and build its objects
@@ -58,10 +68,10 @@ public class OORegexConverter {
 			result = REGEXP_REPEAT.REGEXP_OPTIONAL(getOORegex(reg.exp1)); // '?'
 			break;
 		case REGEXP_REPEAT:
-			result = new REGEXP_REPEAT(getOORegex(reg.exp1), 0);// , "*");
+			result = new REGEXP_REPEAT(getOORegex(reg.exp1), 0, REGEXP_REPEAT.infinite);
 			break;
 		case REGEXP_REPEAT_MIN:
-			result = new REGEXP_REPEAT(getOORegex(reg.exp1), reg.min);
+			result = new REGEXP_REPEAT(getOORegex(reg.exp1), reg.min, -1);
 			break;
 		case REGEXP_REPEAT_MINMAX:
 			result = new REGEXP_REPEAT(getOORegex(reg.exp1), reg.min, reg.max);
@@ -96,17 +106,8 @@ public class OORegexConverter {
 		default:
 			throw new RuntimeException();
 		}
-		logger.info("building from regex " + reg.toString() + " object " + result.getClass());
+		OORegexConverter.logger.info("building from regex " + reg.toString() + " object " + result.getClass());
 		return result;
 	}
 
-	/** convert a list of ooregex back to list of RegExp */
-	public static List<RegExp> convertBackToRegex(List<ooregex> resultsOO) {
-		List<RegExp> exps = new ArrayList<>();
-		for (ooregex r : resultsOO) {
-			String s = ToRegexString.convertToRegexString(r);
-			exps.add(new RegExp(s));
-		}
-		return exps;
-	}
 }

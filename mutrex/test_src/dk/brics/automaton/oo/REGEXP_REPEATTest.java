@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import dk.brics.automaton.OORegexConverter;
+import dk.brics.automaton.RegExp;
 
 /* <pre>
 * repeatexp	::=	repeatexp ?	(zero or one occurrence)	
@@ -30,7 +31,8 @@ public class REGEXP_REPEATTest {
 	}
 
 	private ooregex checkRepeatExpr(String s, int min, int max) {
-		ooregex r1 = OORegexConverter.getOORegex(s);
+		RegExp re = new RegExp(s);
+		ooregex r1 = OORegexConverter.getOORegex(re);
 		assertTrue(r1 instanceof REGEXP_REPEAT);
 		assertEquals(min, ((REGEXP_REPEAT) r1).min);
 		assertEquals(max, ((REGEXP_REPEAT) r1).max);

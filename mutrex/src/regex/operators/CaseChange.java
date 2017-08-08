@@ -39,9 +39,18 @@ public class CaseChange extends RegexMutator {
 			if (toCase == CaseChar.NOT_ALPHABETIC)
 				return Collections.EMPTY_LIST;
 			if (fromCase == toCase) {
-				REGEXP_CHAR_RANGE ooRegexChangedCase = new REGEXP_CHAR_RANGE(CaseAddition.changeCase(r.from),
-						CaseAddition.changeCase(r.to));
-				return Collections.singletonList((ooregex) ooRegexChangedCase);
+				List<ooregex> results = new ArrayList<>();
+				Character fromCC = CaseAddition.changeCase(r.from);
+				Character toCC = CaseAddition.changeCase(r.to);
+				// both changed case a-z -> A-Z
+				results.add(new REGEXP_CHAR_RANGE(fromCC,toCC));
+				// if only the to can be changed (like A-Z -> A-z) 
+				if (toCC > r.from)
+					results.add(new REGEXP_CHAR_RANGE(r.from,toCC));
+				// if only the from part can be changed (like a-z -> A-z)
+				if (fromCC < r.to)
+					results.add(new REGEXP_CHAR_RANGE(fromCC,r.to));					
+				return results;
 			}
 			return Collections.EMPTY_LIST;
 		}

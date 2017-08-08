@@ -53,7 +53,7 @@ public class RegExpSet extends HashSet<RegExp> {
 	 * 
 	 * @return the descriptions of the killed regex
 	 */
-	public List<String> getDescription(RegExp r) {
+	public List<String> getDescription(dk.brics.automaton.RegExp r) {
 		List<String> l = mutantDescription.get(r);
 		if (l == null) {
 			return Collections.EMPTY_LIST;

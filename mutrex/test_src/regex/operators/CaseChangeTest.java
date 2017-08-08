@@ -1,5 +1,7 @@
 package regex.operators;
 
+import static org.junit.Assert.assertFalse;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -7,6 +9,7 @@ import org.junit.Test;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.REGEXP_CHAR;
+import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_UNION;
@@ -30,8 +33,23 @@ public class CaseChangeTest extends RegexMutationTest {
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		System.out.println(m);
 		assertOneEqualTo(m, "[A-Z]*");
+		assertOneEqualTo(m, "[A-z]*");
+		assertFalse(OneEqualTo(m, "[a-Z]*"));
 	}
 
+	@Test
+	public void testMutateCharClass() {
+		RegExp re = new RegExp("[A-Z]");
+		ooregex oore = OORegexConverter.getOORegex(re);
+		assert oore instanceof REGEXP_CHAR_RANGE;
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		System.out.println(m);
+		assertOneEqualTo(m, "[a-z]");
+		assertOneEqualTo(m, "[A-z]");
+		assertFalse(OneEqualTo(m, "[a-Z]"));
+	}
+
+	
 	@Test
 	public void testMutateString() {
 		RegExp re = new RegExp("abc");

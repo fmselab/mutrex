@@ -11,6 +11,7 @@ import dk.brics.automaton.oo.ooregex;
  *
  */
 public class QuantifierChange extends RegexMutator {
+	
 	public static QuantifierChange mutator = new QuantifierChange();
 
 	private QuantifierChange() {
@@ -27,15 +28,15 @@ public class QuantifierChange extends RegexMutator {
 			assert min >= -1 && max >= -1;
 			List<ooregex> result = new ArrayList<ooregex>();
 			// optional
-			if (r.isOptional()) {
-				result.add(new REGEXP_REPEAT(contentExpr, 0, -1));// Any
-				result.add(new REGEXP_REPEAT(contentExpr, 1));// AtLeastOnce
+			if ((r.min == 0 && r.max == 1)) {
+				result.add(new REGEXP_REPEAT(contentExpr, 0, 0));// Any
+				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
 				return result;
 			}
 			// Any
 			if (min == -1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
-				result.add(new REGEXP_REPEAT(contentExpr, 1));// AtLeastOnce
+				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
 				return result;
 			}
 			assert min > -1;
@@ -49,9 +50,9 @@ public class QuantifierChange extends RegexMutator {
 			if (min > 1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
 				result.add(new REGEXP_REPEAT(contentExpr, 0, -1));// Any
-				result.add(new REGEXP_REPEAT(contentExpr, 1));// AtLeastOnce
-				result.add(new REGEXP_REPEAT(contentExpr, min - 1));//// AtLeastN-1times
-				result.add(new REGEXP_REPEAT(contentExpr, min + 1));//// AtLeastN+1times
+				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
+				result.add(new REGEXP_REPEAT(contentExpr, min - 1,-20));//// AtLeastN-1times
+				result.add(new REGEXP_REPEAT(contentExpr, min + 1,-20));//// AtLeastN+1times
 				return result;
 			}
 			// exactly n times
