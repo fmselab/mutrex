@@ -31,7 +31,7 @@ public class AllMutators extends RegexMutator {
 		add(CharacterClassNegation.mutator);
 		add(NegatedCharacterClassToOptional.mutator);
 		add(NegationAddition.mutator);
-		//add(QuantifierChange.mutator);
+		add(QuantifierChange.mutator);
 	}
 
 	@Override
