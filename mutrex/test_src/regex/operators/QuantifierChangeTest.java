@@ -54,8 +54,8 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_REPEAT;
 		REGEXP_REPEAT rr = (REGEXP_REPEAT) oore;
-		assertEquals(0,rr.min);
-		assertEquals(0,rr.max);
+		assertEquals(0, rr.min);
+		assertEquals(0, rr.max);
 		List<MutatedRegExp> m = test(re);
 		assertEquals(2, m.size());
 		assertTrue(OneEqualTo(m, "a*"));
@@ -67,8 +67,8 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_REPEAT;
 		REGEXP_REPEAT rr = (REGEXP_REPEAT) oore;
-		assertEquals(1,rr.min);
-		assertEquals(0,rr.max);
+		assertEquals(1, rr.min);
+		assertEquals(0, rr.max);
 		List<MutatedRegExp> m = test(re);
 		assertEquals(2, m.size());
 		assertTrue(OneEqualTo(m, "a*"));
