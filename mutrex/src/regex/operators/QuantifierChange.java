@@ -30,7 +30,7 @@ public class QuantifierChange extends RegexMutator {
 			// optional
 			if ((r.min == 0 && r.max == 1)) {
 				result.add(new REGEXP_REPEAT(contentExpr, 0, 0));// Any
-				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
+				result.add(new REGEXP_REPEAT(contentExpr, 1, -10));// AtLeastOnce
 				return result;
 			}
 			// Any

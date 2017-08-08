@@ -10,7 +10,7 @@ package dk.brics.automaton.oo;
 	|	repeatexp {n,m}	(n to m occurrences, including both)
  * </pre>
  * 
- * Warninng: in brics this have differnt kinds (a possible euqal min and max
+ * Warning: in brics this have different kinds (a possible equal min and max)
  * 
  * @author garganti
  *
