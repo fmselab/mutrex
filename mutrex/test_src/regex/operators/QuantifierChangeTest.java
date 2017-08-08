@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static regex.operators.QuantifierChange.mutator;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,6 +15,7 @@ import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.ooregex;
 import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
+import regex.utils.RegexExamplesTaker;
 
 public class QuantifierChangeTest extends RegexMutationTest {
 
@@ -132,5 +134,11 @@ public class QuantifierChangeTest extends RegexMutationTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmpty4() {
 		new RegExp("a{0, 0}");
+	}
+
+	@Test
+	public void testR2() throws IOException {
+		RegExp re = RegexExamplesTaker.readExampleRegex("someExamples", "r2");
+		List<MutatedRegExp> m = test(re);
 	}
 }
