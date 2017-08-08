@@ -89,6 +89,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		accept(re, "1+1=2");
 		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		System.out.println(IteratorUtils.iteratorToList(res));
 		//System.out.println(IteratorUtils.iteratorToList(res));
 		assertTrue(res.hasNext());
 		assertOneEqualTo(res, "1+1=2");		
