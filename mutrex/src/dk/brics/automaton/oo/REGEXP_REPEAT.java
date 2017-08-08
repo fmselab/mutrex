@@ -32,8 +32,7 @@ final public class REGEXP_REPEAT extends oounaryregex {
 	// A{n} (Kind.REGEXP_REPEAT_MINMAX) -> n, n
 	// A{n,} (Kind.REGEXP_REPEAT_MIN) -> n, -1 (infinite)
 	// A{n,m} (Kind.REGEXP_REPEAT_MINMAX) --> n, m
-
-	public REGEXP_REPEAT(ooregex ooRegex, int min, int max) {
+	REGEXP_REPEAT(ooregex ooRegex, int min, int max) {
 		super(ooRegex);
 		this.min = min;
 		this.max = max;
@@ -43,12 +42,7 @@ final public class REGEXP_REPEAT extends oounaryregex {
 		// max is always greater than min unless is -1
 		assert max == -1 || max >= min : "max = " + max + "\nmin = " + min;
 	}
-
-	@Override
-	public <T> T accept(RegexVisitor<T> v) {
-		return v.visit(this);
-	}
-
+	
 	/**
 	 * build the ? repeat operator.
 	 * 
@@ -58,6 +52,73 @@ final public class REGEXP_REPEAT extends oounaryregex {
 	static public REGEXP_REPEAT REGEXP_OPTIONAL(ooregex ooRegex) {
 		return new REGEXP_REPEAT(ooRegex, 0, 1);
 	}
+
+	/**
+	 * build the * repeat operator.
+	 * 
+	 * @param ooRegex
+	 * @return
+	 */
+	static public REGEXP_REPEAT REGEXP_REPEAT(ooregex ooRegex) {
+		return new REGEXP_REPEAT(ooRegex, 0, -1);
+	}
+
+	/**
+	 * build the A+ repeat operator. (min =1)
+	 * 
+	 * @param ooRegex
+	 * @return
+	 */
+	static public REGEXP_REPEAT REGEXP_REPEAT_MIN(ooregex ooRegex) {
+		return REGEXP_REPEAT_MIN_N(ooRegex, 1);
+	}
+	/**
+	 * build the A{n,} repeat operator.
+	 * 
+	 * @param ooRegex
+	 * @return
+	 */
+	static public REGEXP_REPEAT REGEXP_REPEAT_MIN_N(ooregex ooRegex, int min) {
+		assert min >=1;
+		return new REGEXP_REPEAT(ooRegex, min, -1);
+	}
+
+	/**
+	 * build the A{n} repeat operator.
+	 * 
+	 * @param ooRegex
+	 * @return
+	 */
+	static public REGEXP_REPEAT REGEXP_REPEAT_MINMAX_N(ooregex ooRegex, int n) {
+		assert n >=1;
+		return new REGEXP_REPEAT(ooRegex, n, n);
+	}
+
+	/**
+	 * build the A{n,m} repeat operator.
+	 * 
+	 * @param ooRegex
+	 * @return
+	 */
+	static public REGEXP_REPEAT REGEXP_REPEAT_MINMAX_N(ooregex ooRegex, int n, int m) {
+		assert n >=1;
+		assert m >=n;
+		return new REGEXP_REPEAT(ooRegex, n, m);
+	}
+	/** when I want to build the same type of ripetition
+	 * to make the constructur private and min and max private
+	 * rtype give min and max
+	 * r the real content*/
+	static public REGEXP_REPEAT sameREPEAT_Type(REGEXP_REPEAT rtype, ooregex r) {
+		return new REGEXP_REPEAT(r, rtype.min, rtype.max);
+	}
+	
+	
+	@Override
+	public <T> T accept(RegexVisitor<T> v) {
+		return v.visit(this);
+	}
+
 
 	// return the quantifier as a string (like ?, + , {3}...
 	public String getQuantifier() {

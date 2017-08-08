@@ -68,7 +68,7 @@ class RegexVisitorAdapterList implements RegexVisitor<List<ooregex>> {
 		List<ooregex> m1 = r.getContentExpr().accept(this);
 		List<ooregex> result = new ArrayList<ooregex>();
 		for (ooregex r1 : m1) {
-			result.add(new REGEXP_REPEAT(r1, r.min, r.max));
+			result.add(REGEXP_REPEAT.sameREPEAT_Type(r,r1));
 		}
 		return result;
 	}

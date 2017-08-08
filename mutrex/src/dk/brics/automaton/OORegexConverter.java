@@ -68,13 +68,13 @@ public class OORegexConverter {
 			result = REGEXP_REPEAT.REGEXP_OPTIONAL(getOORegex(reg.exp1)); // '?'
 			break;
 		case REGEXP_REPEAT:
-			result = new REGEXP_REPEAT(getOORegex(reg.exp1), 0, REGEXP_REPEAT.infinite);
+			result = REGEXP_REPEAT.REGEXP_REPEAT(getOORegex(reg.exp1));
 			break;
 		case REGEXP_REPEAT_MIN:
-			result = new REGEXP_REPEAT(getOORegex(reg.exp1), reg.min, -1);
+			result = REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(getOORegex(reg.exp1), reg.min);
 			break;
 		case REGEXP_REPEAT_MINMAX:
-			result = new REGEXP_REPEAT(getOORegex(reg.exp1), reg.min, reg.max);
+			result = REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(getOORegex(reg.exp1), reg.min, reg.max);
 			break;
 		case REGEXP_COMPLEMENT:
 			result = new REGEXP_COMPLEMENT(getOORegex(reg.exp1));

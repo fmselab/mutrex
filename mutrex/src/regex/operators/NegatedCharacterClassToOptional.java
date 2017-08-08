@@ -30,7 +30,7 @@ public class NegatedCharacterClassToOptional extends RegexMutator {
 			if (rcontent == null)
 				return Collections.EMPTY_LIST;
 			// build the optional
-			return Collections.singletonList((ooregex) new REGEXP_REPEAT(r, 0, 1));
+			return Collections.singletonList((ooregex) REGEXP_REPEAT.REGEXP_OPTIONAL(r));
 		}
 
 		@Override

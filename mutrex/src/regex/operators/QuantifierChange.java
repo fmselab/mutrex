@@ -27,32 +27,32 @@ public class QuantifierChange extends RegexMutator {
 			int max = r.max;
 			assert min >= -1 && max >= -1;
 			List<ooregex> result = new ArrayList<ooregex>();
-			// optional
+			// optional ?
 			if ((r.min == 0 && r.max == 1)) {
-				result.add(new REGEXP_REPEAT(contentExpr, 0, 0));// Any
-				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any *
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN(contentExpr));// AtLeastOnce +
 				return result;
 			}
-			// Any
+			// Any *
 			if (min == -1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
-				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN(contentExpr));// AtLeastOnce
 				return result;
 			}
 			assert min > -1;
-			// AtLeastOnce
+			// AtLeastOnce +
 			if (min == 1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
-				result.add(new REGEXP_REPEAT(contentExpr, 0, -1));// Any
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any
 				return result;
 			}
 			// AtLeastNtimes
 			if (min > 1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
-				result.add(new REGEXP_REPEAT(contentExpr, 0, -1));// Any
-				result.add(new REGEXP_REPEAT(contentExpr, 1,-10));// AtLeastOnce
-				result.add(new REGEXP_REPEAT(contentExpr, min - 1,-20));//// AtLeastN-1times
-				result.add(new REGEXP_REPEAT(contentExpr, min + 1,-20));//// AtLeastN+1times
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN(contentExpr));// AtLeastOnce
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min - 1));//// AtLeastN-1times
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min + 1));//// AtLeastN+1times
 				return result;
 			}
 			// exactly n times
@@ -60,23 +60,23 @@ public class QuantifierChange extends RegexMutator {
 				assert min > 0;
 				if (min > 1) {
 					// (n - 1) times
-					result.add(new REGEXP_REPEAT(contentExpr, min - 1, max - 1));
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max - 1));
 					// (n + 1) times
-					result.add(new REGEXP_REPEAT(contentExpr, min + 1, max + 1));
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
 				}
 				return result;
 			}
 			if (min > 0) {
-				result.add(new REGEXP_REPEAT(contentExpr, min - 1, max));
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max));
 			}
 			if (min < max) {
-				result.add(new REGEXP_REPEAT(contentExpr, min + 1, max));
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max));
 			}
 			if (max != -1) {
 				assert max != Integer.MAX_VALUE;
-				result.add(new REGEXP_REPEAT(contentExpr, min, max + 1));
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max + 1));
 				if (max > min) {
-					result.add(new REGEXP_REPEAT(contentExpr, min, max - 1));
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max - 1));
 				}
 			}
 			return result;
