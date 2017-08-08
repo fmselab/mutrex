@@ -47,7 +47,8 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		//
 		Iterator<MutatedRegExp> m = mp.mutate(re);
 		// for the first, it must start with a letter
-		// fail because it returns that starting with a number
+		// test fails because it returns that starting with a number
+		// FIXME
 		RegExp mutation = m.next().mutatedRexExp;
 		System.out.println(mutation);
 		ra = new RunAutomaton(mutation.toAutomaton());

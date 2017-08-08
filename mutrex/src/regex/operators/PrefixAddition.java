@@ -51,14 +51,12 @@ public class PrefixAddition extends RegexMutator {
 				}
 			}
 			List<ooregex> result = new ArrayList<ooregex>();
-			int newMax = r.max == -1 ? -1 : r.max - 1;
-			if (newMax == 0) {
+			REGEXP_REPEAT newRepeat = r.minus1();
+			if (newRepeat == null) {
 				return Collections.EMPTY_LIST;
 			}
-			// min = 1 becomes 1 + 0 or more
-			// min becomes 1 + min-1 or more
 			for (ooregex p : prefixes) {
-				result.add(new REGEXP_CONCATENATION(p, REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(r.getContentExpr(), r.min - 1, newMax)));
+				result.add(new REGEXP_CONCATENATION(p, newRepeat));
 			}
 			return result;
 		}
