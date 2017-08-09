@@ -49,123 +49,122 @@ Date3:	(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1
 DateEurope:	((((31\/(0?[13578]|1[02]))|((29|30)\/(0?[1,3-9]|1[0-2])))\/(1[6-9]|[2-9]\d)?\d{2})|(29\/0?2\/(((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))|(0?[1-9]|1\d|2[0-8])\/((0?[1-9])|(1[0-2]))\/((1[6-9]|[2-9]\d)?\d{2})) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d
 SQLquery:	(SELECT\s[\w\*\)\(\,\s]+\sFROM\s[\w]+)| (UPDATE\s[\w]+\sSET\s[\w\,\'\=]+)| (INSERT\sINTO\s[\d\w]+[\s\w\d\)\(\,]*\sVALUES\s\([\d\w\'\,\)]+)| (DELETE\sFROM\s[\d\w\'\=]+)
 DateTimeSWL:	(((((0[13578])|([13578])|(1[02]))[\-\/\s]?((0[1-9])|([1-9])|([1-2][0-9])|(3[01])))|((([469])|(11))[\-\/\s]?((0[1-9])|([1-9])|([1-2][0-9])|(30)))|((02|2)[\-\/\s]?((0[1-9])|([1-9])|([1-2][0-9]))))[\-\/\s]?\d{4})(\s(((0[1-9])|([1-9])|(1[0-2]))\:([0-5][0-9])((\s)|(\:([0-5][0-9])\s))([AM|PM|am|pm]{2,2})))?
-tourDeSource0:	#
-tourDeSource1:	(\ )*
-tourDeSource2:	.
-tourDeSource3:	(\ ){3,3}
-tourDeSource4:	(" \"|\ )
-tourDeSource5:	("--"|\/)
-tourDeSource6:	(\ ){2,}
-tourDeSource7:	("\n"|"\\")
-tourDeSource8:	(\*|\:)
-tourDeSource9:	("qt"|"gtk")
-tourDeSource10:	("--help"|"help")
-tourDeSource11:	("crash"|"assert")
-tourDeSource12:	("ATOM"|"HETATM")
-tourDeSource13:	("MODEL"|"ENDMDL")
-tourDeSource14:	("CONECT"|"MASTER")
-tourDeSource15:	(\'|")(.+)(\'|")
-tourDeSource16:	("xc5x9b"|"xc5x9a")
-tourDeSource17:	"No more addresses".
-tourDeSource18:	("appcfg"|"bulkloader")
-tourDeSource19:	("?([a-zA-Z0-9_-]+)")?
-tourDeSource20:	"404 "("Not Found"|"error")
-tourDeSource21:	("%20Mac%20"|"mac_valgrind")
-tourDeSource22:	("Read-only"|"protected")
-tourDeSource23:	\y.
-tourDeSource24:	("! Emergency stop"|"Error:")
-tourDeSource25:	#"define NODE_MAJOR_VERSION"
-tourDeSource26:	("Resolving "|"Connecting to ")
-tourDeSource27:	"http://dbpedia"."org/resource/"
-tourDeSource28:	"GlueCEInfoContactString: "(.)*
-tourDeSource29:	"MythFrontend Network Control"(.)*
-tourDeSource30:	#"define NODE_VERSION_IS_RELEASE"
-tourDeSource31:	("Confirmed a race"|"unexpected race")
-tourDeSource32:	("EPSG:900913"|("EPSG:3857"|"EPSG:102100"))
-tourDeSource33:	"This is file for test of copy-out".
-tourDeSource34:	"        Log text 1 \issue 321\".
-tourDeSource35:	"Details for test_debug"."Foo object at"
-tourDeSource36:	"This is file for test of virt-tar-in".
-tourDeSource37:	"This is file for test of virt-copy-in".
-tourDeSource38:	"This is file for test of virt-copy-out".
-tourDeSource39:	"GlueForeignKey: GlueClusterUniqueID="(.)*
-tourDeSource40:	"NIPAP database - schema version: "([\0-\9]){1,}
-tourDeSource41:	("SECRET"|("PASSWORD"|("PROFANITIES_LIST"|"SIGNATURE")))
-tourDeSource42:	("failed"|("delayed"|("delivered"|("relayed"|"expanded"))))
-tourDeSource43:	("Chrome"|("Gecko"|("Microsoft"|("Mozilla"|("Safari"|"WebKit")))))
-tourDeSource44:	\\("DEBUG"|("INFO"|("WARNING"|("ERROR"|"SEVERE"))))\/[\0-\4]\\
-tourDeSource45:	("Ratification"|("Accession"|("Succession"|"Acceptance")))
-tourDeSource46:	"Number of files successfully Verified: "([\0-\9])*
-tourDeSource47:	"Unused options for buildout: 'eggs' 'scripts'\".
-tourDeSource48:	"\b"("throw"|("try"|("catch"|"TS"(\M)?"_ASSERT_THROWS"(([\A-\Z]|\_))*)))"\b"
-tourDeSource49:	("Notification"|("Undelivered Message"|"Delivery Report"))
-tourDeSource50:	("mapper"|("table"|("column"|("session"|("attribute"|"engine")))))\:(.)*
-tourDeSource51:	("HWPREDICT"|("SEASONAL"|("DEVSEASONAL"|("DEVPREDICT"|"FAILURES"))))
-tourDeSource52:	"Mean frequency of private alleles p\1\= "((\.|[\0-\9])){1,}
-tourDeSource53:	"TimeoutError: Request timed out after 5"."000000 seconds"
-tourDeSource54:	"xd0xbfxd1x83xd1x88xd0xbaxd0xb8xd0xbd"(((\e|\ )|\.)|\n)
-tourDeSource55:	("slap"|("kick"|("smack"|("hit"|("beat"|("poke"|("push"|("hurl"|("backhand"|"punch")))))))))
-tourDeSource56:	"s3n://"(.)*\\."elasticmapreduce/libs/state-pusher/"((.&~(\/))){1,}"/fetch"
+tourDeSource0:	@
+tourDeSource1:	..
+tourDeSource2:	###
+tourDeSource3:	\1..\4
+tourDeSource4:	\=...\=
+tourDeSource5:	###\ (.)*
+tourDeSource6:	\\.\_((.)*)?
+tourDeSource7:	"//"(.)*\:(.)*@
+tourDeSource8:	(.)*\\.\_((.)*)?
+tourDeSource9:	(.){1,}@(.){1,}\\.(.){1,}
+tourDeSource10:	(.)*\/((.&~((\?|\#))))*
+tourDeSource11:	(.)*\\."__"((.)*)?"__"
+tourDeSource12:	..\:..\:..\:..
+tourDeSource13:	((.&~((\ |\'))))*"::"((.&~((\ |\'))))*
+tourDeSource14:	(.&~((((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|(\ |\-))))
+tourDeSource15:	((.&~(\')))*\'((.&~(\')))*\'(.)*
+tourDeSource16:	..\:..\:..\:..\:..\:..
+tourDeSource17:	(.)*(.&~(\.))\\.\\.(.&~(\.))(.)*
+tourDeSource18:	(.&~(((((((([\A-\Z]|[\a-\z])|[\0-\9])|\_)|\.)|\:)|\;)|(\\|\-))))
+tourDeSource19:	(((((((((((((((((\I|\N)|\F)|\O)|\|)|\F)|\I)|\L)|\T)|\E)|\R)|\|)|\F)|\O)|\R)|\M)|\A)|\T)
+tourDeSource20:	(.)*\\(((((((((((((\(|\.)|\+)|\))|\ )|\ )|\;)|\ )|\ )|\()|\.)|\+)|\))|\\)
+tourDeSource21:	(.&~(((((((((((((([\0-\9]|[\a-\z])|\_)|\.)|\%)|\&)|\=)|\()|\))|\<)|\>)|\*)|\/)|(\+|\-))))
+tourDeSource22:	"test_"(.){1,}\\.((((((((\j|\s)|\o)|\n)|\|)|\y)|\a)|\m)|\l)
+tourDeSource23:	((.&~((\-|\/)))){1,}(\-)?(((.&~(\/))){1,})?(\/)?(.)*
+tourDeSource24:	((.&~(((((((((([\A-\Z]|[\a-\z])|[\0-\9])|[\\-\_])|\ )|\\)|\()|\\)|\))|\.)))){1,}
+tourDeSource25:	\\.((((((((((((((((((((\s|\v)|\n)|\|)|\g)|\i)|\t)|\|)|\h)|\g)|\|)|\s)|\c)|\c)|\|)|\v)|\s)|\s)|\s)|\c)|\c)
+tourDeSource26:	"lib"("64")?"/lib"((.&~(\/)))*\\."so\".(.)*
+tourDeSource27:	\\((((((((((((((\ |\C)|\R)|\A)|\S)|\H)|\E)|\D)|\ )|\ )|\ )|\ )|\ )|\ )|\\)(.)*"rn"
+tourDeSource28:	\/(\\)*((((.&~(\*))){1,}|((\\)*){1,}(.&~(\/))))*(((\\)*){1,}\/)?
+tourDeSource29:	\\((((((((((\ |\ )|\ )|\ )|\ )|\ )|\ )|\O)|\K)|\ )|\\)(\ )?((.)*)?\ (.)*"rn"
+tourDeSource30:	\\(((((((((((((((\ |\R)|\U)|\N)|\N)|\E)|\R)|\_)|\F)|\A)|\I)|\L)|\E)|\D)|\ )|\\)(\ )?(.)*"rn"
+tourDeSource31:	\\((((((((((((((((((((\O|\r)|\d)|\i)|\n)|\a)|\l)|\/)|\N)|\a)|\m)|\e)|\ )|\P)|\o)|\i)|\n)|\t)|\e)|\r)|\\)" Table"
+tourDeSource32:	((.&~(((((\/|\\)|\\)|\,)|\{)))(\\)*(\\)*|(\\)*(\\)*(.&~(((((\/|\\)|\\)|\,)|\}))))
+tourDeSource33:	"\/"(\\)*((.&~(\*)))*((\\)*){1,}((.&~(\/))((.&~(\*)))*((\\)*){1,})*"\/"
+tourDeSource34:	"\A"((.&~(\*)))*(\\)*\ (\\)*\ (\\)*((.&~(\*)))*(\\)*\ (\\)*\ (\\)*
+tourDeSource35:	....\-..\-..\T..\:..\:......\Z
+tourDeSource36:	(\/(\\)*(((.&~(\*))|((\\)*){1,}(.&~((\*|\/)))))*((\\)*){1,}\/|"//"(.)*)
+tourDeSource37:	\\(((((((((((((\c|\a)|\p)|\t)|\i)|\o)|\n)|\ )|\()|\.)|\*)|\?)|\))|\\)((.)*)?\\((((((((\/|\c)|\a)|\p)|\t)|\i)|\o)|\n)|\\)
+tourDeSource38:	(.)*"Duration: "(.){2,2}\:(.){2,2}\:(.){2,2}\\..\,
+tourDeSource39:	((([\a-\z]|\|)|[\A-\Z])){1,}([\0-\9]){1,}\\(\:)*((([\a-\z]|\|)|[\A-\Z])){1,}([\0-\9]){1,}\\(\:)*
+tourDeSource40:	((((((((((((((((((((((\x|\0)|[\0-\x])|\0)|\8)|\x)|\0)|\b)|\x)|\0)|\c)|\x)|\0)|[\e-\x])|\1)|\f)|\x)|\7)|[\f-\x])|\9)|\f)|\\)|\\)
+tourDeSource41:	"In \"((((((((((((((((((((((((((\\|\{)|\\)|\\)|\c)|\o)|\l)|\o)|\r)|\\)|\{)|\i)|\n)|\c)|\o)|\l)|\o)|\r)|\\)|\})|\()|\.)|\*)|\))|\\)|\})|\\)\:
+tourDeSource42:	"Out\"(((((((((((((((((((((((((((\\|\{)|\\)|\\)|\c)|\o)|\l)|\o)|\r)|\\)|\{)|\o)|\u)|\t)|\c)|\o)|\l)|\o)|\r)|\\)|\})|\()|\.)|\*)|\))|\\)|\})|\\)\:
+tourDeSource43:	((.&~((([\a-\z]|[\A-\Z])|[\0-\9]))))*((([\a-\z]|[\A-\Z])|[\0-\9])){1,}((.&~((([\a-\z]|[\A-\Z])|[\0-\9]))))*
+tourDeSource44:	"http://"(.)*"imdb\"."com/title/tt"([\0-\9]){7,7}"/quotes"
+tourDeSource45:	(((([\a-\z]|[\A-\Z])|\_)){1,}(@([\0-\9]){1,})?|(([\0-\9]){1,}(\\.([\0-\9]){1,})?|(.&~((\ |\n)))))
+tourDeSource46:	"range "((.&~(\ ))){1,}\ ((.&~(\ ))){1,}\ ((.&~(\ ))){1,}\ ([\0-\9]){1,}\ ([\0-\9]){1,}
+tourDeSource47:	("js_Execute"|"CallHook")\ ((.&~(\ ))){1,}\ (((.&~(\ ))){1,}\ )?((.&~(\ ))){1,}"ms"
+tourDeSource48:	\n@@" -"([\0-\9]){1,}(\,)?([\0-\9])*\ (\\){1,}([\0-\9]){1,}(\,)?([\0-\9])*\ @@
+tourDeSource49:	....\-..\-..\T..\:..\:......(\+|\-)..\:..
+tourDeSource50:	(([\a-\z]|[\A-\Z])|\_)((((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|(\.|\-)))*(\:(([\a-\z]|[\A-\Z])|\_)(((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|(\.|\-)))?
+tourDeSource51:	(([\a-\z]|[\A-\Z])|\_)((((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|(\.|\-)))*(\:(([\a-\z]|[\A-\Z])|\_)((((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|(\.|\-)))*)?
+tourDeSource52:	((([\0-\9]|[\a-\f])|[\A-\F])(([\0-\9]|[\a-\f])|[\A-\F])(\:|\-)){2,2}(([\0-\9]|[\a-\f])|[\A-\F])(([\0-\9]|[\a-\f])|[\A-\F])
+tourDeSource53:	((.)*"Received new cluster view"(.)*\\|([\0-\9]){1,}." \"((((\(|\.)|\*)|\))|\\)(.)*)
+tourDeSource54:	(((([\a-\z]|[\A-\Z])|\_)(((([\a-\z]|[\A-\Z])|[\0-\9])|\_))*)?\:)?((([\a-\z]|[\A-\Z])|\_)(((([\a-\z]|[\A-\Z])|[\0-\9])|(\_|\-)))*)?
+tourDeSource55:	\\(\I|\\)\ (.)*" \"(.)*@([\0-\9]){1,}\/([\0-\9]){1,}\/([\0-\9]){1,}\\": "(.)*
+tourDeSource56:	(.&~(((((((((((((((((((((((((((((((((((((([\a-\z]|[\A-\Z])|\x)|\c)|\3)|\x)|\a)|\6)|\x)|\c)|\3)|\x)|\b)|\8)|\x)|\c)|\3)|\x)|\a)|\5)|\x)|\c)|\3)|\x)|\8)|\6)|\x)|\c)|\3)|\x)|\9)|\8)|\x)|\c)|\3)|\x)|\8)|\5)))
 tourDeSource57:	("Email"|("email"|("login"|("logon"|("Logon"|("Login"|("user"|("username"|"Username"))))))))
-tourDeSource58:	"xd1x8exd0xb6xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource59:	([\0-\9]){4,4}\-([\0-\9]){2,2}\-([\0-\9]){2,2}\T([\0-\9]){2,2}\:([\0-\9]){2,2}\:([\0-\9]){2,2}"_cc"."csv"
+tourDeSource58:	"http"(\s)?"://"("www".)?"youtube".(("com"|("co"."uk"|"ca")))?"/watch"(.)*(\\)?\v(.)*
+tourDeSource59:	"http"(\s)?"://"((((((((((((((((((((\-|[\a-\z])|[\A-\Z])|[\0-\9])|\+)|\&)|\@)|\#)|\/)|\%)|\?)|\=)|\~)|\_)|\|)|\!)|\:)|\,)|\.)|\;))*(((((((((((((\-|[\a-\z])|[\A-\Z])|[\0-\9])|\+)|\&)|\@)|\#)|\/)|\%)|\=)|\~)|\_)|\|)
 tourDeSource60:	(((\#|\ ))*)?(((([\a-\z]|[\A-\Z])|[\0-\9])|\_)){1,}(\ ){1,}((((((((((((((([\a-\z]|[\A-\Z])|[\0-\9])|\_)|\\)|\?)|\\)|\!)|\<)|\>)|\\)|\+)|\=)|\\)|\.)){1,}(.)*
-tourDeSource61:	("mapperprop"|("mapper"|("table"|("column"|("session"|("attribute"|"engine"))))))\:(.)*
+tourDeSource61:	............................................................
 tourDeSource62:	(\-)?(([\0-\9]){1,}(\\.([\0-\9])*)?|\\.([\0-\9]){1,})("cm"|("mm"|("in"|("pt"|("pc"|"px")))))
-tourDeSource63:	"l_ngettext, "(\u)?"'\%\num\s apple', "(\u)?"'\%\num\s apples', 3"
-tourDeSource64:	("gettys are handled by"|"inittab is no longer used when using systemd")
-tourDeSource65:	\\((((((((\E|\r)|\r)|\o)|\r)|\ )|\1)|\7)|\\)" Cannot create a file when that file already exists: "
-tourDeSource66:	("http://85\"."214\"."105\"."230/get_nzb\"."php"(\\)?"id="([\0-\9])*&"section=moovee")
-tourDeSource67:	"nUnused options for buildout: '"("distribute"|"setuptools")"\-version'\".
+tourDeSource63:	("/\".|("//"|((((((((((((((((\\|\\)|\:)|\\)|\*)|\\)|\?)|\\)|\")|\")|\\)|\<)|\\)|\>)|\\)|\|)|(((((\x|\0)|[\0-\x])|\1)|\f)|((((\x|\7)|[\f-\x])|\9)|\f)))))
+tourDeSource64:	((.&~(\ ))){1,}" \"([\0-\9]){1,}\\.([\0-\9]){1,}\\.([\0-\9]){1,}\-([\0-\9]){1,}\\\ ((.&~(\ ))){1,}"; urgency="((.&~(\ ))){1,}
+tourDeSource65:	((([\A-\Z]|[\a-\z])){1,}"://")?(((([\A-\Z]|[\a-\z])|[\0-\9])){1,}(\:((.&~((\:|\@)))){1,})?@)?((.&~((\:|\/)))){1,}(\:([\0-\9]){1,})?(\/(.)*)?
+tourDeSource66:	"Foo: 0\".."s, 0\"."0min\nFoo: 0\".."s, 0"."0min\nFoo: ".\\.."s, 0"."0min\n"
+tourDeSource67:	"color "((.&~(\ ))){1,}\ #((([\a-\f]|[\A-\F])|[\0-\9])){2,2}((([\a-\f]|[\A-\F])|[\0-\9])){2,2}((([\a-\f]|[\A-\F])|[\0-\9])){2,2}
 tourDeSource68:	(((((((((((((((((((((((((((((((((((((((((((((((((\.|[\a-\z])|\x)|\e)|\4)|\x)|\f)|\6)|\x)|\f)|\c)|\x)|\d)|\f)|\x)|\e)|\7)|\x)|\e)|\1)|\x)|\e)|\2)|\x)|\e)|\0)|\x)|\e)|\9)|\x)|\e)|\8)|\x)|\e)|\a)|\x)|\e)|\b)|\x)|\e)|\d)|\x)|\f)|\1)|\x)|\f)|\4)|\x)|\f)|\3)
 tourDeSource69:	#"define JAXER_BUILD_ID ([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([x0-9]+)(.*)"
-tourDeSource70:	(([\A-\Z]|[\a-\z])){1,}("hat"|("check"|("dot"|("breve"|("acute"|("ddot"|("grave"|("tilde"|("mathring"|("bar"|"vec"))))))))))
-tourDeSource71:	("BlackBerry"|("HTC"|("LG"|("MOT"|("Nokia"|("NOKIAN"|("PLAYSTATION"|("PSP"|("SAMSUNG"|"SonyEricsson")))))))))
-tourDeSource72:	"INFO: T"(.)*\ ("has been created by T"(.)*" at this point"|"is program's main thread")
-tourDeSource73:	"xd0xb1xd0xb5xd0xb3xd0xbexd0xb2"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource74:	\\((((\0|\\)|\:)|\0)|\\)" -A "(.)*" -j ACCEPT -p icmp -m icmp --icmp-type 8 -s 192"."168"."11"."0/24"
-tourDeSource75:	"No \"#"ifndef header guard found\, suggested CPP variable is\: "((([\A-\Z]|\_)|[\0-\9])){1,}\ 
-tourDeSource76:	"--"((\f("77"|"90")("flags"|"exec")|("opt"|"arch"))\=|("debug"|("noopt"|("noarch"|"help-fcompiler"))))
-tourDeSource77:	(\ ){1,1}(((\0|\1)){1,1}([\0-\9]){1,1}|((\2){1,1}([\0-\3]){1,1}|([\0-\9]){1,1}))((\-|\:)|\.)((\0|\3)){1,1}((\0|\5)){1,1}((((\.|\,)|\:)|\ )){0,1}
-tourDeSource78:	"No \"#"ifndef header guard found\, suggested CPP variable is\: "(((([\A-\Z]|[\a-\z])|\_)|[\0-\9])){1,}\ 
-tourDeSource79:	"xd1x81xd0xbcxd0xbexd0xbbxd0xb5xd0xbdxd1x81xd0xbaxd0xb0xd1x8f".
-tourDeSource80:	("xd0xbbxd1x8exd0xb1xd0xbexd0xb9"|"xd0xbbxd1x8exd0xb1xd0xbexd0xbc")
-tourDeSource81:	("Unlocking a non-locked lock"|("accessing an invalid lock"|"which did not acquire this lock"))
-tourDeSource82:	("\`"("Tr"|"IX")"\' not defined"|("No such file or directory"|("can\'t break"|"cannot adjust")" line"))
-tourDeSource83:	((([\A-\N]|\,)|[\R-\Z])[\0-\9][\A-\Z](([\A-\Z]|\,)|[\0-\9])(([\A-\Z]|\,)|[\0-\9])[\0-\9]|[\O-\Q][\0-\9](([\A-\Z]|\,)|[\0-\9])(([\A-\Z]|\,)|[\0-\9])(([\A-\Z]|\,)|[\0-\9])[\0-\9])
-tourDeSource84:	"QtGui\"."QApplication"."translate\"((.)*)?", "((.)*)?", None, QtGui\"."QApplication\"."UnicodeUTF8\"
-tourDeSource85:	"xd0xb0xd1x80xd0xb1xd0xb0xd1x82xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource86:	("xd0xbf\"(.)?|"xd0xbfxd0xb0xd1x80xd0xba")" xd0xbfxd0xbexd0xb1xd0xb5xd0xb4xd1x8b"
-tourDeSource87:	("pwd"|("pass"|("uid"|("uname"|("Uname"|("userid"|("userID"|("USER"|("USERNAME"|("PIN"|("pin"|("password"|("Password"|("secret"|("Secret"|"Pass")))))))))))))))
-tourDeSource88:	"xd0xb1xd0xb0xd1x83xd0xbcxd0xb0xd0xbdxd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource89:	">rRNA_"([\A-\Z]){1,}([\0-\9]){1,}\\.([\0-\9]){1,}\_([\0-\9]){1,}\-([\0-\9]){1,}"_DIR"((\-|\\)|\+)" /molecule="(.)*"_rRNA /score="([\0-\9]){1,}(.)?([\0-\9])*
-tourDeSource90:	"xd0xb1xd0xb0xd1x80xd1x80xd0xb8xd0xbaxd0xb0xd0xb4xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource91:	"xd1x8exd0xb3xd0xbe-xd0xb7xd0xb0xd0xbfxd0xb0xd0xb4xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource92:	(\ ){1,1}(((\0|\1)){1,1}([\0-\9]){1,1}|((\2){1,1}([\0-\4]){1,1}|([\0-\9]){1,1}))((\-|\:)|\.)(([\0-\6]){1,1}((\0|\5)){1,1}|"u0447u0430u0441u043eu0432")((((\.|\,)|\:)|\ )){0,1}
-tourDeSource93:	(\!)?((\2(\5[\0-\5]|[\0-\4][\0-\9])|((\0|\1))?[\0-\9]([\0-\9])?)\\.){3,3}(\2(\5[\0-\5]|[\0-\4][\0-\9])|((\0|\1))?[\0-\9]([\0-\9])?)\/(\3((\0|\1)|\2)|((\1|\2))?[\0-\9])
-tourDeSource94:	"xd0xb0xd0xb2xd0xb8xd0xb0xd0xbcxd0xbexd1x82xd0xbexd1x80xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource95:	("cimport"(\ ){1,}((((([\0-\9]|[\a-\z])|[\A-\Z])|\_)|\.)){1,}"\b"|("from"(\ ){1,}((((([\0-\9]|[\a-\z])|[\A-\Z])|\_)|\.)){1,}(\ ){1,}"cimport"|("include"(\ ){1,}\'((.&~(\'))){1,}\'|"cdef"(\ ){1,}"extern"(\ ){1,}"from"(\ ){1,}\'((.&~(\'))){1,}\')))
-tourDeSource96:	"xd0xbc"("xd0xb0xd1x8f"|"xd0xbexd0xb9")"xd0xbaxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource97:	"xd0xb0xd0xb2xd1x82xd0xbexd0xb7xd0xb0xd0xb2xd0xbexd0xb4xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource98:	"xd0xbaxd0xb0xd0xbdxd1x82xd0xb5xd0xbcxd0xb8xd1x80xd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource99:	"FooDeathTest\"."n  Test1nFoo\"."n  Bar1n  Bar2n  DISABLED_Bar3nFooBar\"."n  BaznFooTest\"."n  Test1n  DISABLED_Test2n  Test3n"
-tourDeSource100:	(\p|("div"|(\h[\1-\6]|("blockquote"|("pre"|("table"|("dl"|("ol"|("ul"|("script"|("noscript"|("form"|("fieldset"|("iframe"|("math"|("ins"|("del"|("hr"|("hr/"|("style"|("li"|("dt"|("dd"|("thead"|("tbody"|("tr"|("th"|"td")))))))))))))))))))))))))))
-tourDeSource101:	"xd0xb1xd0xb0xd0xb3xd1x80xd0xb0xd1x82xd0xb8xd0xbexd0xbdxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource102:	"xd1x8dxd0xbbxd0xb5xd0xbaxd1x82xd1x80xd0xbexd0xb7xd0xb0xd0xb2xd0xbexd0xb4xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource103:	("ancestor"|("ancestor-or-self"|("attribute"|("child"|("descendant"|("descendant-or-self"|("following"|("following-sibling"|("namespace"|("parent"|("preceding"|("preceding-sibling"|"self"))))))))))))
-tourDeSource104:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd0xb3xd0xbexd1x80xd1x87xd0xb0xd0xbaxd0xbexd0xb2xd0xb0"
-tourDeSource105:	"xd0xbaxd1x80xd0xb0xd1x81xd0xbdxd0xbexd0xb3xd0xb2xd0xb0xd1x80xd0xb4xd0xb5xd0xb9xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource106:	("n    x00 "|(\ #" NULLnn    "#" Bidi control charactersn    u202a "|(\ #" LREn    u202b "|(\ #" RLEn    u202c "|(\ #" PDFn    u202d "|\ #" LRMn    u202e   "#" RLMn    ")))))
-tourDeSource107:	("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))
-tourDeSource108:	("xd0xb3xd1x80xd0xb0xd0xb6xd0xb4xd0xb0xd0xbdxd1x81xd0xbaxd0xb8xd0xb9"|"xd0xb3xd1x80xd0xb0xd0xb6xd0xb4xd0xb0xd0xbdxd1x81xd0xba\".)
-tourDeSource109:	("xd0xbdxd0xbexd0xb2xd0xbexd0xb3xd0xb8xd1x80xd0xb5xd0xb2xd0xbe"|"xd0xbdxd0xbexd0xb2xd0xbexd0xb3xd0xb8xd1x80xd0xb5xd0xb5xd0xb2xd0xbe")
-tourDeSource110:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd0xbfxd0xbexd0xb4xd0xb1xd0xb5xd0xbbxd1x8cxd1x81xd0xbaxd0xbexd0xb3xd0xbe"
-tourDeSource111:	("xd1x8dxd0xbbxd0xb5xd0xbaxd1x82xd1x80xd0xbexd1x81xd0xb8xd0xbbxd0xb0"|"xd1x8dxd0xbbxd0xb5xd0xbaxd1x82xd1x80xd0xbe-xd1x81xd0xb8xd0xbbxd0xb0")
-tourDeSource112:	("xd1x87xd0xb5xd1x80xd0xbdxd0xb0xd1x8f xd1x80xd0xb5xd1x87xd0xbaxd0xb0"|"xd1x87xd1x91xd1x80xd0xbdxd0xb0xd1x8f xd1x80xd0xb5xd1x87xd0xbaxd0xb0")
-tourDeSource113:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd1x81xd0xbaxd0xbexd0xb1xd0xb5xd0xbbxd0xb5xd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource114:	(\p|("div"|(\h[\1-\6]|("blockquote"|("pre"|("table"|("dl"|("ol"|("ul"|("script"|("noscript"|("form"|("fieldset"|("iframe"|("math"|("ins"|("del"|("hr"|("hr/"|("style"|("li"|("dt"|("dd"|("thead"|("tbody"|("tr"|("th"|("td"|("section"|("footer"|("header"|("group"|("figure"|("figcaption"|("aside"|("article"|("canvas"|("output"|("progress"|"video")))))))))))))))))))))))))))))))))))))))
-tourDeSource115:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd1x81xd1x82xd0xb0xd1x80xd0xbexd0xbaxd0xb0xd1x87xd0xb0xd0xbbxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
-tourDeSource116:	("xd0xb1xd1x83xd0xbdxd0xbdxd0xb8xd0xbdxd1x81xd0xbaxd0xb0xd1x8f xd0xb0xd0xbbxd0xbbxd0xb5xd1x8f"|"xd0xb1xd1x83xd0xbdxd0xb8xd0xbdxd1x81xd0xbaxd0xb0xd1x8f xd0xb0xd0xbbxd0xbbxd0xb5xd1x8f")
-tourDeSource117:	("xd0xb7xd0xb2xd0xb5xd0xb7xd0xb4xd0xbdxd0xb0xd1x8f"|("xd0xb7xd0xb2xd0xb5xd0xb7xd0xb4xd0xbdxd0xbexd0xb9"|("xd0xb7xd0xb2xd1x91xd0xb7xd0xb4xd0xbdxd0xb0xd1x8f"|"xd0xb7xd0xb2xd1x91xd0xb7xd0xb4xd0xbdxd0xbexd0xb9")))
-tourDeSource118:	("xd1x85xd0xbexd0xb7xd1x8fxd0xb8xd0xbdxd0xb0"|("xd1x85xd0xbexd0xb7xd1x8fxd0xb8xd0xbd"|("xd0xb1xd0xb5xd0xb7 xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd0xb8"|("xd0xb1xd0xb5xd0xb7 xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xb0"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xb0 xd0xbdxd0xb5"|("xd1x87xd0xb0xd1x81xd1x82xd0xbdxd0xbexd0xb5"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x82xd0xb0xd0xbc xd0xbdxd0xb5"|("xd0xb1xd0xb5xd0xb7 xd0xbfxd0xbexd1x81xd1x80xd0xb5xd0xb4xd0xbdxd0xb8xd0xbaxd0xbexd0xb2"|"xd0xbdxd0xb5 xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xbe"))))))))
-tourDeSource119:	"Devices of vm1:nmachinen  aid = __0n  aobject = pci"."0n  parent_bus = n  child_bus = \"(((((((((((((((((((((((((((((((((\.|\*)|\Q)|\P)|\C)|\I)|\B)|\u)|\s)|\.)|\*)|\,)|\ )|\.)|\*)|\Q)|\S)|\t)|\r)|\i)|\c)|\t)|\C)|\u)|\s)|\t)|\o)|\m)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:ni440FXn  aid = __1n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = i440FXn    addr = 00n    bus = pci"."0nPIIX4_PMn  aid = __2n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = PIIX4_PMn    addr = 01"."3n    bus = pci"."0nPIIX3n  aid = __3n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = PIIX3n    addr = 01n    bus = pci"."0npiix3-iden  aid = __4n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \"(((((((((((\.|\*)|\Q)|\I)|\D)|\E)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:n    driver = piix3-iden    addr = 01"."1n    bus = pci"."0nfdcn  aid = __5n  aobject = Nonen  parent_bus = \\n  child_bus = \"((((((((((((((\.|\*)|\Q)|\F)|\l)|\o)|\p)|\p)|\y)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:"
+tourDeSource70:	#"define"((\ |\t)){1,}(((([\A-\Z]|[\0-\9])|[\a-\z])|\_)){1,}((\ |\t)){1,}([\0-\9]){1,}((\ |\t))*\/(\\)*((\ |\t))*(.)*((\ |\t))*(\\)*\/
+tourDeSource71:	#(([\0-\9]|[\a-\z])|[\A-\Z])(([\0-\9]|[\a-\z])|[\A-\Z])(([\0-\9]|[\a-\z])|[\A-\Z])(([\0-\9]|[\a-\z])|[\A-\Z])(([\0-\9]|[\a-\z])|[\A-\Z])(([\0-\9]|[\a-\z])|[\A-\Z])
+tourDeSource72:	((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\n"
+tourDeSource73:	"xd1x82xd1x80xd1x83xd0xb1xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource74:	((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\t"((.&~((\\|\t))))*"\n"
+tourDeSource75:	"--"((\f("77"|"90")("flags"|"exec")|("opt"|"arch"))\=|("debug"|("noopt"|("noarch"|"help-fcompiler"))))
+tourDeSource76:	(\ ){1,1}(((\0|\1)){1,1}([\0-\9]){1,1}|((\2){1,1}([\0-\3]){1,1}|([\0-\9]){1,1}))((\-|\:)|\.)((\0|\3)){1,1}((\0|\5)){1,1}((((\.|\,)|\:)|\ )){0,1}
+tourDeSource77:	\\((((\0|\\)|\:)|\0)|\\)" -A "(.)*" -j ACCEPT -p tcp -m multiport --dports 80:81 -s 192"."168"."10"."0/24"
+tourDeSource78:	"If this is blank, SET did not get a successful attempt on the website, sorry hoss"..
+tourDeSource79:	"    geom = models"."PolygonField\"((.&~((\\|\)))))*\\"\n    objects = models"."GeoManager\\"
+tourDeSource80:	("\`"("Tr"|"IX")"\' not defined"|("No such file or directory"|("can\'t break"|"cannot adjust")" line"))
+tourDeSource81:	\\(\ )*(\-)?(([\0-\9]){1,}(\\.([\0-\9])*)?|\\.([\0-\9]){1,})((\ ){1,}(\-)?(([\0-\9]){1,}(\\.([\0-\9])*)?|\\.([\0-\9]){1,})){2,2}(\ )*\\
+tourDeSource82:	"QtGui\"."QApplication"."translate\"((.)*)?", "((.)*)?", None, QtGui\"."QApplication\"."UnicodeUTF8\"
+tourDeSource83:	"xd1x8exd0xb1xd0xb8xd0xbbxd0xb5xd0xb9xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource84:	("xd0xbf\"(.)?|"xd0xbfxd0xb0xd1x80xd0xba")" xd0xbfxd0xbexd0xb1xd0xb5xd0xb4xd1x8b"
+tourDeSource85:	("pwd"|("pass"|("uid"|("uname"|("Uname"|("userid"|("userID"|("USER"|("USERNAME"|("PIN"|("pin"|("password"|("Password"|("secret"|("Secret"|"Pass")))))))))))))))
+tourDeSource86:	"xd1x89xd0xb5xd0xbbxd0xbaxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource87:	">rRNA_"([\A-\Z]){1,}([\0-\9]){1,}\\.([\0-\9]){1,}\_([\0-\9]){1,}\-([\0-\9]){1,}"_DIR"((\-|\\)|\+)" /molecule="(.)*"_rRNA /score="([\0-\9]){1,}(.)?([\0-\9])*
+tourDeSource88:	"xd1x88xd0xb8xd0xbfxd0xb8xd0xbbxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource89:	"xd1x8exd0xb3xd0xbe-xd0xb7xd0xb0xd0xbfxd0xb0xd0xb4xd0xbd"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource90:	(\ ){1,1}(((\0|\1)){1,1}([\0-\9]){1,1}|((\2){1,1}([\0-\4]){1,1}|([\0-\9]){1,1}))((\-|\:)|\.)(([\0-\6]){1,1}((\0|\5)){1,1}|"u0447u0430u0441u043eu0432")((((\.|\,)|\:)|\ )){0,1}
+tourDeSource91:	(\!)?((\2(\5[\0-\5]|[\0-\4][\0-\9])|((\0|\1))?[\0-\9]([\0-\9])?)\\.){3,3}(\2(\5[\0-\5]|[\0-\4][\0-\9])|((\0|\1))?[\0-\9]([\0-\9])?)\/(\3((\0|\1)|\2)|((\1|\2))?[\0-\9])
+tourDeSource92:	"xd1x87xd0xb5xd1x80xd1x82xd0xb0xd0xbdxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource93:	("cimport"(\ ){1,}((((([\0-\9]|[\a-\z])|[\A-\Z])|\_)|\.)){1,}"\b"|("from"(\ ){1,}((((([\0-\9]|[\a-\z])|[\A-\Z])|\_)|\.)){1,}(\ ){1,}"cimport"|("include"(\ ){1,}\'((.&~(\'))){1,}\'|"cdef"(\ ){1,}"extern"(\ ){1,}"from"(\ ){1,}\'((.&~(\'))){1,}\')))
+tourDeSource94:	"xd7xa2xd7x9exd7x95xd7x93"((.)*)?"xd7x9exd7xaaxd7xa4xd7xa8xd7xa1xd7x9exd7xaa xd7x91xd7x96xd7x94"
+tourDeSource95:	"xd1x82xd1x80xd0xb5xd1x82xd1x8cxd1x8fxd0xbaxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource96:	"xd0xbfxd0xb5xd1x82xd1x80xd0xbexd0xb4xd0xb2xd0xbexd1x80xd1x86xd0xbexd0xb2"("xd1x8bxd0xb9"|"xd0xbexd0xbc")
+tourDeSource97:	"FooDeathTest\"."n  Test1nFoo\"."n  Bar1n  Bar2n  DISABLED_Bar3nFooBar\"."n  BaznFooTest\"."n  Test1n  DISABLED_Test2n  Test3n"
+tourDeSource98:	(\p|("div"|(\h[\1-\6]|("blockquote"|("pre"|("table"|("dl"|("ol"|("ul"|("script"|("noscript"|("form"|("fieldset"|("iframe"|("math"|("ins"|("del"|("hr"|("hr/"|("style"|("li"|("dt"|("dd"|("thead"|("tbody"|("tr"|("th"|"td")))))))))))))))))))))))))))
+tourDeSource99:	"xd1x81xd0xb5xd0xb2xd0xb0xd1x81xd1x82xd0xbexd0xbfxd0xbexd0xbbxd1x8cxd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource100:	(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((\\|\x)|\0)|\0)|\\)|\x)|\0)|\1)|\\)|\x)|\0)|\2)|\\)|\x)|\0)|\3)|\\)|\x)|\0)|\4)|\\)|\x)|\0)|\5)|\\)|\x)|\0)|\6)|\\)|\x)|\0)|\7)|\\)|\x)|\0)|\8)|\\)|\x)|\0)|\b)|\\)|\x)|\0)|\c)|\\)|\x)|\0)|\e)|\\)|\x)|\0)|\f)|\\)|\x)|\1)|\0)|\\)|\x)|\1)|\1)|\\)|\x)|\1)|\2)|\\)|\x)|\1)|\3)|\\)|\x)|\1)|\4)|\\)|\x)|\1)|\5)|\\)|\x)|\1)|\6)|\\)|\x)|\1)|\7)|\\)|\x)|\1)|\8)|\\)|\x)|\1)|\9)|\\)|\x)|\1)|\a)|\\)|\x)|\1)|\b)|\\)|\x)|\1)|\c)|\\)|\x)|\1)|\d)|\\)|\x)|\1)|\e)|\\)|\x)|\1)|\f)
+tourDeSource101:	("ancestor"|("ancestor-or-self"|("attribute"|("child"|("descendant"|("descendant-or-self"|("following"|("following-sibling"|("namespace"|("parent"|("preceding"|("preceding-sibling"|"self"))))))))))))
+tourDeSource102:	((("http"|"https")"://"|"www\".)){1,}((((((([\a-\z]|[\A-\Z])|[\0-\9])|\\)|\.)|(\_|\-))){1,}\\.(([\a-\z]|[\A-\Z])){2,6}|([\0-\9]){1,3}\\.([\0-\9]){1,3}\\.([\0-\9]){1,3}\\.([\0-\9]){1,3})(\/((((((((((((((([\a-\z]|[\A-\Z])|[\0-\9])|\\)|\&)|\a)|\m)|\p)|\;)|\%)|\_)|\\)|\.)|[\/-\~])|\-))*)?
+tourDeSource103:	"xd0xbaxd1x80xd0xb0xd1x81xd0xbdxd0xbexd0xbfxd1x80xd0xb5xd1x81xd0xbdxd0xb5xd0xbdxd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource104:	("n    x00 "|(\ #" NULLnn    "#" Bidi control charactersn    u202a "|(\ #" LREn    u202b "|(\ #" RLEn    u202c "|(\ #" PDFn    u202d "|\ #" LRMn    u202e   "#" RLMn    ")))))
+tourDeSource105:	("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))\\.("25"[\0-\5]|(\2[\0-\4][\0-\9]|((\0|\1))?[\0-\9]([\0-\9])?))
+tourDeSource106:	("xd0xb3xd1x80xd0xb0xd0xb6xd0xb4xd0xb0xd0xbdxd1x81xd0xbaxd0xb8xd0xb9"|"xd0xb3xd1x80xd0xb0xd0xb6xd0xb4xd0xb0xd0xbdxd1x81xd0xba\".)
+tourDeSource107:	("xd0xbdxd0xbexd0xb2xd0xbexd0xb3xd0xb8xd1x80xd0xb5xd0xb2xd0xbe"|"xd0xbdxd0xbexd0xb2xd0xbexd0xb3xd0xb8xd1x80xd0xb5xd0xb5xd0xb2xd0xbe")
+tourDeSource108:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd0xbfxd0xbexd0xb4xd0xb1xd0xb5xd0xbbxd1x8cxd1x81xd0xbaxd0xbexd0xb3xd0xbe"
+tourDeSource109:	"xd0xbfxd0xb5xd1x82xd1x80xd0xbexd0xb2xd1x81xd0xbaxd0xbe-xd1x80xd0xb0xd0xb7xd1x83xd0xbcxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource110:	("xd1x87xd0xb5xd1x80xd0xbdxd0xb0xd1x8f xd1x80xd0xb5xd1x87xd0xbaxd0xb0"|"xd1x87xd1x91xd1x80xd0xbdxd0xb0xd1x8f xd1x80xd0xb5xd1x87xd0xbaxd0xb0")
+tourDeSource111:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd1x81xd0xbaxd0xbexd0xb1xd0xb5xd0xbbxd0xb5xd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource112:	(\p|("div"|(\h[\1-\6]|("blockquote"|("pre"|("table"|("dl"|("ol"|("ul"|("script"|("noscript"|("form"|("fieldset"|("iframe"|("math"|("ins"|("del"|("hr"|("hr/"|("style"|("li"|("dt"|("dd"|("thead"|("tbody"|("tr"|("th"|("td"|("section"|("footer"|("header"|("group"|("figure"|("figcaption"|("aside"|("article"|("canvas"|("output"|("progress"|"video")))))))))))))))))))))))))))))))))))))))
+tourDeSource113:	("xd1x83xd0xbbxd0xb8xd1x86xd0xb0"|("xd1x83xd0xbb".|"xd1x83xd0xbb"))" xd1x81xd1x82xd0xb0xd1x80xd0xbexd0xbaxd0xb0xd1x87xd0xb0xd0xbbxd0xbexd0xb2xd1x81xd0xba"("xd0xb0xd1x8f"|"xd0xbexd0xb9")
+tourDeSource114:	("xd0xb1xd1x83xd0xbdxd0xbdxd0xb8xd0xbdxd1x81xd0xbaxd0xb0xd1x8f xd0xb0xd0xbbxd0xbbxd0xb5xd1x8f"|"xd0xb1xd1x83xd0xbdxd0xb8xd0xbdxd1x81xd0xbaxd0xb0xd1x8f xd0xb0xd0xbbxd0xbbxd0xb5xd1x8f")
+tourDeSource115:	("xd0xb7xd0xb2xd0xb5xd0xb7xd0xb4xd0xbdxd0xb0xd1x8f"|("xd0xb7xd0xb2xd0xb5xd0xb7xd0xb4xd0xbdxd0xbexd0xb9"|("xd0xb7xd0xb2xd1x91xd0xb7xd0xb4xd0xbdxd0xb0xd1x8f"|"xd0xb7xd0xb2xd1x91xd0xb7xd0xb4xd0xbdxd0xbexd0xb9")))
+tourDeSource116:	("xd1x85xd0xbexd0xb7xd1x8fxd0xb8xd0xbdxd0xb0"|("xd1x85xd0xbexd0xb7xd1x8fxd0xb8xd0xbd"|("xd0xb1xd0xb5xd0xb7 xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd0xb8"|("xd0xb1xd0xb5xd0xb7 xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xb0"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xb0 xd0xbdxd0xb5"|("xd1x87xd0xb0xd1x81xd1x82xd0xbdxd0xbexd0xb5"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x82xd0xb0xd0xbc xd0xbdxd0xb5"|("xd0xb1xd0xb5xd0xb7 xd0xbfxd0xbexd1x81xd1x80xd0xb5xd0xb4xd0xbdxd0xb8xd0xbaxd0xbexd0xb2"|"xd0xbdxd0xb5 xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xbe"))))))))
+tourDeSource117:	"Devices of vm1:nmachinen  aid = __0n  aobject = pci"."0n  parent_bus = n  child_bus = \"(((((((((((((((((((((((((((((((((\.|\*)|\Q)|\P)|\C)|\I)|\B)|\u)|\s)|\.)|\*)|\,)|\ )|\.)|\*)|\Q)|\S)|\t)|\r)|\i)|\c)|\t)|\C)|\u)|\s)|\t)|\o)|\m)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:ni440FXn  aid = __1n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = i440FXn    addr = 00n    bus = pci"."0nPIIX4_PMn  aid = __2n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = PIIX4_PMn    addr = 01"."3n    bus = pci"."0nPIIX3n  aid = __3n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \\n  params:n    driver = PIIX3n    addr = 01n    bus = pci"."0npiix3-iden  aid = __4n  aobject = Nonen  parent_bus = ""{'aobject': 'pci"."0'},""n  child_bus = \"(((((((((((\.|\*)|\Q)|\I)|\D)|\E)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:n    driver = piix3-iden    addr = 01"."1n    bus = pci"."0nfdcn  aid = __5n  aobject = Nonen  parent_bus = \\n  child_bus = \"((((((((((((((\.|\*)|\Q)|\F)|\l)|\o)|\p)|\p)|\y)|\B)|\u)|\s)|\.)|\*)|\\)"n  params:"
+tourDeSource118:	("sobid"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x82xd1x81xd0xbaxd0xb8xd0xb9"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x82xd1x81xd0xbaxd0xb8xd0xb5"|("xd1x81xd0xbaxd0xb8xd0xb4xd0xbaxd0xb8"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xbe"|("xd1x80xd0xb8xd1x8dxd0xbbxd1x82xd0xbexd1x80xd1x81xd0xbaxd0xb8xd0xb5"|("xd0xb2xd0xbexd0xb7xd0xbdxd0xb0xd0xb3xd1x80xd0xb0xd0xb6xd0xb4"|("xd0xb0xd0xb3xd0xb5xd0xbdxd1x82xd1x81xd1x82xd0xb2xd0xbe"|("xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd1x8f"|("xd0xbaxd0xbexd0xbcxd0xbcxd0xb8xd1x81xd1x81xd0xb8xd1x8f"|("xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd0xbexd0xbd"|("xd0xbaxd0xbexd0xbcxd0xbcxd0xb8xd1x81xd0xb8xd1x8f"|("xd0xbaxd0xbexd0xbcxd0xbcxd0xb8xd1x81xd0xb8xd1x8f"|("xd1x81xd0xbaxd0xb8xd0xb4xd0xbaxd0xb0 xd0xbfxd0xbe xd0xbaxd0xbexd0xbcxd0xb8xd1x81"|("xd1x81xd0xbaxd0xb8xd0xb4xd0xbaxd0xb8 xd0xbfxd0xbe xd0xbaxd0xbexd0xbcxd0xb8xd1x81"|("xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd1x8e"|"xd0xbaxd0xbexd0xbcxd0xb8xd1x81xd1x81xd0xb8xd1x8f xd0xb0xd0xb3xd0xb5xd0xbdxd1x81xd1x82xd0xb2xd0xb0"))))))))))))))))
