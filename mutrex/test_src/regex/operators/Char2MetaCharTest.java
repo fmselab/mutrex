@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -72,6 +73,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 
 	@Test
 	public void testMutateGraffa() {
+		// still to do !
 		RegExp re = new RegExp("\\.}");
 		// accept(re, "-", ".");
 		// acceptNot(re, "a", "b");
@@ -91,10 +93,10 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		accept(re, "1+1=2");
 		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
-		System.out.println(IteratorUtils.iteratorToList(res));
-		// System.out.println(IteratorUtils.iteratorToList(res));
 		assertTrue(res.hasNext());
-		assertOneEqualTo(res, "1+1=2");
+		List<MutatedRegExp> iteratorToList = IteratorUtils.iteratorToList(res);
+		System.out.println(iteratorToList);
+		assertOneEqualTo(iteratorToList, "1+1=2");
 	}
 
 	@Test
@@ -112,11 +114,12 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		accept(re, "quanto?1+1=2*3");
 		// mutate this expression
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
-		// System.out.println(IteratorUtils.iteratorToList(res));
 		assertTrue(res.hasNext());
-		assertOneEqualTo(res, "(quanto)?1\\+1=2\\*3");
-		assertOneEqualTo(res, "(quanto\\?1)+1=2\\*3");
-		assertOneEqualTo(res, "(quanto\\?1\\+1=2)*3");
+		// System.out.println();
+		List<MutatedRegExp> list = IteratorUtils.iteratorToList(res);
+		assertOneEqualTo(list, "(quanto)?1\\+1=2\\*3");
+		assertOneEqualTo(list, "(quanto\\?1)+1=2\\*3");
+		assertOneEqualTo(list, "(quanto\\?1\\+1=2)*3");
 		// C2M: quanto?1+(1=2)*3,
 		// C2M: (quanto?1)+1=2*3
 		// C2M: (quanto?1+1=2)*3
@@ -140,15 +143,14 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		// to mutate
 		re = new RegExp("a\\-z");
 		res = mutator.mutate(re);
-		// System.out.println(IteratorUtils.iteratorToList(res));
 		assertTrue(res.hasNext());
-		assertOneEqualTo(res, "[a-z]");
+		assertOneEqualTo(IteratorUtils.iteratorToList(res), "[a-z]");
 		// more complex
-		re = new RegExp("pippo\\-pluto");
+		re = new RegExp("pippo\\-zorro");
 		res = mutator.mutate(re);
 		// System.out.println(IteratorUtils.iteratorToList(res));
 		assertTrue(res.hasNext());
-		assertOneEqualTo(res, "[a-z]");
+		assertOneEqualTo(IteratorUtils.iteratorToList(res), "pipp[o-z]orro");
 	}
 
 	@Test

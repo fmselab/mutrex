@@ -1,6 +1,7 @@
 package regex.operators;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
+import regex.utils.IteratorUtils;
 
 public class CharacterClassModificationTest extends RegexMutationTest {
 	CharacterClassModification mutator = CharacterClassModification.mutator;
@@ -77,7 +79,8 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 		assert !res.hasNext();
 		// con assert
 		res = mutator.mutate(re);
-		assertOneEqualTo(res,"[za]");
+		List<MutatedRegExp> list = IteratorUtils.iteratorToList(res);
+		assertOneEqualTo(list,"[za]");
 	}
 
 	@Test

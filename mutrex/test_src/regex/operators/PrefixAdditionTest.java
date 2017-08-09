@@ -82,12 +82,11 @@ public class PrefixAdditionTest extends RegexMutationTest {
 
 	@Test
 	public void testMutate4() {
+		// no prexi is added if the rgexe is not a repeatition
 		RegExp re = new RegExp("[a-zA-Z0-9]");
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		System.out.println(m);
-		assertOneEqualTo(m, "[a-z]");
-		assertOneEqualTo(m, "[A-Z]");
-		assertOneEqualTo(m, "[0-9]");
+		assertTrue(m.isEmpty());
 	}
 
 	// if it is not a repeat, no fault is given
