@@ -23,16 +23,7 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 	}
 
 	@Test
-	public void testMutate() {
-		RegExp re = new RegExp("[az]");
-		Iterator<MutatedRegExp> res = mutator.mutate(re);
-		assert res.hasNext();
-		System.out.println(res.next());
-		assert !res.hasNext();
-	}
-
-	@Test
-	public void testMutate2() {
+	public void testAddInterval() {
 		RegExp re = new RegExp("[ac]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert res.hasNext();
@@ -41,21 +32,28 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 	}
 
 	@Test
-	public void testMutate3() {
+	public void testAddInterval2() {
 		RegExp re = new RegExp("[ab]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert !res.hasNext();
 	}
 
 	@Test
-	public void testMutate4() {
+	public void testAddInterval3() {
+		RegExp re = new RegExp("[ca]");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		assert !res.hasNext();
+	}
+
+	@Test
+	public void testAddInterval4() {
 		RegExp re = new RegExp("[afm]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert !res.hasNext();
 	}
 
 	@Test
-	public void testMutate5() {
+	public void testRemoveInterval() {
 		RegExp re = new RegExp("[a-z]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert res.hasNext();
@@ -64,14 +62,14 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 	}
 
 	@Test
-	public void testMutate6() {
+	public void testRemoveInterval2() {
 		RegExp re = new RegExp("[a-b]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert !res.hasNext();
 	}
 
 	@Test
-	public void testMutate7() {
+	public void testRemoveInterval3() {
 		RegExp re = new RegExp("[z-a]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert res.hasNext();
@@ -80,7 +78,7 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 	}
 
 	@Test
-	public void testMutate8() {
+	public void testRemoveInterval4() {
 		RegExp re = new RegExp("[b-a]");
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assert res.hasNext();
