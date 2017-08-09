@@ -38,21 +38,20 @@ public class CaseChange extends RegexMutator {
 			CaseChar toCase = CaseAddition.caseChar(r.to);
 			if (toCase == CaseChar.NOT_ALPHABETIC)
 				return Collections.EMPTY_LIST;
-			if (fromCase == toCase) {
-				List<ooregex> results = new ArrayList<>();
-				Character fromCC = CaseAddition.changeCase(r.from);
-				Character toCC = CaseAddition.changeCase(r.to);
-				// both changed case a-z -> A-Z
-				results.add(new REGEXP_CHAR_RANGE(fromCC,toCC));
-				// if only the to can be changed (like A-Z -> A-z) 
-				if (toCC > r.from)
-					results.add(new REGEXP_CHAR_RANGE(r.from,toCC));
-				// if only the from part can be changed (like a-z -> A-z)
-				if (fromCC < r.to)
-					results.add(new REGEXP_CHAR_RANGE(fromCC,r.to));					
-				return results;
-			}
-			return Collections.EMPTY_LIST;
+			List<ooregex> results = new ArrayList<>();
+			Character fromCC = CaseAddition.changeCase(r.from);
+			Character toCC = CaseAddition.changeCase(r.to);
+			// both changed case (if possible) a-z -> A-Z (also mixed)
+			if (toCC >= fromCC && fromCase == toCase)
+				results.add(new REGEXP_CHAR_RANGE(fromCC, toCC));
+			// if only the to can be changed (like A-Z -> A-z)
+			if (toCC >= r.from)
+				results.add(new REGEXP_CHAR_RANGE(r.from, toCC));
+			// if only the from part can be changed (like a-z -> A-z)
+			// == is included in case of [A-a] or [a-A]
+			if (fromCC <= r.to)
+				results.add(new REGEXP_CHAR_RANGE(fromCC, r.to));
+			return results;
 		}
 
 		@Override

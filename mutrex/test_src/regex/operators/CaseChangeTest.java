@@ -1,5 +1,6 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.util.List;
@@ -44,11 +45,24 @@ public class CaseChangeTest extends RegexMutationTest {
 		assert oore instanceof REGEXP_CHAR_RANGE;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		System.out.println(m);
+		assertEquals(2, m.size());
 		assertOneEqualTo(m, "[a-z]");
 		assertOneEqualTo(m, "[A-z]");
 		assertFalse(OneEqualTo(m, "[a-Z]"));
 	}
 
+	@Test
+	public void testMutateCharClass2() {
+		RegExp re = new RegExp("[A-z]");
+		ooregex oore = OORegexConverter.getOORegex(re);
+		assert oore instanceof REGEXP_CHAR_RANGE;
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertEquals(2, m.size());
+		System.out.println(m);
+		assertOneEqualTo(m, "[a-z]");
+		assertOneEqualTo(m, "[A-Z]");
+		assertFalse(OneEqualTo(m, "[a-Z]"));
+	}
 	
 	@Test
 	public void testMutateString() {
@@ -79,6 +93,7 @@ public class CaseChangeTest extends RegexMutationTest {
 		assert oore instanceof REGEXP_CONCATENATION;
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assertOneEqualTo(m, "Q[^u]");
+		assertOneEqualTo(m, "q[^U]");		
 	}
 
 	@Test
@@ -92,6 +107,17 @@ public class CaseChangeTest extends RegexMutationTest {
 	}
 
 	@Test
+	public void testMutateUnionRepeat() {
+		RegExp re = new RegExp("(a|b)+");
+		ooregex oore = OORegexConverter.getOORegex(re);
+		assert oore instanceof REGEXP_REPEAT;
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertEquals(2,m.size());
+		assertOneEqualTo(m, "(A|b)+");
+		assertOneEqualTo(m, "(a|B)+");
+	}
+
+	@Test
 	public void testMutateNumber() {
 		RegExp re = new RegExp("\"0x\"");
 		accept(re, "0x");
@@ -102,4 +128,5 @@ public class CaseChangeTest extends RegexMutationTest {
 		assert m.size() == 1;
 		assertOneEqualTo(m, "0\\X");
 	}
+	
 }

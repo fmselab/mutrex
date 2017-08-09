@@ -1,5 +1,7 @@
 package dk.brics.automaton.oo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,4 +43,17 @@ public abstract class oobinregex extends ooregex {
 		}
 		return (T) result;
 	}
+
+	// split in case there are a concatenation of same opratoro
+	public static List<ooregex> split(ooregex r, Class<? extends oobinregex> clazz) {
+		if (r.getClass() == clazz) {
+			List<ooregex> prefixes = new ArrayList<ooregex>();
+			prefixes.addAll(split(((oobinregex) r).exp1,clazz));
+			prefixes.addAll(split(((oobinregex) r).exp2,clazz));
+			return prefixes;
+		} else {
+			return Collections.singletonList(r);
+		}
+	}
+
 }
