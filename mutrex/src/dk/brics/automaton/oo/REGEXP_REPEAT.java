@@ -74,13 +74,13 @@ final public class REGEXP_REPEAT extends oounaryregex {
 	}
 
 	/**
-	 * build the A{n,} repeat operator.
+	 * build the A{n,} repeat operator. (n can be 0)
 	 * 
 	 * @param ooRegex
 	 * @return
 	 */
 	static public REGEXP_REPEAT REGEXP_REPEAT_MIN_N(ooregex ooRegex, int min) {
-		assert min >= 1;
+		assert min >= 0;
 		return new REGEXP_REPEAT(ooRegex, min, -1);
 	}
 
