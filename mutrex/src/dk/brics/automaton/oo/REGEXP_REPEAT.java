@@ -110,7 +110,7 @@ final public class REGEXP_REPEAT extends oounaryregex {
 	}
 
 	/**
-	 * when I want to build the same type of ripetition to make the constructur
+	 * when I want to build the same type of repetition to make the constructor
 	 * private and min and max private rtype give min and max r the real content
 	 */
 	static public REGEXP_REPEAT sameREPEAT_Type(REGEXP_REPEAT rtype, ooregex r) {

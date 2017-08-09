@@ -65,7 +65,7 @@ public class CharacterClassAddition extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_UNION r) {
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r);
-			// take only the interval not already in the unione
+			// take only the interval not already in the union
 			List<ooregex> intrs = new ArrayList<ooregex>(Arrays.asList(intervals));
 			intrs.removeAll(parts);
 			//

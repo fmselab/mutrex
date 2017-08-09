@@ -2,7 +2,6 @@ package dk.brics.automaton.oo;
 
 // charclass	::=	charexp - charexp	(character range, including end-points)	
 public class REGEXP_CHAR_RANGE extends ooregex {
-
 	public char from;
 	public char to;
 
