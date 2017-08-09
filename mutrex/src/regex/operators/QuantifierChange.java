@@ -64,9 +64,9 @@ public class QuantifierChange extends RegexMutator {
 					// (n + 1) times
 					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
 					// at least ntimes {n,}
-					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min);
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min));
 					// at max ntimes {0,n}
-					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min);
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min));
 				}
 				return result;
 			}
