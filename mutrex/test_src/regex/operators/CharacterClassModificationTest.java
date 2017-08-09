@@ -75,6 +75,9 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 		assert res.hasNext();
 		System.out.println(res.next());
 		assert !res.hasNext();
+		// con assert
+		res = mutator.mutate(re);
+		assertOneEqualTo(res,"[za]");
 	}
 
 	@Test

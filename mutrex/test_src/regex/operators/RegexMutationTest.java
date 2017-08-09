@@ -46,7 +46,7 @@ public class RegexMutationTest {
 	
 	protected void assertOneEqualTo(Iterator<MutatedRegExp> m, String regex) {
 		List<MutatedRegExp> iteratorToList = IteratorUtils.iteratorToList(m);
-		assertTrue("no regex in " + iteratorToList + " is equal to " + regex, OneEqualTo(m, regex));
+		assertTrue("no regex in " + iteratorToList + " is equal to " + regex, OneEqualTo(iteratorToList, regex));
 	}
 
 	protected boolean OneEqualTo(Iterator<MutatedRegExp> res, String regex) {
