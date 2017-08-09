@@ -32,6 +32,12 @@ public class MetaChar2Char extends RegexMutator {
 			return Collections.singletonList((ooregex) new REGEXP_CHAR(r.sc));
 		}
 
+		/*
+		 * from tutorial: If you want to use any of these characters as a literal in a
+		 * regex, you need to escape them with a backslash. If you want to match
+		 * „1+1=2”, the correct regex is «1\+1=2». Otherwise, the plus sign will have a
+		 * special meaning.
+		 */
 		static private char charQuantifier[] = { '+', '?', '*' };
 
 		// other metachars as well like + *, ?
@@ -41,7 +47,7 @@ public class MetaChar2Char extends RegexMutator {
 			// only if char
 			if (q.length() == 1) {
 				List<ooregex> result = new ArrayList<>();
-				// if q is equal to a possible char 
+				// if q is equal to a possible char
 				for (char a : charQuantifier) {
 					if (q.charAt(0) == a) {
 						List<ooregex> insideMutations = r.getContentExpr().accept(this);

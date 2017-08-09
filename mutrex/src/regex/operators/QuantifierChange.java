@@ -46,7 +46,7 @@ public class QuantifierChange extends RegexMutator {
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any
 				return result;
 			}
-			// AtLeastNtimes
+			// AtLeastNtimes {n,}
 			if (min > 1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any
@@ -55,7 +55,7 @@ public class QuantifierChange extends RegexMutator {
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min + 1));//// AtLeastN+1times
 				return result;
 			}
-			// exactly n times
+			// exactly n times {n}
 			if (min == max) {
 				assert min > 0;
 				if (min > 1) {
@@ -63,6 +63,10 @@ public class QuantifierChange extends RegexMutator {
 					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max - 1));
 					// (n + 1) times
 					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
+					// at least ntimes {n,}
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min);
+					// at max ntimes {0,n}
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min);
 				}
 				return result;
 			}
