@@ -1,7 +1,5 @@
 package dk.brics.automaton.oo;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 import dk.brics.automaton.OORegexConverter;
@@ -14,6 +12,7 @@ public class CharacterClassTest {
 		RegExp re = new RegExp("[a-b]");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		System.out.println(oore);
+		System.out.println(oore.getClass().getSimpleName());
 	}
 
 	@Test
@@ -21,5 +20,14 @@ public class CharacterClassTest {
 		RegExp re = new RegExp("[ab]");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		System.out.println(oore);
+		System.out.println(oore.getClass().getSimpleName());
+	}
+
+	@Test
+	public void testCharclassString() {
+		RegExp re = new RegExp("ab");
+		ooregex oore = OORegexConverter.getOORegex(re);
+		System.out.println(oore);
+		System.out.println(oore.getClass().getSimpleName());
 	}
 }

@@ -25,6 +25,7 @@ public class AllMutators extends RegexMutator {
 		add(Char2MetaChar.mutator);
 		add(CharacterClassCreation.mutator);
 		add(CharacterClassAddition.mutator);
+		add(CharacterClassModification.mutator);
 		add(RangeModification.mutator);
 		add(CharacterClassRestriction.mutator);
 		add(PrefixAddition.mutator);
