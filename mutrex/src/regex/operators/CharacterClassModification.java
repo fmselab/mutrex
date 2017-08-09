@@ -1,17 +1,12 @@
 package regex.operators;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import dk.brics.automaton.oo.REGEXP_CHAR;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_UNION;
 import dk.brics.automaton.oo.ooregex;
-import dk.brics.automaton.oo.oosimpleexp;
 
 /**
  * The user wrote [az] but meant [a-z]

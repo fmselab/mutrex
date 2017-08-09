@@ -1,8 +1,5 @@
 package regex.operators;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Iterator;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -14,7 +11,6 @@ import org.junit.Test;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
-import regex.utils.IteratorUtils;
 
 public class CharacterClassModificationTest extends RegexMutationTest {
 	CharacterClassModification mutator = CharacterClassModification.mutator;

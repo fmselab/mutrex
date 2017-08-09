@@ -1,7 +1,5 @@
 package dk.brics.automaton.oo;
 
-import java.util.Collections;
-
 /**
  * <pre>
  * repeatexp	::=	repeatexp ?	(zero or one occurrence)	
