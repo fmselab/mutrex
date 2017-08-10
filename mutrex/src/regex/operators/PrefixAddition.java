@@ -31,8 +31,16 @@ public class PrefixAddition extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_REPEAT r) {
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r.getContentExpr());
+<<<<<<< HEAD
 			// apply only if splittable (more than one element in union)
 			if (parts.size() == 1) {
+=======
+			// apply only if splittable
+			// and min > 0. If min==0 o cambio la cardinalita' con la
+			// concatenazione, oppure non ha senso mettere prefisso opzionale
+			//TODO da sistemare
+			if (parts.size() == 1 || r.min == 0) {
+>>>>>>> origin/master
 				return Collections.EMPTY_LIST;
 			}
 			// find prefixes possible (buy subsetting the parts)
