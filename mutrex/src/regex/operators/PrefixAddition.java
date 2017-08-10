@@ -34,6 +34,7 @@ public class PrefixAddition extends RegexMutator {
 			// apply only if splittable
 			// and min > 0. If min==0 o cambio la cardinalita' con la
 			// concatenazione, oppure non ha senso mettere prefisso opzionale
+			//TODO da sistemare
 			if (parts.size() == 1 || r.min == 0) {
 				return Collections.EMPTY_LIST;
 			}
