@@ -24,8 +24,11 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	public void testMutateZeroOrMore() {
 		// with 0 no mutation is applied
 		RegExp re = new RegExp("[a-zA-Z0-9]*");
-		Iterator<MutatedRegExp> m = mp.mutate(re);
-		assertFalse(m.hasNext());
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertEquals(3, m.size());
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
 	}
 
 	@Test
@@ -89,6 +92,16 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertTrue(m.isEmpty());
 	}
 
+	@Test
+	public void testMutate5() {
+		// no prexi is added if the rgexe is not a repeatition
+		RegExp re = new RegExp("[a-zA-Z0-9]?");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		System.out.println(m);
+		assertTrue(m.isEmpty());
+	}
+
+	
 	// if it is not a repeat, no fault is given
 	@Test
 	public void testGetsubsets() {

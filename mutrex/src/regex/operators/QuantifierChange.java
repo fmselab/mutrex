@@ -60,26 +60,28 @@ public class QuantifierChange extends RegexMutator {
 			// exactly n times {n}
 			if (min == max) {
 				assert min > 0;
-				if (min > 1) {
+				if (min != 1) {
+					assert min > 1;
 					// (n - 1) times
 					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max - 1));
-					// (n + 1) times
-					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
-					// at least ntimes {n,}
-					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min));
-					// at max ntimes {0,n}
-					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min));
+				} else {
+					//  messaggio per paolo del 10/8/17
+					System.out.println("CAMBIO: trovato un x{1}");
 				}
+				// at max ntimes {0,n}
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min));
+				// (n + 1) times
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
+				// at least ntimes {n,}
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min));
 				return result;
 			}
+			assert (max != -1) & max > min;
 			// from n to m: {n,m}			
 			if (min > 0) {
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max));
 			}
-			if (min < max) {
-				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max));
-			}
-			assert (max != -1) & max > min;
+			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max));
 			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max + 1));
 			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max - 1));
 			return result;

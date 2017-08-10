@@ -158,4 +158,14 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		RegExp re = RegexExamplesTaker.readExampleRegex("someExamples", "SQLquery");
 		mutator.mutate(re);
 	}
+	
+	@Test
+	public void testMutateDonotMutateMinus() {
+		// - as char to - as metachar
+		// NOT to mutate
+		RegExp re = new RegExp("z\\-a");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		assertFalse(res.hasNext());
+	}
+		
 }

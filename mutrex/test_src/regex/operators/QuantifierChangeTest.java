@@ -183,6 +183,27 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		assertTrue(OneEqualTo(m, "^a+"));
 	}
 
+	@Test
+	public void testExactlyOne() {
+		RegExp re = new RegExp("a{1}")  ;
+		List<MutatedRegExp> m = test(re);
+		assertEquals(3, m.size());
+		assertTrue(OneEqualTo(m, "a{2}"));
+		assertTrue(OneEqualTo(m, "a{1,}"));
+		assertTrue(OneEqualTo(m, "a{0,1}"));
+	}
+	
+	@Test
+	public void testmin0() {
+		RegExp re = new RegExp("a{0,10}")  ;
+		List<MutatedRegExp> m = test(re);
+		assertEquals(3, m.size());
+		assertTrue(OneEqualTo(m, "a{1,10}"));
+		assertTrue(OneEqualTo(m, "a{0,9}"));
+		assertTrue(OneEqualTo(m, "a{0,11}"));
+	}
+
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmpty() {
 		new RegExp("a{3, 2}");

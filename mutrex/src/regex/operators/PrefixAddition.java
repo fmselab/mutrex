@@ -31,10 +31,8 @@ public class PrefixAddition extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_REPEAT r) {
 			List<ooregex> parts = REGEXP_UNION.splitUnion(r.getContentExpr());
-			// apply only if splittable
-			// and min > 0. If min==0 o cambio la cardinalita' con la
-			// concatenazione, oppure non ha senso mettere prefisso opzionale
-			if (parts.size() == 1 || r.min == 0) {
+			// apply only if splittable (more than one element in union)
+			if (parts.size() == 1) {
 				return Collections.EMPTY_LIST;
 			}
 			// find prefixes possible (buy subsetting the parts)
@@ -57,6 +55,11 @@ public class PrefixAddition extends RegexMutator {
 			}
 			for (ooregex p : prefixes) {
 				result.add(new REGEXP_CONCATENATION(p, newRepeat));
+			}
+			// messo debug per vedere dove cambia 10/8/17 
+			// solo se min == 0 e viene prodotto almeno un mutante (ad esempio se ?) non viene prodotto lo stesso
+			if (r.min == 0 && result.size()>0) {
+				System.out.println("CAMBIO:trovato regex con min = 0!!!");
 			}
 			return result;
 		}

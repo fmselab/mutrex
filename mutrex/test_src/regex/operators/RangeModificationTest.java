@@ -52,4 +52,13 @@ public class RangeModificationTest extends RegexMutationTest {
 		assertEquals(1, acceptB);
 		assertEquals(1, acceptF);
 	}
+	
+	@Test
+	public void testDoNoMutate() {
+		RegExp re = new RegExp("[;-=]");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);//
+		assertFalse(res.hasNext());
+	}
+
+	
 }

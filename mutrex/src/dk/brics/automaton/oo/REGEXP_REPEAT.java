@@ -152,9 +152,10 @@ final public class REGEXP_REPEAT extends oounaryregex {
 		if (newMax == 0) {
 			return null;
 		}
+		int newMin = this.min == 0 ? 0 : this.min - 1;
 		// min = 1 becomes 1 + 0 or more
 		// min becomes 1 + min-1 or more
-		return new REGEXP_REPEAT(this.exp, this.min - 1, newMax);
+		return new REGEXP_REPEAT(this.exp, newMin , newMax);
 	}
 
 }
