@@ -11,9 +11,8 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <javaElement handleIdentifier="=mutrex/automaton-1.11\/src"/>
         <javaElement handleIdentifier="=mutrex/test_src"/>
-        <folder path="/mutrex/automaton-1.11"/>
+        <javaElement handleIdentifier="=mutrex/dk.brics.automaton-1.12\/src"/>
         <javaElement handleIdentifier="=mutrex/src"/>
     </selectedElements>
 </jardesc>
