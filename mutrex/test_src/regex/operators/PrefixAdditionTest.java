@@ -22,13 +22,29 @@ public class PrefixAdditionTest extends RegexMutationTest {
 
 	@Test
 	public void testMutateZeroOrMore() {
-		// with 0 no mutation is applied
 		RegExp re = new RegExp("[a-zA-Z0-9]*");
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assertEquals(3, m.size());
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
+	}
+
+	@Test
+	public void testMutateExact2() {
+		RegExp re = new RegExp("[a-zA-Z0-9]{2}");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertEquals(3, m.size());
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1}");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1}");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1}");
+	}
+
+	@Test
+	public void testMutateExact1() {
+		RegExp re = new RegExp("[a-zA-Z0-9]");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertEquals(0, m.size());
 	}
 
 	@Test
