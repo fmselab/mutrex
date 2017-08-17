@@ -8,10 +8,13 @@ public class oosimpleexpTest {
 
 	@Test
 	public void testOosimpleexp() {
+		// both generate exaclty the same expression???
 		ooregex abc = OORegexConverter.getOORegex("abc");
-		System.out.println(abc.getClass());
+		System.out.println(((oosimpleexp)(abc)).s);
 		abc = OORegexConverter.getOORegex("\"abc\"");
-		System.out.println(abc.getClass());
+		System.out.println(((oosimpleexp)(abc)).s);
+		abc = OORegexConverter.getOORegex("\\\"abc\\\"");
+		System.out.println(((oosimpleexp)(abc)).s);
 	}
 
 }

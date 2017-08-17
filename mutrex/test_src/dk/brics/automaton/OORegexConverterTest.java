@@ -22,6 +22,12 @@ public class OORegexConverterTest {
 		test("\\w");
 	}
 
+	@Test
+	public void testGetOO() {
+		test("\"--help\"");
+	}
+	
+	
 	private void test(String reg) {
 		// get the regex
 		RegExp re = new RegExp(reg);
@@ -32,6 +38,7 @@ public class OORegexConverterTest {
 		// questo ancora fallisce
 		// back to string
 		String rs = ToRegexString.convertToRegexString(oor);
+		System.out.println(reg + " --> " +rs);
 		assertEquals(reg, rs);
 	}
 

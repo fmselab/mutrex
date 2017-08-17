@@ -58,6 +58,10 @@ public class MutRexTest {
 		generate("a\\.");
 	}
 
+	@Test
+	public void testString() {
+		generate("\\\"--help\\\"");
+	}
 	
 	private void generate(String regex) {
 		for (DSSetGenerator dsgen : MutRex.generators) {

@@ -20,9 +20,21 @@ import regex.operators.RegexMutator.MutatedRegExp;
  *
  */
 public class BasicDSSetgenerator extends DSSetGenerator {
-	public static DSSetGenerator generator = new BasicDSSetgenerator();
+	
+	private DSgenPolicy policy;
+	
+	public static DSSetGenerator generator = new BasicDSSetgenerator(DSgenPolicy.RANDOM);
 
+	public static DSSetGenerator generatorPOS = new BasicDSSetgenerator(DSgenPolicy.PREF_POSITIVE);
+
+	public static DSSetGenerator generatorNEG = new BasicDSSetgenerator(DSgenPolicy.PREF_NEGATIVE);
+	
 	protected BasicDSSetgenerator() {
+		this(DSgenPolicy.RANDOM);
+	}
+	
+	protected BasicDSSetgenerator(DSgenPolicy policy) {
+		this.policy = policy;
 	}
 
 	@Override
@@ -34,7 +46,7 @@ public class BasicDSSetgenerator extends DSSetGenerator {
 			// DistinguishingString ds = DistStringCreator.getDS(regex,
 			// mutant.mutatedRexExp, DSgenPolicy.RANDOM);
 			DistinguishingString ds = DistStringCreator.getDS(regexAut, mutant.mutatedRexExp.toAutomaton(),
-					DSgenPolicy.RANDOM);
+					policy);
 			if (ds != null) {
 				result.add(ds, Collections.singletonList(mutant));
 			}

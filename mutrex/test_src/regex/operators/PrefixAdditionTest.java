@@ -23,7 +23,17 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutateZeroOrMore() {
 		// with 0 no mutation is applied
-		RegExp re = new RegExp("[a-zA-Z0-9]*");
+		zeroMore("[a-zA-Z0-9]*");
+	}
+
+	@Test
+	public void testMutateZeroOrMore2() {
+		// with 0 no mutation is applied
+		zeroMore("[a-zA-Z0-9]{0,}");
+	}
+
+	private void zeroMore(String rexps) {
+		RegExp re = new RegExp(rexps);
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		assertEquals(3, m.size());
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
@@ -31,6 +41,89 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
 	}
 
+	@Test
+	public void testMutatePlus() {
+		plus("[a-zA-Z0-9]+");
+	}
+
+	@Test
+	public void testMutatePlus0() {
+		plus("[a-zA-Z0-9]{1,}");
+	}
+
+	private void plus(String s) {
+		RegExp re = new RegExp(s);
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
+	}
+
+	@Test
+	public void testMutateN() {
+		enne("[a-zA-Z0-9]{2}");
+	}
+
+	@Test
+	public void testMutateNN() {
+		enne("[a-zA-Z0-9]{2,2}");
+	}
+
+	private void enne(String s) {
+		RegExp re = new RegExp(s);
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1}");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1}");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1}");
+	}
+
+
+	@Test
+	public void testMutateNGT1() {
+		RegExp re = new RegExp("[a-zA-Z0-9]{2,}");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1,}");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1,}");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1,}");
+	}
+
+	@Test
+	public void testMutateNM() {
+		RegExp re = new RegExp("[a-zA-Z0-9]{2,6}");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1,5}");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1,5}");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1,5}");
+	}
+
+	@Test
+	public void testMutate0M() {
+		RegExp re = new RegExp("[a-zA-Z0-9]{0,5}");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{0,4}");
+		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{0,4}");
+		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{0,4}");
+	}
+	
+	
+	@Test
+	public void testMutateQM() {
+		// no prexi is added if the rgexe is not a repeatition
+		RegExp re = new RegExp("[a-zA-Z0-9]?");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		System.out.println(m);
+		assertTrue(m.isEmpty());
+	}
+
+	@Test
+	public void testMutateN1() {
+		// no prexi is added if the rgexe is not a repeatition
+		RegExp re = new RegExp("[a-zA-Z0-9]{1}") ;
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		System.out.println(m);
+		assertTrue(m.isEmpty());
+	}
+	
 	@Test
 	public void testMutateNoSplit() {
 		// with 0 no mutation is applied
@@ -66,15 +159,6 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	}
 
 	@Test
-	public void testMutate2() {
-		RegExp re = new RegExp("[a-zA-Z0-9]+");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
-		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
-		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
-		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
-	}
-
-	@Test
 	public void testMutate3() {
 		RegExp re = new RegExp("AAA[a-zA-Z0-9]+");
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
@@ -91,16 +175,6 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
-
-	@Test
-	public void testMutate5() {
-		// no prexi is added if the rgexe is not a repeatition
-		RegExp re = new RegExp("[a-zA-Z0-9]?");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
-		System.out.println(m);
-		assertTrue(m.isEmpty());
-	}
-
 	
 	// if it is not a repeat, no fault is given
 	@Test

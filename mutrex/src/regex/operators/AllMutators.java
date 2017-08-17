@@ -1,6 +1,7 @@
 package regex.operators;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class AllMutators extends RegexMutator {
 
 	// list of all the mutators that can possibly used
 	public static List<RegexMutator> allMutators = new ArrayList<RegexMutator>();
+	// those that are defined
+	public static List<RegexMutator> definedMutators = new ArrayList<RegexMutator>();
 
 	// probably a file or a plugin mechanism or reflection could be better
 	static {
@@ -47,10 +50,25 @@ public class AllMutators extends RegexMutator {
 
 	private static void add(RegexMutator mutator) {
 		allMutators.add(mutator);
+		definedMutators.add(mutator);
 	}
 
 	@Override
 	public String getCode() {
 		return "ALL";
+	}
+
+	public static void enableOnly(String[] operators) {
+		allMutators.clear();
+		// if null or none, put all
+		if (operators == null || operators.length == 0) {
+			allMutators.addAll(definedMutators);
+		} else {
+			List<String> ops = Arrays.asList(operators);
+			for (RegexMutator m : definedMutators) {
+				if (ops.contains(m.getCode()))
+					allMutators.add(m);
+			}
+		}
 	}
 }

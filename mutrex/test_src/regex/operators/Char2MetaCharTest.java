@@ -168,4 +168,17 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		assertFalse(res.hasNext());
 	}
 		
+	// this gives an error becuase it coinatins a "- which is split but the other 
+	// part remains without doubele quote
+	@Test
+	public void testMutateMinusDubleQuote() {
+		// NOT to mutate
+		RegExp re = new RegExp("\\\"--help\\\"");
+		List<MutatedRegExp> l = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for(MutatedRegExp o:l) {
+			System.out.println(o);
+		}
+	}
+		
+
 }

@@ -1,5 +1,7 @@
 package regex.mutrex.main;
 
+import java.util.Arrays;
+
 import regex.mutrex.BasicDSSetgenerator;
 import regex.mutrex.CollectDSSetGeneratorNoLimit;
 import regex.mutrex.MonitoringDSSetgenerator;
@@ -7,12 +9,21 @@ import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.parallel.DAsParallelCollectDSSetGenerator;
 import regex.mutrex.parallel.mutant.MutantParallelCollectDSSetGenerator;
+import regex.operators.AllMutators;
 
 /** generates all the string to kill the mutation of a given regex */
 public class MutRex {
 	static DSSetGenerator[] generators = { BasicDSSetgenerator.generator, MonitoringDSSetgenerator.generator,
 			CollectDSSetGeneratorNoLimit.generator };
 
+	/** build the distinguishing strings + mutant killed */
+	public static DSSet generateStrings(String extregex, String type, String[] operators) {
+		// set the mutation operators
+		AllMutators.enableOnly(operators);
+		return  generateStrings(extregex,type);
+	}
+
+	
 	/** build the distinguishing strings + mutant killed */
 	public static DSSet generateStrings(String extregex, GeneratorType type) {
 		switch (type) {

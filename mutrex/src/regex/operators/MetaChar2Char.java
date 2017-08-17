@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.oo.REGEXP_CHAR;
+import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
 import dk.brics.automaton.oo.ooregex;
+import dk.brics.automaton.oo.oosimpleexp;
 
 /**
  * the expression contains a metachar that is substituted by a char. The error
@@ -64,6 +67,13 @@ public class MetaChar2Char extends RegexMutator {
 			}
 		}
 
+		@Override
+		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {
+			// put the - with escape
+			String s = "[" + r.from+ "\\-"+ r.to+ "]";			
+			return Collections.singletonList(OORegexConverter.getOOExtRegex(s));
+		}
+		
 		@Override
 		public String getCode() {
 			return "M2C";

@@ -95,11 +95,13 @@ public class ToRegexString implements RegexVisitor<Void> {
 
 	@Override
 	public Void visit(oosimpleexp r) {
+		// careful if it contains a not escaped double quote !!
+		// it must be escaped ?
 		// REGEXP_STRING r
 		b.append("\"").append(r.s).append("\"");
 		return null;
-	}
-
+	}	
+	
 	@Override
 	public Void visit(REGEXP_SPECIALCHAR r) {
 		b.append(r.sc);

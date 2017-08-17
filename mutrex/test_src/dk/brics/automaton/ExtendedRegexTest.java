@@ -22,4 +22,8 @@ public class ExtendedRegexTest {
 		assertFalse(automaton.run("A"));		
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testRegExp(){
+		new RegExp("\"a");
+	}
 }

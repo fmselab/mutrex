@@ -84,6 +84,17 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		accept(corrected, "1+1=2");
 		acceptNot(corrected, "1111=2", "11=2");
 	}
-	
+	@Test
+	public void testCharRange() {
+		// + as metachar to + as char
+		RegExp re = new RegExp("[a-b]");
+		// mutate this expression
+		List<MutatedRegExp> res = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		assertTrue(!res.isEmpty());
+		RegExp corrected = res.get(0).mutatedRexExp;
+		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs " + ToSimpleString.convertToReadableString(re));
+		assertOneEqualTo(res,"[a\\-b]");
+	}
+
 	
 }
