@@ -59,7 +59,7 @@ public class PrefixAddition extends RegexMutator {
 			// messo debug per vedere dove cambia 10/8/17 
 			// solo se min == 0 e viene prodotto almeno un mutante (ad esempio se ?) non viene prodotto lo stesso
 			if (r.min == 0 && result.size()>0) {
-				System.out.println("CAMBIO:trovato regex con min = 0!!!");
+				//System.out.println("CAMBIO:trovato regex con min = 0!!!");
 			}
 			return result;
 		}

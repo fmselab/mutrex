@@ -18,7 +18,8 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class PrefixAdditionTest extends RegexMutationTest {
-	static PrefixAddition mp = PrefixAddition.mutator;
+
+	private static PrefixAddition mp = PrefixAddition.mutator;
 
 	@Test
 	public void testMutateZeroOrMore() {
@@ -77,7 +78,6 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1}");
 	}
 
-
 	@Test
 	public void testMutateNGT1() {
 		RegExp re = new RegExp("[a-zA-Z0-9]{2,}");
@@ -104,8 +104,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{0,4}");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{0,4}");
 	}
-	
-	
+
 	@Test
 	public void testMutateQM() {
 		// no prexi is added if the rgexe is not a repeatition
@@ -118,12 +117,12 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutateN1() {
 		// no prexi is added if the rgexe is not a repeatition
-		RegExp re = new RegExp("[a-zA-Z0-9]{1}") ;
+		RegExp re = new RegExp("[a-zA-Z0-9]{1}");
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
-	
+
 	@Test
 	public void testMutateNoSplit() {
 		// with 0 no mutation is applied
@@ -175,7 +174,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
-	
+
 	// if it is not a repeat, no fault is given
 	@Test
 	public void testGetsubsets() {
