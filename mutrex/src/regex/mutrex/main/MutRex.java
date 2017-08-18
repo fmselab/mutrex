@@ -1,7 +1,5 @@
 package regex.mutrex.main;
 
-import java.util.Arrays;
-
 import regex.mutrex.BasicDSSetgenerator;
 import regex.mutrex.CollectDSSetGeneratorNoLimit;
 import regex.mutrex.MonitoringDSSetgenerator;
@@ -17,18 +15,36 @@ public class MutRex {
 			CollectDSSetGeneratorNoLimit.generator };
 
 	/** build the distinguishing strings + mutant killed */
-	public static DSSet generateStrings(String extregex, String type, String[] operators) {
+	public static DSSet generateStrings(String extregex, String type, String[] operators, String orientation) {
 		// set the mutation operators
 		AllMutators.enableOnly(operators);
-		return  generateStrings(extregex,type);
+		return generateStrings(extregex, GeneratorType.valueOf(type), GeneratorType.Orientation.valueOf(orientation));
 	}
 
-	
-	/** build the distinguishing strings + mutant killed */
+	/**
+	 *  build the distinguishing strings + mutant killed.
+	 *
+	 * @param extregex the extregex
+	 * @param type the type
+	 * @return the DS set
+	 */
 	public static DSSet generateStrings(String extregex, GeneratorType type) {
+		return generateStrings(extregex, type, GeneratorType.Orientation.RANDOM);
+	}
+	
+	public static DSSet generateStrings(String extregex, GeneratorType type, GeneratorType.Orientation orientation) {
 		switch (type) {
 		case BASIC:
-			return BasicDSSetgenerator.generator.generateDSSet(extregex);
+			switch (orientation) {
+			case RANDOM:
+				return BasicDSSetgenerator.generator.generateDSSet(extregex);
+			case PREF_ACCEPT:
+				return BasicDSSetgenerator.generatorPOS.generateDSSet(extregex);
+			case PREF_REJECT:
+				return BasicDSSetgenerator.generatorNEG.generateDSSet(extregex);
+			default:
+				throw new RuntimeException();
+			}
 		case MONITORING:
 			return MonitoringDSSetgenerator.generator.generateDSSet(extregex);
 		case COLLECTING_NO_LIMIT:
@@ -42,9 +58,5 @@ public class MutRex {
 		default:
 			throw new RuntimeException();
 		}
-	}
-
-	public static DSSet generateStrings(String extregex, String type) {
-		return generateStrings(extregex, GeneratorType.valueOf(type));
 	}
 }
