@@ -15,6 +15,12 @@ import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.RegExpSet;
 import regex.operators.RegexMutator.MutatedRegExp;
 
+/**
+ * Questo e' codice vecchio. 
+ * Da cancellare.
+ * Nuova versione in: MinimizationTechniques.java
+ *
+ */
 public class MinTest extends DSSetMinimizer{
 
 	public static MinTest instance = new MinTest();

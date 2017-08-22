@@ -67,12 +67,12 @@ public class MetaChar2Char extends RegexMutator {
 			}
 		}
 
-		@Override
+		/*@Override
 		public List<ooregex> visit(REGEXP_CHAR_RANGE r) {
 			// put the - with escape
 			String s = "[" + r.from+ "\\-"+ r.to+ "]";			
 			return Collections.singletonList(OORegexConverter.getOOExtRegex(s));
-		}
+		}*/
 		
 		@Override
 		public String getCode() {
