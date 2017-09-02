@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.oo.REGEXP_CHAR;
-import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
 import dk.brics.automaton.oo.ooregex;
-import dk.brics.automaton.oo.oosimpleexp;
 
 /**
  * the expression contains a metachar that is substituted by a char. The error
