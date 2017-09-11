@@ -29,6 +29,18 @@ public class NegationAdditionTest extends RegexMutationTest {
 	}
 
 	@Test
+	public void testTwoChars() {
+		RegExp re = new RegExp("ab");
+		accept(re, "ab");
+		acceptNot(re, "a", "b", "", "abb");
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
+		RegExp corrected = res.next().mutatedRexExp;
+		System.out.println(corrected);
+		accept(corrected, "cb", "db", "Ab", " b");
+		acceptNot(corrected, "ab");
+	}
+
+	@Test
 	public void testInterval() {
 		RegExp re = new RegExp("[A-Z]");
 		accept(re, "A", "B", "F", "Z");
