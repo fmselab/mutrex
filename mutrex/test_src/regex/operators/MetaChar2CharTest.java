@@ -103,20 +103,30 @@ public class MetaChar2CharTest extends RegexMutationTest {
 	@Test
 	public void testExamplePaperSI_mutation2017() {
 		RegExp re = new RegExp("[0-9]{3}.[0-9]{3}");
+		accept(re, "113A123", "113.123");
+		acceptNot(re, "112");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
 		}
-		assertEquals(3, mutants.size());
+		assertEquals(1, mutants.size());
+		MutatedRegExp m = mutants.get(0);
+		accept(m.mutatedRexExp, "113.123");
+		acceptNot(m.mutatedRexExp, "112","113A123");
 	}
 
 	@Test
 	public void testExamplePaperSI_mutation2017_2() {
 		RegExp re = new RegExp("[a-b]+");
+		accept(re, "aaa", "bbb");
+		acceptNot(re, "a+", "+");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
 		}
-		assertEquals(2, mutants.size());
+		assertEquals(1, mutants.size());
+		MutatedRegExp m = mutants.get(0);
+		accept(m.mutatedRexExp, "a+");
+		acceptNot(m.mutatedRexExp, "aaa");
 	}
 }

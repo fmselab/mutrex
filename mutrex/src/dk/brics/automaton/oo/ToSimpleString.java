@@ -59,6 +59,8 @@ public class ToSimpleString extends ToRegexString {
 
 	@Override
 	public Void visit(REGEXP_CHAR r) {
+		if (r.c == '.' || r.c == '#' || r.c == '@' || r.c == '+' || r.c == '?' || r.c == '*')
+			b.append('\\');
 		b.append(r.c);
 		return null;
 	}
