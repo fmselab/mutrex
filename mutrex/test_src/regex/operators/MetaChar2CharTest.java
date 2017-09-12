@@ -107,4 +107,13 @@ public class MetaChar2CharTest extends RegexMutationTest {
 			System.out.println(m);
 		}
 	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017_2() {
+		RegExp re = new RegExp("[a-b]+");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+	}
 }
