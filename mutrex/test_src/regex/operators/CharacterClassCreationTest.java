@@ -83,7 +83,9 @@ public class CharacterClassCreationTest extends RegexMutationTest {
 
 	@Test
 	public void testExamplePaperSI_mutation2017() {
-		RegExp re = new RegExp("0-9+");
+		RegExp re = new RegExp("(0-9)+");
+		accept(re, "0-9", "0-90-9");
+		acceptNot(re, "0", "1", "9", "-");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
