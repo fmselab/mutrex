@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>mutrex</name>
-	<comment></comment>
+	<comment>JavaCC Nature</comment>
 	<projects>
 	</projects>
 	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/sf.eclipse.javacc.javaccbuilder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.wst.common.project.facet.core.builder</name>
 			<arguments>
@@ -16,8 +26,13 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.structure101.java.eclipse.plugin.JDMEclipseBuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/com.structure101.java.eclipse.plugin.JDMEclipseBuilder.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
@@ -32,5 +47,6 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.structure101.java.eclipse.plugin.JDMEclipseNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+		<nature>sf.eclipse.javacc.javaccnature</nature>
 	</natures>
 </projectDescription>
