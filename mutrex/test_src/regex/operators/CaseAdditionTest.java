@@ -81,4 +81,13 @@ public class CaseAdditionTest extends RegexMutationTest {
 		assertOneEqualTo(m, "0(\\x|\\X)");
 		accept(m.get(0).mutatedRexExp, "0x", "0X");
 	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("a[a-z]*");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mp.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+	}
 }

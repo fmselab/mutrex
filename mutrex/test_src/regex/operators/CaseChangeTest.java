@@ -74,7 +74,6 @@ public class CaseChangeTest extends RegexMutationTest {
 		assertOneEqualTo(m, "Abc");
 		assertOneEqualTo(m, "aBc");
 		assertOneEqualTo(m, "abC");
-		;
 	}
 
 	@Test
@@ -128,5 +127,13 @@ public class CaseChangeTest extends RegexMutationTest {
 		assert m.size() == 1;
 		assertOneEqualTo(m, "0\\X");
 	}
-	
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("a[a-z]*");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mp.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+	}
 }

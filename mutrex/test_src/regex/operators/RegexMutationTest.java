@@ -35,13 +35,14 @@ public class RegexMutationTest {
 	/**
 	 * at least an automaton in m must be equal to regex
 	 * 
-	 * @param m: use list instea do iterator, for problems of reset them
+	 * @param m:
+	 *            use list instead of iterator, for problems of reset them
 	 * @param regex
 	 */
 	protected void assertOneEqualTo(List<MutatedRegExp> m, String regex) {
 		assertTrue("no regex in " + m + " is equal to " + regex, OneEqualTo(m, regex));
 	}
-	
+
 	protected boolean OneEqualTo(List<MutatedRegExp> m, String regex) {
 		Automaton a = new RegExp(regex).toAutomaton();
 		for (MutatedRegExp j : m) {

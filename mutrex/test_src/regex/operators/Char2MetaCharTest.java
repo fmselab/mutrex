@@ -158,7 +158,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		RegExp re = RegexExamplesTaker.readExampleRegex("someExamples", "SQLquery");
 		mutator.mutate(re);
 	}
-	
+
 	@Test
 	public void testMutateDonotMutateMinus() {
 		// - as char to - as metachar
@@ -167,18 +167,26 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assertFalse(res.hasNext());
 	}
-		
-	// this gives an error becuase it coinatins a "- which is split but the other 
-	// part remains without doubele quote
+
+	// this gives an error because it contains a "- which is split but the
+	// other
+	// part remains without double quote
 	@Test
 	public void testMutateMinusDubleQuote() {
 		// NOT to mutate
 		RegExp re = new RegExp("\\\"--help\\\"");
 		List<MutatedRegExp> l = IteratorUtils.iteratorToList(mutator.mutate(re));
-		for(MutatedRegExp o:l) {
+		for (MutatedRegExp o : l) {
 			System.out.println(o);
 		}
 	}
-		
 
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("\\.{3}");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+	}
 }

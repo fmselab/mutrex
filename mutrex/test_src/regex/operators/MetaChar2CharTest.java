@@ -66,7 +66,7 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		accept(corrected, "@a");
 		acceptNot(corrected, "a", "ba");
 	}
-	
+
 	@Test
 	public void testMutatePlusMC() {
 		// + as metachar to + as char
@@ -77,13 +77,15 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		Iterator<MutatedRegExp> res = MetaChar2Char.mutator.mutate(re);
 		assertTrue(res.hasNext());
 		RegExp corrected = res.next().mutatedRexExp;
-		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs " + ToSimpleString.convertToReadableString(re));
+		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs "
+				+ ToSimpleString.convertToReadableString(re));
 		System.out.println(corrected + " vs " + re);
 		DistinguishingStringsCouple ds = DistStringCreator.getDScouple(re, corrected);
 		System.out.println(ds.toString());
 		accept(corrected, "1+1=2");
 		acceptNot(corrected, "1111=2", "11=2");
 	}
+
 	@Test
 	public void testCharRange() {
 		// + as metachar to + as char
@@ -92,9 +94,17 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		List<MutatedRegExp> res = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
 		assertTrue(!res.isEmpty());
 		RegExp corrected = res.get(0).mutatedRexExp;
-		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs " + ToSimpleString.convertToReadableString(re));
-		assertOneEqualTo(res,"[a\\-b]");
+		System.out.println(ToSimpleString.convertToReadableString(corrected) + " vs "
+				+ ToSimpleString.convertToReadableString(re));
+		assertOneEqualTo(res, "[a\\-b]");
 	}
 
-	
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[0-9]{3}.[0-9]{3}");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+	}
 }
