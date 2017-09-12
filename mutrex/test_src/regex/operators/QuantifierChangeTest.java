@@ -27,7 +27,6 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 	}
 
-	
 	private List<MutatedRegExp> test(RegExp re) {
 		System.out.println("Original " + re);
 		List<MutatedRegExp> list = IteratorUtils.iteratorToList(mutator.mutate(re));
@@ -54,7 +53,6 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		assertTrue(OneEqualTo(m, "a?"));
 	}
 
-
 	@Test
 	public void testAtLeastNtimes() {
 		RegExp re = new RegExp("a{4,}");// min = 4, max = -1
@@ -79,14 +77,13 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		testAnyHelper(re);
 	}
 
-
 	private void testAnyHelper(RegExp re) {
 		// min = 0, max = -1
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_REPEAT;
 		REGEXP_REPEAT rr = (REGEXP_REPEAT) oore;
 		assertEquals(0, rr.min);
-		assertEquals(-1, rr.max); // ininite 
+		assertEquals(-1, rr.max); // infinite
 		List<MutatedRegExp> m = test(re);
 		assertEquals(2, m.size());
 		System.out.println(m);
@@ -102,7 +99,7 @@ public class QuantifierChangeTest extends RegexMutationTest {
 
 	@Test
 	public void testNoMoreThanOnce2() {
-		RegExp re = new RegExp("a{0,1}")  ;
+		RegExp re = new RegExp("a{0,1}");
 		testNoMoreThanOnceHelper(re);
 	}
 
@@ -120,19 +117,18 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		assertTrue(OneEqualTo(m, "a*"));
 	}
 
-	
 	@Test
 	public void testNtimes() {
 		RegExp re = new RegExp("a{3}");
-		//RegExp re = new RegExp("a{3,3}");
+		// RegExp re = new RegExp("a{3,3}");
 		testNtimesHelper(re);
 	}
+
 	@Test
 	public void testNtimes2() {
 		RegExp re = new RegExp("a{3,3}");
 		testNtimesHelper(re);
 	}
-
 
 	private void testNtimesHelper(RegExp re) {
 		List<MutatedRegExp> m = test(re);
@@ -171,7 +167,7 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		assertTrue(OneEqualTo(m, "a?b*"));
 		assertTrue(OneEqualTo(m, "a+b*"));
 		assertTrue(OneEqualTo(m, "a*b?"));
-		assertTrue(OneEqualTo(m, "a*b+"));		
+		assertTrue(OneEqualTo(m, "a*b+"));
 	}
 
 	@Test
@@ -185,17 +181,17 @@ public class QuantifierChangeTest extends RegexMutationTest {
 
 	@Test
 	public void testExactlyOne() {
-		RegExp re = new RegExp("a{1}")  ;
+		RegExp re = new RegExp("a{1}");
 		List<MutatedRegExp> m = test(re);
 		assertEquals(3, m.size());
 		assertTrue(OneEqualTo(m, "a{2}"));
 		assertTrue(OneEqualTo(m, "a{1,}"));
 		assertTrue(OneEqualTo(m, "a{0,1}"));
 	}
-	
+
 	@Test
 	public void testmin0() {
-		RegExp re = new RegExp("a{0,10}")  ;
+		RegExp re = new RegExp("a{0,10}");
 		List<MutatedRegExp> m = test(re);
 		assertEquals(3, m.size());
 		assertTrue(OneEqualTo(m, "a{1,10}"));
@@ -203,7 +199,6 @@ public class QuantifierChangeTest extends RegexMutationTest {
 		assertTrue(OneEqualTo(m, "a{0,11}"));
 	}
 
-	
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmpty() {
 		new RegExp("a{3, 2}");
@@ -228,5 +223,25 @@ public class QuantifierChangeTest extends RegexMutationTest {
 	public void testR2() throws IOException {
 		RegExp re = RegexExamplesTaker.readExampleRegex("someExamples", "r2");
 		List<MutatedRegExp> m = test(re);
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[0-9]*");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(2, mutants.size());
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017_2() {
+		RegExp re = new RegExp("[a-z]{3}");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(4, mutants.size());
 	}
 }

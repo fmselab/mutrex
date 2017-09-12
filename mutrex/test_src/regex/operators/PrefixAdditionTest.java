@@ -18,8 +18,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class PrefixAdditionTest extends RegexMutationTest {
-
-	private static PrefixAddition mp = PrefixAddition.mutator;
+	private static PrefixAddition mutator = PrefixAddition.mutator;
 
 	@Test
 	public void testMutateZeroOrMore() {
@@ -35,7 +34,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 
 	private void zeroMore(String rexps) {
 		RegExp re = new RegExp(rexps);
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertEquals(3, m.size());
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
@@ -54,7 +53,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 
 	private void plus(String s) {
 		RegExp re = new RegExp(s);
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]*");
@@ -72,7 +71,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 
 	private void enne(String s) {
 		RegExp re = new RegExp(s);
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1}");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1}");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1}");
@@ -81,7 +80,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutateNGT1() {
 		RegExp re = new RegExp("[a-zA-Z0-9]{2,}");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1,}");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1,}");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1,}");
@@ -90,7 +89,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutateNM() {
 		RegExp re = new RegExp("[a-zA-Z0-9]{2,6}");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{1,5}");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{1,5}");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{1,5}");
@@ -99,7 +98,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutate0M() {
 		RegExp re = new RegExp("[a-zA-Z0-9]{0,5}");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "[a-zA-Z][a-zA-Z0-9]{0,4}");
 		assertOneEqualTo(m, "[a-z0-9][a-zA-Z0-9]{0,4}");
 		assertOneEqualTo(m, "[A-Z0-9][a-zA-Z0-9]{0,4}");
@@ -109,7 +108,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	public void testMutateQM() {
 		// no prexi is added if the rgexe is not a repeatition
 		RegExp re = new RegExp("[a-zA-Z0-9]?");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
@@ -118,7 +117,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	public void testMutateN1() {
 		// no prexi is added if the rgexe is not a repeatition
 		RegExp re = new RegExp("[a-zA-Z0-9]{1}");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
@@ -127,7 +126,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	public void testMutateNoSplit() {
 		// with 0 no mutation is applied
 		RegExp re = new RegExp("[a-z]+");
-		Iterator<MutatedRegExp> m = mp.mutate(re);
+		Iterator<MutatedRegExp> m = mutator.mutate(re);
 		assertFalse(m.hasNext());
 	}
 
@@ -140,7 +139,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertTrue(ra.run(AB19));
 		assertTrue(ra.run(NUMLETTERS));
 		//
-		Iterator<MutatedRegExp> m = mp.mutate(re);
+		Iterator<MutatedRegExp> m = mutator.mutate(re);
 		// for the first, it must start with a letter
 		// test fails because it returns that starting with a number
 		// FIXME
@@ -160,7 +159,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	@Test
 	public void testMutate3() {
 		RegExp re = new RegExp("AAA[a-zA-Z0-9]+");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertOneEqualTo(m, "AAA[a-zA-Z][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "AAA[a-z0-9][a-zA-Z0-9]*");
 		assertOneEqualTo(m, "AAA[A-Z0-9][a-zA-Z0-9]*");
@@ -170,7 +169,7 @@ public class PrefixAdditionTest extends RegexMutationTest {
 	public void testMutate4() {
 		// no prexi is added if the rgexe is not a repeatition
 		RegExp re = new RegExp("[a-zA-Z0-9]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.isEmpty());
 	}
@@ -198,5 +197,15 @@ public class PrefixAdditionTest extends RegexMutationTest {
 		assertOneRegexEqualTo(parts, "[a-z]");
 		assertOneRegexEqualTo(parts, "[A-Z]");
 		assertOneRegexEqualTo(parts, "[0-9]");
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[a-zA-Z0-9]*");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(3, mutants.size());
 	}
 }

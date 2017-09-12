@@ -1,5 +1,6 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
 import static regex.operators.NegationAddition.mutator;
 
 import java.util.Iterator;
@@ -67,5 +68,25 @@ public class NegationAdditionTest extends RegexMutationTest {
 		RegExp re = new RegExp("(5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}");
 		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m.size());
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("a");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017_2() {
+		RegExp re = new RegExp("[A-Z][a-z]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(2, mutants.size());
 	}
 }

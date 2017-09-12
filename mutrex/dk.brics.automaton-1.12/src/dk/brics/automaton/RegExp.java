@@ -188,7 +188,7 @@ public class RegExp {
 	 * Constructs new <code>RegExp</code> from a string. 
 	 * Same as <code>RegExp(s, ALL)</code>.
 	 * @param s regexp string
-	 * @exception IllegalArgumentException if an error occured while parsing the regular expression
+	 * @exception IllegalArgumentException if an error occurred while parsing the regular expression
 	 */
 	public RegExp(String s) throws IllegalArgumentException {
 		this(s, ALL);

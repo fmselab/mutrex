@@ -1,5 +1,7 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -15,14 +17,14 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class CharacterClassNegationTest extends RegexMutationTest {
-	static CharacterClassNegation mp = CharacterClassNegation.mutator;
+	static CharacterClassNegation mutator = CharacterClassNegation.mutator;
 
 	@Test
 	public void testMutateSimpleGroup() {
 		RegExp re = new RegExp("[a-z]");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_CHAR_RANGE;
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertOneEqualTo(m, "[^a-z]");
 	}
@@ -32,7 +34,7 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		RegExp re = new RegExp("[a-z]*");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_REPEAT;
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for (MutatedRegExp a : m) {
 			System.out.println(a);
 		}
@@ -44,7 +46,7 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		RegExp re = new RegExp("[a-zA-Z]");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_UNION;
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for (MutatedRegExp a : m) {
 			System.out.println(a);
 		}
@@ -59,7 +61,7 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		RegExp re = new RegExp("[AB]");
 		ooregex oore = OORegexConverter.getOORegex(re);
 		assert oore instanceof REGEXP_UNION;
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for (MutatedRegExp a : m) {
 			System.out.println(a);
 		}
@@ -71,5 +73,15 @@ public class CharacterClassNegationTest extends RegexMutationTest {
 		assert ra.run("C");
 		assert !ra.run("AB");
 		assertOneEqualTo(m, "[^AB]");
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[a-zA-Z]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(3, mutants.size());
 	}
 }

@@ -1,5 +1,6 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static regex.operators.MetaChar2Char.mutator;
 
@@ -106,6 +107,7 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
 		}
+		assertEquals(3, mutants.size());
 	}
 
 	@Test
@@ -115,5 +117,6 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
 		}
+		assertEquals(2, mutants.size());
 	}
 }

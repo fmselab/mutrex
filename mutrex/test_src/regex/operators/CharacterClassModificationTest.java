@@ -1,5 +1,7 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -80,7 +82,7 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 		// con assert
 		res = mutator.mutate(re);
 		List<MutatedRegExp> list = IteratorUtils.iteratorToList(res);
-		assertOneEqualTo(list,"[za]");
+		assertOneEqualTo(list, "[za]");
 	}
 
 	@Test
@@ -90,5 +92,25 @@ public class CharacterClassModificationTest extends RegexMutationTest {
 		assert res.hasNext();
 		System.out.println(res.next());
 		assert !res.hasNext();
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[az]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017_2() {
+		RegExp re = new RegExp("[a-z]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
 	}
 }

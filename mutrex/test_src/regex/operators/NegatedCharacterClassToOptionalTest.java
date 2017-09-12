@@ -1,5 +1,6 @@
 package regex.operators;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -16,7 +17,7 @@ import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.IteratorUtils;
 
 public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
-	static NegatedCharacterClassToOptional mp = NegatedCharacterClassToOptional.mutator;
+	static NegatedCharacterClassToOptional mutator = NegatedCharacterClassToOptional.mutator;
 
 	@Test
 	public void testMutateIraq1() {
@@ -28,7 +29,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 		assertTrue(ar.run("qi"));
 		assertFalse(ar.run("q"));
 		assertFalse(ar.run("qu"));
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assert m.size() == 1;
 		RegExp mutation = m.get(0).mutatedRexExp;
 		System.out.println(mutation);
@@ -48,7 +49,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 		assertFalse(ar.run("quota"));
 		assertFalse(ar.run("qu"));
 		assertFalse(ar.run("q"));
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assert m.size() == 0;
 		// in questo caso non riesco a modificare in modo che prenda o u o
 		// niente perche' se metto
@@ -64,7 +65,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 		assertTrue(ar.run("Iraqi"));
 		assertFalse(ar.run("Iraq"));
 		assertFalse(ar.run("Alquanto"));
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assert m.size() == 1;
 		RegExp mutation = m.get(0).mutatedRexExp;
 		System.out.println(mutation);
@@ -77,7 +78,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z() {
 		RegExp re = new RegExp("[a-z][a-z][^a-z]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 1);
 	}
@@ -85,7 +86,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z2() {
 		RegExp re = new RegExp("[a-z][^a-z][a-z]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 1);
 	}
@@ -93,7 +94,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z3() {
 		RegExp re = new RegExp("[^a-z][a-z][a-z]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 1);
 	}
@@ -101,7 +102,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z4() {
 		RegExp re = new RegExp("[a-z]|[^0-9]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 1);
 	}
@@ -109,7 +110,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z5() {
 		RegExp re = new RegExp("[^a-z]|[0-9]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 1);
 	}
@@ -117,7 +118,7 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z6() {
 		RegExp re = new RegExp("[^a-z]|[^0-9]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 2);
 	}
@@ -125,8 +126,18 @@ public class NegatedCharacterClassToOptionalTest extends RegexMutationTest {
 	@Test
 	public void test_a_z7() {
 		RegExp re = new RegExp("[^a-z]|[^A-Z]");
-		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mp.mutate(re));
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
 		System.out.println(m);
 		assertTrue(m.size() == 2);
+	}
+
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp(".*q[^u]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
 	}
 }

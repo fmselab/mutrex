@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static regex.operators.RangeModification.mutator;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import dk.brics.automaton.Automaton;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import regex.operators.RegexMutator.MutatedRegExp;
+import regex.utils.IteratorUtils;
 
 public class RangeModificationTest extends RegexMutationTest {
 
@@ -52,13 +54,21 @@ public class RangeModificationTest extends RegexMutationTest {
 		assertEquals(1, acceptB);
 		assertEquals(1, acceptF);
 	}
-	
+
 	@Test
 	public void testDoNoMutate() {
 		RegExp re = new RegExp("[;-=]");
-		Iterator<MutatedRegExp> res = mutator.mutate(re);//
+		Iterator<MutatedRegExp> res = mutator.mutate(re);
 		assertFalse(res.hasNext());
 	}
 
-	
+	@Test
+	public void testExamplePaperSI_mutation2017() {
+		RegExp re = new RegExp("[f-m]");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
+		assertEquals(4, mutants.size());
+	}
 }
