@@ -485,9 +485,9 @@ public class RegExp {
 			break;
 		case REGEXP_STRING:
 			// if s contains a ", it must be escaped ANGELO GARGANTINI
-			//s.replaceAll(regex, replacement)
 			s = OORegexConverter.escapeDq(s,true);
-			b.append("\"").append(s).append("\"");
+			//b.append("\"").append(s).append("\"");
+			b.append(s);
 			break;
 		case REGEXP_ANYSTRING:
 			b.append("@");
