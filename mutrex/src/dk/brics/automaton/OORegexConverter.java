@@ -30,22 +30,55 @@ public class OORegexConverter {
 
 	// take a regex and build its objects
 	public static ooregex getOORegex(String reg) {
+		//reg = escapeDq(reg);
 		return getOORegex(new RegExp(reg));
 	}
 
 	// from an extended regex (with some metachars and so on)
 	public static ooregex getOOExtRegex(String reg) {
+		//reg = escapeDq(reg);
 		return getOORegex(ExtendedRegex.getSimplifiedRegexp(reg));
+	}
+
+	// escape a double quote if it is not already escaped and it is not at the end
+	// or beginning of a string
+	static String escapeDq(String reg, boolean includingDelimiter) {
+		int start = includingDelimiter ? 0 : 1;
+		// if it is the first char and 
+		if (start == 0 && reg.charAt(0) == '"') {
+			assert includingDelimiter;
+			reg = "\\" + reg;
+		}
+		// from the second char 
+		for (int i = start; i <  reg.length() - start; i++) {
+			if (reg.charAt(i) == '"' && reg.charAt(i - 1) != '\\') {
+				// TODO check that \\ is not escaped itself
+				reg = reg.substring(0, i).concat("\\").concat(reg.substring(i, reg.length()));
+				i++;
+			}
+		}
+		return reg;
 	}
 
 	/** convert a list of ooregex back to list of RegExp */
 	public static List<RegExp> convertBackToRegex(List<ooregex> resultsOO) {
 		List<RegExp> exps = new ArrayList<>();
 		for (ooregex r : resultsOO) {
-			String s = ToRegexString.convertToRegexString(r);
-			exps.add(new RegExp(s));
+			exps.add(convertBackToRegex(r));
 		}
 		return exps;
+	}
+
+	/** convert a ooregex back to a RegExp */
+	public static RegExp convertBackToRegex(ooregex r) {
+		String s = ToRegexString.convertToRegexString(r);
+		//s = escapeDq(s);
+		try{
+			return new RegExp(s);
+		}catch (Exception e) {
+			System.err.println("cannot buil regex from " + s);
+			throw e;
+		}
 	}
 
 	// take a regex and build its objects

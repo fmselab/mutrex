@@ -97,6 +97,7 @@ public class ToRegexString implements RegexVisitor<Void> {
 	public Void visit(oosimpleexp r) {
 		// careful if it contains a not escaped double quote !!
 		// it must be escaped ?
+		//assert !(r.s.contains("\""));
 		// REGEXP_STRING r
 		b.append("\"").append(r.s).append("\"");
 		return null;

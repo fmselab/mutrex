@@ -30,7 +30,7 @@ public abstract class RegexMutator {
 
 			@Override
 			public MutatedRegExp next() {
-				String s = ToRegexString.convertToRegexString(resultsOO.next());
+				RegExp s = OORegexConverter.convertBackToRegex(resultsOO.next());
 				// return new
 				// MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(),
 				// new RegExp(s));
@@ -49,11 +49,7 @@ public abstract class RegexMutator {
 			description = simpleName;
 			mutatedRexExp = regex;
 		}
-
-		public MutatedRegExp(String simpleName, String s) {
-			this(simpleName, new RegExp(s));
-		}
-
+		
 		@Override
 		public String toString() {
 			return description + ": " + ToSimpleString.convertToReadableString(mutatedRexExp);

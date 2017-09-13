@@ -30,6 +30,8 @@ public class ExtendedRegex {
 
 	public static RegExp getSimplifiedRegexp(String s) {
 		String ss = simplifyRegex(s);
+		//ss = OORegexConverter.escapeDq(ss);
+		//System.err.println(ss);
 		return new RegExp(ss);
 	}
 

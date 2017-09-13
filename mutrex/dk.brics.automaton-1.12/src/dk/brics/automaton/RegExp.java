@@ -484,6 +484,9 @@ public class RegExp {
 			b.append("#");
 			break;
 		case REGEXP_STRING:
+			// if s contains a ", it must be escaped ANGELO GARGANTINI
+			//s.replaceAll(regex, replacement)
+			s = OORegexConverter.escapeDq(s,true);
 			b.append("\"").append(s).append("\"");
 			break;
 		case REGEXP_ANYSTRING:
