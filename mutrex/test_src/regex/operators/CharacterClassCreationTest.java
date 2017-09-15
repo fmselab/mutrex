@@ -84,19 +84,8 @@ public class CharacterClassCreationTest extends RegexMutationTest {
 	@Test
 	public void testExamplePaperSI_mutation2017() {
 		RegExp re = new RegExp("(0-9)+");
-		accept(re, "0-9", "0-90-9");
-		acceptNot(re, "0", "1", "9", "-");
-		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
-		for(MutatedRegExp m: mutants) {
-			System.out.println(m);
-		}
-		assertEquals(1, mutants.size());
-	}
-
-	@Test
-	public void testExamplePaperSI_mutation2017corretto() {
-		RegExp re = new RegExp("(0-9)+");
-		accept(re, "0-9", "0-90-9");
+		accept(re, "0-9", "0-90-9", "0-90-90-9");
+		acceptNot(re, "", "0", "9", "-", "1", "2");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);
@@ -106,6 +95,5 @@ public class CharacterClassCreationTest extends RegexMutationTest {
 		//
 		accept(corrected, "00000", "12345");
 		acceptNot(corrected, "0-9");
-		
 	}
 }
