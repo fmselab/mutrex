@@ -1,5 +1,7 @@
 package dk.brics.automaton.oo;
 
+import dk.brics.automaton.OORegexConverter;
+
 /**
  * 
  * It converts a ooregex to a STring that can be parsed by RegExp in order to
@@ -99,7 +101,7 @@ public class ToRegexString implements RegexVisitor<Void> {
 		// it must be escaped ?
 		//assert !(r.s.contains("\""));
 		// REGEXP_STRING r
-		b.append("\"").append(r.s).append("\"");
+		b.append("\"").append(OORegexConverter.escapeDq(r.s,true)).append("\"");
 		return null;
 	}	
 	

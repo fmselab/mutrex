@@ -123,11 +123,13 @@ public class OORegexConverterTest {
 		assertEquals("a\\\"aa",escapeDq("a\\\"aa", false));	
 		assertEquals("a\\\"",escapeDq("a\\\"", false));	
 		assertEquals("\"aaa\"",escapeDq("\"aaa\"", false));	
-		
+		assertEquals("\\\"aaa\"",escapeDq("\\\"aaa\"", false));	
+		//
 		assertEquals("\"aaa\\\"AAA",escapeDq("\"aaa\"AAA", false)); // only the intermediate
 		//
 		assertEquals("\\\"aaa\\\"AAA",escapeDq("\"aaa\"AAA", true)); 
 		assertEquals("\\\"aaa\\\"",escapeDq("\"aaa\"", true));	
+		assertEquals("\\\"aaa\\\"",escapeDq("\\\"aaa\"", true));	
 
 	}
 	

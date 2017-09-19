@@ -42,7 +42,7 @@ public class OORegexConverter {
 
 	// escape a double quote if it is not already escaped and it is not at the end
 	// or beginning of a string
-	static String escapeDq(String reg, boolean includingDelimiter) {
+	public static String escapeDq(String reg, boolean includingDelimiter) {
 		int start = includingDelimiter ? 0 : 1;
 		// if it is the first char and 
 		if (start == 0 && reg.charAt(0) == '"') {
@@ -72,7 +72,7 @@ public class OORegexConverter {
 	/** convert a ooregex back to a RegExp */
 	public static RegExp convertBackToRegex(ooregex r) {
 		String s = ToRegexString.convertToRegexString(r);
-		//s = escapeDq(s);
+		//s = escapeDq(s, true);
 		try{
 			return new RegExp(s);
 		}catch (Exception e) {
