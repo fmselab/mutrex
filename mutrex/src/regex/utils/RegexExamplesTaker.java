@@ -107,5 +107,11 @@ public class RegexExamplesTaker {
 		public String toString() {
 			return first + ":" + second;
 		}
+		
+		@Override
+		public int hashCode() {
+			return first.hashCode() + second.hashCode();
+		}
+		
 	}
 }
