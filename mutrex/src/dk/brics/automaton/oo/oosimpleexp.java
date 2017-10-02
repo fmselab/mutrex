@@ -24,7 +24,7 @@ public class oosimpleexp extends ooregex {
 		assert ! s.contains("#");
 		assert ! s.contains("@");*/
 		this.s = s;
-		assert s.length() > 0; // or > 1???
+		assert s.length() > 0: "not valid empty string"; // or > 1???
 	}
 
 	@Override
