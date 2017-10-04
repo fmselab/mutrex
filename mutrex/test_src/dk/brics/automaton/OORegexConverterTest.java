@@ -1,5 +1,7 @@
 package dk.brics.automaton;
 
+import static dk.brics.automaton.OORegexConverter.escapeDq;
+import static dk.brics.automaton.OORegexConverter.getOORegex;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -11,7 +13,6 @@ import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;
-import static dk.brics.automaton.OORegexConverter.*;
 
 public class OORegexConverterTest {
 
