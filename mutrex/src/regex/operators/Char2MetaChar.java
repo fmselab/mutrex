@@ -103,7 +103,10 @@ public class Char2MetaChar extends RegexMutator {
 					default:
 						assert false;
 					}
-					result.add(new REGEXP_CONCATENATION(rp, new oosimpleexp(postfix)));
+					if (postfix.length()>0)
+						result.add(new REGEXP_CONCATENATION(rp, new oosimpleexp(postfix)));
+					else
+						result.add(rp);
 				}
 				// System.out.println(result);
 				return result;

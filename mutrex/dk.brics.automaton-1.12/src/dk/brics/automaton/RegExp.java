@@ -103,7 +103,7 @@ import java.util.Set;
  * length (i.e. prefixed by 0's).
  * @author Anders M&oslash;ller &lt;<a href="mailto:amoeller@cs.au.dk">amoeller@cs.au.dk</a>&gt; 
  * */
-public class RegExp {
+public class RegExp implements java.io.Serializable{
 	
 	enum Kind {
 		REGEXP_UNION,
