@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import dk.brics.automaton.RegExp;
+import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.JoinedIterator;
+import regex.utils.JoinedRandomIterator;
 
 public class AllMutators extends RegexMutator {
 	public static AllMutators mutator = new AllMutators();
@@ -46,6 +48,15 @@ public class AllMutators extends RegexMutator {
 		}
 		JoinedIterator<MutatedRegExp> joinedIterator = new JoinedIterator<MutatedRegExp>(allIterator);
 		return joinedIterator;
+	}
+
+	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
+		List<Iterator<MutatedRegExp>> allIterator = new ArrayList<>();
+		for (RegexMutator m : allMutators) {
+			allIterator.add(m.mutateRandom(re));
+		}
+		JoinedRandomIterator<MutatedRegExp> joinedRandomIterator = new JoinedRandomIterator<MutatedRegExp>(allIterator);
+		return joinedRandomIterator;
 	}
 
 	private static void add(RegexMutator mutator) {

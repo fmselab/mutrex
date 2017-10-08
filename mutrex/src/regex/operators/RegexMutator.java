@@ -8,9 +8,9 @@ import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.RegexVisitor;
 import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
+import regex.utils.JoinedRandomIterator;
 
 public abstract class RegexMutator {
-
 	private RegexVisitor<List<ooregex>> mutator;
 
 	protected RegexMutator(RegexVisitor<List<ooregex>> v) {
@@ -35,8 +35,11 @@ public abstract class RegexMutator {
 				// new RegExp(s));
 				return new MutatedRegExp(mutator.getCode(), s);
 			}
-
 		};
+	}
+
+	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
+		return new JoinedRandomIterator<MutatedRegExp>(mutate(re));
 	}
 
 	static public class MutatedRegExp {// extends RegExp{
@@ -48,7 +51,7 @@ public abstract class RegexMutator {
 			description = simpleName;
 			mutatedRexExp = regex;
 		}
-		
+
 		@Override
 		public String toString() {
 			return description + ": " + ToSimpleString.convertToReadableString(mutatedRexExp);
