@@ -30,11 +30,19 @@
 package dk.brics.automaton;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Regular Expression extension to <code>Automaton</code>.
@@ -232,7 +240,19 @@ public class RegExp implements java.io.Serializable{
 	public Automaton toAutomaton() {
 		return toAutomatonAllowMutate(null, null, true);
 	}
-	
+
+	public static Automaton toAutomatonTimeout(final RegExp rgx, int millisTimout) throws InterruptedException, ExecutionException, TimeoutException {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Automaton> future = executor.submit(new Callable() {
+		    @Override
+		    public Automaton call() throws Exception {
+		    	return rgx.toAutomaton();
+		    }
+		});
+        Automaton f = future.get(millisTimout, TimeUnit.MILLISECONDS);
+        return f;
+	}
+
 	/** 
 	 * Constructs new <code>Automaton</code> from this <code>RegExp</code>. 
 	 * Same as <code>toAutomaton(null,minimize)</code> (empty automaton map).
