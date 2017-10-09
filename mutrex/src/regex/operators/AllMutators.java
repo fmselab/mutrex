@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import dk.brics.automaton.RegExp;
-import regex.operators.RegexMutator.MutatedRegExp;
 import regex.utils.JoinedIterator;
 import regex.utils.JoinedRandomIterator;
 
@@ -50,6 +49,7 @@ public class AllMutators extends RegexMutator {
 		return joinedIterator;
 	}
 
+	@Override
 	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
 		List<Iterator<MutatedRegExp>> allIterator = new ArrayList<>();
 		for (RegexMutator m : allMutators) {
