@@ -1,5 +1,6 @@
 package regex.operators;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +40,25 @@ public abstract class RegexMutator {
 	}
 
 	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
-		return new JoinedRandomIterator<MutatedRegExp>(mutate(re));
+		List<ooregex> results = OORegexConverter.getOORegex(re).accept(mutator);
+		Collections.shuffle(results);
+		final Iterator<ooregex> resultsOO = results.iterator();
+		return new Iterator<MutatedRegExp>() {
+
+			@Override
+			public boolean hasNext() {
+				return resultsOO.hasNext();
+			}
+
+			@Override
+			public MutatedRegExp next() {
+				RegExp s = OORegexConverter.convertBackToRegex(resultsOO.next());
+				// return new
+				// MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(),
+				// new RegExp(s));
+				return new MutatedRegExp(mutator.getCode(), s);
+			}
+		};
 	}
 
 	static public class MutatedRegExp {// extends RegExp{
