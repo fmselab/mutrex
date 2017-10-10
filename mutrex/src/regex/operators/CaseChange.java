@@ -83,7 +83,9 @@ public class CaseChange extends RegexMutator {
 					String last = r.s.substring(i + 1, r.s.length());
 					parts.add(new oosimpleexp(last));
 				}
-				result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, parts));
+				if(parts.size() > 1) {
+					result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, parts));
+				}
 			}
 			return result;
 		}
