@@ -9,7 +9,6 @@ import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.RegexVisitor;
 import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
-import regex.utils.JoinedRandomIterator;
 
 public abstract class RegexMutator {
 	private RegexVisitor<List<ooregex>> mutator;
