@@ -2,7 +2,7 @@
 
 ![mutrex logo](https://raw.githubusercontent.com/fmselab/mutrex/master/mutrexweb/WebContent/icon/mutrex_mid.png)
 
-Web interface: [http://cs.unibg.it/mutrex/](http://cs.unibg.it/mutrex/)
+Web interface: [http://foselab.unibg.it/mutrex/](http://foselab.unibg.it/mutrex/)
 
 Cite as:
 [P. Arcaini](http://d3s.mff.cuni.cz/~arcaini/), [A. Gargantini](http://cs.unibg.it/gargantini/), [E. Riccobene](https://homes.di.unimi.it/riccobene/)
