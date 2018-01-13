@@ -50,7 +50,7 @@ public class DistStringCreator {
 	 *            the forbidden words
 	 * @return the ds
 	 */
-	private static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy,
+	public static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy,
 			Set<String> forbiddenWords) {
 		return getDS(r1.toAutomaton(), r2.toAutomaton(), dsGenPolicy, forbiddenWords);
 	}
