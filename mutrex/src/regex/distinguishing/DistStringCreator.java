@@ -158,9 +158,17 @@ public class DistStringCreator {
 	public static String getDS(Automaton a1, Automaton a2, Set<String> forbiddenWords) {
 		Automaton a1MinusA2 = a1.minus(a2);
 		for (String word : forbiddenWords) {
-			a1MinusA2 = a1MinusA2.minus(new RegExp(word).toAutomaton());
+			word = word.replaceAll("\\[", "\\\\[");
+			//System.out.println(word);
+			RegExp wordRgx = new RegExp(word);
+			assert wordRgx != null;
+			Automaton wordAut = wordRgx.toAutomaton();
+			assert wordAut != null;
+			a1MinusA2 = a1MinusA2.minus(wordAut);
 		}
-		return getExample(a1MinusA2);
+		String word = getExample(a1MinusA2);
+		//System.out.println("\t" + word + "\n");
+		return word;
 	}
 
 	/**
