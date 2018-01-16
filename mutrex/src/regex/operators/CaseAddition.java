@@ -72,7 +72,11 @@ public class CaseAddition extends RegexMutator {
 					String last = r.s.substring(i + 1, r.s.length());
 					parts.add(new oosimpleexp(last));
 				}
-				result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, parts));
+				// only one char
+				if (parts.size() == 1)
+					result.add(parts.get(0));
+				else 
+					result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, parts));
 			}
 			return result;
 		}
