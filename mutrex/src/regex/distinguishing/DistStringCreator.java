@@ -159,6 +159,10 @@ public class DistStringCreator {
 		Automaton a1MinusA2 = a1.minus(a2);
 		for (String word : forbiddenWords) {
 			word = word.replaceAll("\\[", "\\\\[");
+			word = word.replaceAll("\\]", "\\\\]");
+			word = word.replaceAll("\\(", "\\\\(");
+			word = word.replaceAll("\\)", "\\\\)");
+			word = word.replaceAll("\\.", "\\\\.");
 			//System.out.println(word);
 			RegExp wordRgx = new RegExp(word);
 			assert wordRgx != null;
