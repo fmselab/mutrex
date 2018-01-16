@@ -157,21 +157,37 @@ public class DistStringCreator {
 
 	public static String getDS(Automaton a1, Automaton a2, Set<String> forbiddenWords) {
 		Automaton a1MinusA2 = a1.minus(a2);
-		for (String word : forbiddenWords) {
-			word = word.replaceAll("\\[", "\\\\[");
-			word = word.replaceAll("\\]", "\\\\]");
-			word = word.replaceAll("\\(", "\\\\(");
-			word = word.replaceAll("\\)", "\\\\)");
-			word = word.replaceAll("\\.", "\\\\.");
-			//System.out.println(word);
-			RegExp wordRgx = new RegExp(word);
-			assert wordRgx != null;
+		for (String initWord : forbiddenWords) {
+			String word = initWord;
+			RegExp wordRgx = null;
+			try {
+				wordRgx = new RegExp(word);
+			} catch (Exception e) {
+			}
+			if (wordRgx == null) {
+				// System.out.println("init " + word);
+				word = word.replaceAll("\\\\", "\\\\\\\\");
+				// System.out.println(word);
+				word = word.replaceAll("\\[", "\\\\[");
+				word = word.replaceAll("\\]", "\\\\]");
+				word = word.replaceAll("\\(", "\\\\(");
+				word = word.replaceAll("\\)", "\\\\)");
+				word = word.replaceAll("\\.", "\\\\.");
+			}
+			try {
+				wordRgx = new RegExp(word);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.err.println("wrong. initWord: " + initWord + "\nmodified: " + word);
+				return null;
+			}
+			// assert wordRgx != null;
 			Automaton wordAut = wordRgx.toAutomaton();
 			assert wordAut != null;
 			a1MinusA2 = a1MinusA2.minus(wordAut);
 		}
 		String word = getExample(a1MinusA2);
-		//System.out.println("\t" + word + "\n");
+		// System.out.println("\t" + word + "\n");
 		return word;
 	}
 
@@ -248,7 +264,7 @@ public class DistStringCreator {
 	/** The rnd. */
 	private static Random rnd = new Random();
 
-	// return an example for a
+	// returns an example for a
 	// it tries to build a meaningful/readable example
 	// use of getStrings and then search the most readable is unfeasible
 	// because it returns ALL
@@ -263,11 +279,12 @@ public class DistStringCreator {
 	public static String getExample(Automaton a) {
 		// get the first example provided by the library
 		String result = a.getShortestExample(true);
-		//String ex = getExample(a, a.getInitialState(), new HashSet<State>(), new ArrayList<Transition>());
-		//System.out.println(result);
-		//System.out.println(ex);
-		//System.out.println();
-		
+		// String ex = getExample(a, a.getInitialState(), new HashSet<State>(), new
+		// ArrayList<Transition>());
+		// System.out.println(result);
+		// System.out.println(ex);
+		// System.out.println();
+
 		if (result == null) {
 			return null;
 		}
@@ -294,27 +311,26 @@ public class DistStringCreator {
 			} while (!nicest);
 		}
 		return result;
-		//return ex;
+		// return ex;
 	}
 
 	public static String getExample(Automaton a, State s, Set<State> visited, List<Transition> test) {
 		visited.add(s);
-		if(s.isAccept()) {
+		if (s.isAccept()) {
 			StringBuilder sb = new StringBuilder();
-			for(Transition t: test) {
-				sb.append((char)(rnd.nextInt((t.getMax() - t.getMin()) + 1) + t.getMin()));
+			for (Transition t : test) {
+				sb.append((char) (rnd.nextInt((t.getMax() - t.getMin()) + 1) + t.getMin()));
 			}
 			assert a.run(sb.toString());
 			return sb.toString();
-		}
-		else {
+		} else {
 			ArrayList<Transition> trans = new ArrayList<Transition>(s.getTransitions());
 			Collections.shuffle(trans);
-			for(Transition t: trans) {
-				if(!visited.contains(t.getDest())) {
+			for (Transition t : trans) {
+				if (!visited.contains(t.getDest())) {
 					test.add(t);
 					String res = getExample(a, t.getDest(), visited, test);
-					if(res != null) {
+					if (res != null) {
 						return res;
 					}
 					test.remove(t);
