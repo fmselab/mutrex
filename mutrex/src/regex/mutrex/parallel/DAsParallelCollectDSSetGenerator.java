@@ -15,7 +15,7 @@ import regex.distinguishing.DistStringCreator;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.ds.DistinguishingAutomaton;
-import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
+import regex.mutrex.ds.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class DAsParallelCollectDSSetGenerator extends DSSetGenerator {

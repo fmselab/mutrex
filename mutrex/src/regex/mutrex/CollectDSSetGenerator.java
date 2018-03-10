@@ -13,6 +13,7 @@ import regex.distinguishing.DistinguishingString;
 import regex.mutrex.ds.DSSet;
 import regex.mutrex.ds.DSSetGenerator;
 import regex.mutrex.ds.DistinguishingAutomaton;
+import regex.mutrex.ds.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /**
@@ -29,12 +30,12 @@ abstract class CollectDSSetGenerator extends DSSetGenerator {
 	public void addStringsToDSSet(DSSet result, RegExp regex, Iterator<MutatedRegExp> mutants) {
 		List<Boolean> trueFalse = Arrays.asList(true, false);
 		//Automaton rexAut = regex.toAutomaton();
-		DistinguishingAutomaton.RegexWAutomata r = new DistinguishingAutomaton.RegexWAutomata(regex);
+		RegexWAutomata r = new RegexWAutomata(regex);
 		List<DistinguishingAutomaton> das = new ArrayList<>();
 		nextMut: while (mutants.hasNext()) {
 			MutatedRegExp mutant = mutants.next();
 			sortDAs(das);
-			DistinguishingAutomaton.RegexWAutomata m = new DistinguishingAutomaton.RegexWAutomata(mutant.mutatedRexExp);
+			RegexWAutomata m = new RegexWAutomata(mutant.mutatedRexExp);
 			Iterator<DistinguishingAutomaton> dasIt = das.iterator();
 			while (dasIt.hasNext()) {
 				DistinguishingAutomaton da = dasIt.next();

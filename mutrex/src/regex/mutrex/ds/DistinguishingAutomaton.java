@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import dk.brics.automaton.Automaton;
-import dk.brics.automaton.RegExp;
 import regex.distinguishing.DistStringCreator;
 import regex.operators.RegexMutator.MutatedRegExp;
 
@@ -86,36 +85,5 @@ public class DistinguishingAutomaton {
 	
 	public int size() {
 		return mutatedRegexes.size();
-	}
-
-
-	// a regex with its automata (positive and negative
-	public static class RegexWAutomata {
-		private RegExp mutant;
-		private Automaton mAut, negMaut;
-
-		public RegexWAutomata(RegExp m) {
-			mutant = m;
-		}
-
-		public Automaton getmAut() {
-			if (mAut == null) {
-				mAut = mutant.toAutomaton();
-			}
-			return mAut;
-		}
-
-		public Automaton getNegMaut() {
-			if (negMaut == null) {
-				if (mAut == null) {
-					mAut = mutant.toAutomaton();
-				}
-				negMaut = mAut.complement();
-			}
-			return negMaut;
-		}
-		public RegExp getMutant() {
-			return mutant;
-		}
 	}
 }

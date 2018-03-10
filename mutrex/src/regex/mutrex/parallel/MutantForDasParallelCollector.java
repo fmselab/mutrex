@@ -5,7 +5,7 @@ import java.util.Set;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
-import regex.mutrex.ds.DistinguishingAutomaton.RegexWAutomata;
+import regex.mutrex.ds.RegexWAutomata;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class MutantForDasParallelCollector {
