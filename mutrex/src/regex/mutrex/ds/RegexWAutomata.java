@@ -7,7 +7,7 @@ import dk.brics.automaton.RegExp;
 // useful to avoid to call toAutomaton too many times
 public class RegexWAutomata {
 	private RegExp mutant;
-	private Automaton mAut, negMaut;
+	protected Automaton mAut, negMaut;
 
 	public RegexWAutomata(RegExp m) {
 		mutant = m;
