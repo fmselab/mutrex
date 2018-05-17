@@ -11,6 +11,7 @@ import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 
 public abstract class RegexMutator {
+	
 	private RegexVisitor<List<ooregex>> mutator;
 
 	protected RegexMutator(RegexVisitor<List<ooregex>> v) {
@@ -19,28 +20,17 @@ public abstract class RegexMutator {
 
 	/** given a regex, it builds all the possible mutations */
 	public Iterator<MutatedRegExp> mutate(RegExp re) {
-		final Iterator<ooregex> resultsOO = OORegexConverter.getOORegex(re).accept(mutator).iterator();
-		return new Iterator<MutatedRegExp>() {
-
-			@Override
-			public boolean hasNext() {
-				return resultsOO.hasNext();
-			}
-
-			@Override
-			public MutatedRegExp next() {
-				RegExp s = OORegexConverter.convertBackToRegex(resultsOO.next());
-				// return new
-				// MutatedRegExp(mutator.getClass().getEnclosingClass().getSimpleName(),
-				// new RegExp(s));
-				return new MutatedRegExp(mutator.getCode(), s);
-			}
-		};
+		return mutate(re,false);
 	}
 
 	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
+		return mutate(re,true);
+	}
+
+	
+	private Iterator<MutatedRegExp> mutate(RegExp re, boolean shuffle) {
 		List<ooregex> results = OORegexConverter.getOORegex(re).accept(mutator);
-		Collections.shuffle(results);
+		if (shuffle) Collections.shuffle(results);
 		final Iterator<ooregex> resultsOO = results.iterator();
 		return new Iterator<MutatedRegExp>() {
 
@@ -59,6 +49,7 @@ public abstract class RegexMutator {
 			}
 		};
 	}
+
 
 	static public class MutatedRegExp {// extends RegExp{
 		public String description;

@@ -10,6 +10,7 @@ import regex.utils.JoinedIterator;
 import regex.utils.JoinedRandomIterator;
 
 public class AllMutators extends RegexMutator {
+	
 	public static AllMutators mutator = new AllMutators();
 
 	protected AllMutators() {
