@@ -189,4 +189,8 @@ public class State implements Serializable, Comparable<State> {
 	public int hashCode() {
 		return super.hashCode();
 	}
+
+	public int getNumber() {
+		return number;
+	}
 }
