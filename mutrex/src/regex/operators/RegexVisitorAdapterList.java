@@ -2,6 +2,7 @@ package regex.operators;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import dk.brics.automaton.oo.REGEXP_AUTOMATON;
@@ -24,11 +25,13 @@ import dk.brics.automaton.oo.oosimpleexp;
  * returns the list of mutations. If an expression has no mutations, then the
  * empty list is returned
  * 
+ * TODO it should return a list of iterators from which ooregx can be
+ * 
  * @author garganti
  *
  */
 class RegexVisitorAdapterList implements RegexVisitor<List<ooregex>> {
-
+	
 	@Override
 	public List<ooregex> visit(REGEXP_UNION r) {
 		return visitBinaryExpression(r, REGEXP_UNION.class);

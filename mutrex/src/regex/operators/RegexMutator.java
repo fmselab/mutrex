@@ -12,9 +12,9 @@ import dk.brics.automaton.oo.ooregex;
 
 public abstract class RegexMutator {
 	
-	private RegexVisitor<List<ooregex>> mutator;
+	private RegexVisitorAdapterList mutator;
 
-	protected RegexMutator(RegexVisitor<List<ooregex>> v) {
+	protected RegexMutator(RegexVisitorAdapterList v) {
 		mutator = v;
 	}
 
