@@ -5,3 +5,4 @@ mutrexweb/mutrex.war
 mutrex/.settings/sf.eclipse.javacc.prefs
 mutrex/.externalToolBuilders/com.structure101.java.eclipse.plugin.JDMEclipseBuilder.launch
 mutrex/.externalToolBuilders/sf.eclipse.javacc.javaccbuilder.launch
+mutrexweb/.DS_Store
