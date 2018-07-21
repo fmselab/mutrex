@@ -30,6 +30,12 @@ public class AllMutatorsTest {
 	}
 
 	@Test
+	public void testMutateClassInterval() {
+		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
+		testWithRegex("[a-z]{2,3}");
+	}
+	
+	@Test
 	public void testMutate4() {
 		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 		testWithRegex("a+");
