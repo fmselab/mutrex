@@ -125,7 +125,7 @@ public class OORegexConverter {
 			result = new REGEXP_SPECIALCHAR('#');
 			break;
 		case REGEXP_STRING:
-			result = new oosimpleexp(reg.s);
+			result = oosimpleexp.createoosimpleexp(reg.s);
 			break;
 		case REGEXP_ANYSTRING:
 			result = new REGEXP_SPECIALCHAR('@');

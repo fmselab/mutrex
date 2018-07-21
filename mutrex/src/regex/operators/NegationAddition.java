@@ -32,6 +32,17 @@ public class NegationAddition extends RegexMutator {
 		public List<ooregex> visit(REGEXP_CHAR r) {
 			return Collections.singletonList((ooregex) new REGEXP_COMPLEMENT(r));
 		}
+		@Override
+		public List<ooregex> visit(REGEXP_COMPLEMENT r) {
+			// complement of complement
+			ooregex contentExpr = r.getContentExpr();
+			// only if they would be actually mutated
+			if (contentExpr instanceof REGEXP_CHAR_RANGE || contentExpr instanceof REGEXP_CHAR)
+				return Collections.singletonList(contentExpr);
+			else 
+				return Collections.EMPTY_LIST;
+		}
+		
 
 		@Override
 		public String getCode() {

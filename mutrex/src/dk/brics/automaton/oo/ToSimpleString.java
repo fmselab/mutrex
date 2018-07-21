@@ -116,7 +116,10 @@ public class ToSimpleString extends ToRegexString {
 
 		@Override
 		public Integer visit(oosimpleexp r) {
-			return 6;
+			// if only a char has a lower precedence 2???
+			// so a+ is not traslated as (a)+
+			if (r.s.length() == 1) return -1;
+			else return 6;
 		}
 
 		@Override

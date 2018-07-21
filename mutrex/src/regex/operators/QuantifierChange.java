@@ -44,6 +44,8 @@ public class QuantifierChange extends RegexMutator {
 			if (min == 1 && max == -1) {
 				result.add(REGEXP_REPEAT.REGEXP_OPTIONAL(contentExpr));// Optional
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT(contentExpr));// Any
+				//{1,} -> {2,}
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, 2));
 				return result;
 			}
 			// AtLeastNtimes {n,}
@@ -54,7 +56,7 @@ public class QuantifierChange extends RegexMutator {
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min - 1));// AtLeastN-1times
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min + 1));// AtLeastN+1times
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr,min, min)); // exactly n times
-				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr,0, min)); // max n times				
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr,0, min)); // max n times
 				return result;
 			}
 			// exactly n times {n}
@@ -64,16 +66,16 @@ public class QuantifierChange extends RegexMutator {
 					assert min > 1;
 					// (n - 1) times
 					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max - 1));
-				} else {
-					//  messaggio per paolo del 10/8/17
-					//System.out.println("CAMBIO: trovato un x{1}");
-				}
+					result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min - 1, max));
+				} 
 				// at max ntimes {0,n}
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, 0,min));
 				// (n + 1) times
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max + 1));
 				// at least ntimes {n,}
 				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, min));
+				//
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max+1));
 				return result;
 			}
 			assert (max != -1) & max > min;
@@ -84,6 +86,13 @@ public class QuantifierChange extends RegexMutator {
 			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min + 1, max));
 			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max + 1));
 			result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, min, max - 1));
+			if (min == 0) {
+				// {0,n} -> {n,n}
+				// to be symmetric {2,2} - can be mutated to {0,2}
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MINMAX_N(contentExpr, max, max));
+				// also {n,} tomke symmetric 
+				result.add(REGEXP_REPEAT.REGEXP_REPEAT_MIN_N(contentExpr, max));
+			}
 			return result;
 		}
 

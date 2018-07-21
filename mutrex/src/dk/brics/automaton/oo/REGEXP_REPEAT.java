@@ -103,7 +103,7 @@ final public class REGEXP_REPEAT extends oounaryregex {
 	 */
 	static public REGEXP_REPEAT REGEXP_REPEAT_MINMAX_N(ooregex ooRegex, int min, int max) {
 		assert min >= 0 : "min = " + min;
-		assert max >= min : "max = " + max; // or strictly >?
+		assert max >= min : "max = " + max + "min = " + min; // or strictly >?
 		return new REGEXP_REPEAT(ooRegex, min, max);
 	}
 

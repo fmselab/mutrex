@@ -57,9 +57,9 @@ public class Char2MetaChar extends RegexMutator {
 				if (p2 > p1) {
 					ooregex range = new REGEXP_CHAR_RANGE(p1, p2);
 					if (p0.length() > 0)
-						range = new REGEXP_CONCATENATION(new oosimpleexp(p0), range);
+						range = new REGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(p0), range);
 					if (p3.length() > 0)
-						range = new REGEXP_CONCATENATION(range, new oosimpleexp(p3));
+						range = new REGEXP_CONCATENATION(range, oosimpleexp.createoosimpleexp(p3));
 					return Collections.singletonList(range);
 				}
 				return Collections.EMPTY_LIST;
@@ -80,15 +80,15 @@ public class Char2MetaChar extends RegexMutator {
 				String postfix = r.s.substring(r.s.indexOf(rsymb) + 1, r.s.length());
 				// visit the second half - in case there are more
 				if(postfix.length() > 0) {
-					oosimpleexp rest = new oosimpleexp(postfix);
+					ooregex rest = oosimpleexp.createoosimpleexp(postfix);
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
 						// re add the symbol
-						result.add(new REGEXP_CONCATENATION(new oosimpleexp(prefix + rsymb), mr));
+						result.add(new REGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
 					}
 				}
 				if(prefix.length() > 0) {
-					oosimpleexp prefixOOr = new oosimpleexp(prefix);
+					ooregex prefixOOr = oosimpleexp.createoosimpleexp(prefix);
 					REGEXP_REPEAT rp = null;
 					switch (rsymb) {
 					case "+":
@@ -104,7 +104,7 @@ public class Char2MetaChar extends RegexMutator {
 						assert false;
 					}
 					if (postfix.length()>0)
-						result.add(new REGEXP_CONCATENATION(rp, new oosimpleexp(postfix)));
+						result.add(new REGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
 					else
 						result.add(rp);
 				}

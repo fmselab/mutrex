@@ -13,9 +13,18 @@ package dk.brics.automaton.oo;
 
 // represents a STRING that matches with the STRING
 public class oosimpleexp extends ooregex {
+	
+	/** in case s contains only a achar, return a REGEXP_CHAR instead*/
+	public static ooregex createoosimpleexp(String s) {
+		if (s.length()== 1)
+			return new REGEXP_CHAR(s.charAt(0));
+		else
+			return new oosimpleexp(s);
+	}
+
 	public String s;
 
-	public oosimpleexp(String s) {
+	private oosimpleexp(String s) {
 		/* troppo forti, potrei avere una stringa che è solo un punto, basta che usi \.
 		assert ! s.equals(".");
 		assert ! s.equals("#");
@@ -24,7 +33,7 @@ public class oosimpleexp extends ooregex {
 		assert ! s.contains("#");
 		assert ! s.contains("@");*/
 		this.s = s;
-		assert s.length() > 0: "not valid empty string"; // or > 1???
+		assert s.length() > 1: "not valid empty string"; // or > 1???
 	}
 
 	@Override

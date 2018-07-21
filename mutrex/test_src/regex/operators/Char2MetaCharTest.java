@@ -13,6 +13,8 @@ import org.junit.Test;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.ToRegexString;
+import dk.brics.automaton.oo.ToSimpleString;
+import dk.brics.automaton.oo.ooregex;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingStringsCouple;
 import regex.operators.RegexMutator.MutatedRegExp;
@@ -26,6 +28,16 @@ import regex.utils.RegexExamplesTaker;
 public class Char2MetaCharTest extends RegexMutationTest {
 	private static Char2MetaChar mutator = Char2MetaChar.mutator;
 
+	@Test
+	public void testAPlus() {
+		ooregex oor = OORegexConverter.getOOExtRegex("a+");
+		System.out.println(ToSimpleString.convertToReadableString(oor));
+		System.out.println(oor.getClass());
+		//Iterator<MutatedRegExp> res = mutator.mutate(oor);
+	
+	}
+	
+	
 	@Test
 	public void testMutateDot() {
 		RegExp re = new RegExp("-|\\.");

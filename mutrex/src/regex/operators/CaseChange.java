@@ -71,7 +71,7 @@ public class CaseChange extends RegexMutator {
 				List<ooregex> parts = new ArrayList<>();
 				if (i > 0) {
 					String first = r.s.substring(0, i);
-					parts.add(new oosimpleexp(first));
+					parts.add(oosimpleexp.createoosimpleexp(first));
 				}
 				char mid = r.s.charAt(i);
 				Character nc = CaseAddition.changeCase(mid);
@@ -81,7 +81,7 @@ public class CaseChange extends RegexMutator {
 				parts.add(OORegexConverter.getOORegex(nc.toString()));
 				if (i < r.s.length() - 1) {
 					String last = r.s.substring(i + 1, r.s.length());
-					parts.add(new oosimpleexp(last));
+					parts.add(oosimpleexp.createoosimpleexp(last));
 				}
 				if(parts.size() > 1) {
 					result.add(oobinregex.makeBinExpression(REGEXP_CONCATENATION.class, parts));
