@@ -1,7 +1,5 @@
 package regex.operators;
 
-import static org.junit.Assert.*;
-
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +29,12 @@ public class AllMutatorsTest {
 	public void testMutateClassInterval() {
 		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 		testWithRegex("[a-z]{2,3}");
+	}
+
+	@Test
+	public void testMutateClassInterval2() {
+		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
+		testWithRegex("[a-z]");
 	}
 
 	@Test
