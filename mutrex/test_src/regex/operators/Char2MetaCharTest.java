@@ -203,4 +203,20 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		}
 		assertEquals(1, mutants.size());
 	}
+	
+	@Test
+	public void testExampleAT() {
+		// as char
+		RegExp re = new RegExp("\\@");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		assertEquals(1, mutants.size());
+		// in string
+		re = new RegExp("a\\@");
+		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
+	}
+
 }

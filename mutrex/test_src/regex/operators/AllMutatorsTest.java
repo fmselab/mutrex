@@ -23,6 +23,7 @@ public class AllMutatorsTest {
 		testWithRegex("a{2,3}");
 		testWithRegex("a{2}");
 		testWithRegex("a{2,}");
+		testWithRegex("(a|z){2,3}");
 	}
 
 	@Test

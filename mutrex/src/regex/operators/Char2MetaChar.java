@@ -1,6 +1,7 @@
 package regex.operators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class Char2MetaChar extends RegexMutator {
 		@Override
 		public List<ooregex> visit(oosimpleexp r) {
 			List<ooregex> result = new ArrayList<>();
-			// TODO???
+			// chek when "a-b" as string 
 			int minusI = r.s.indexOf('-');
 			if (minusI > 0 && minusI < r.s.length() - 1) {
 				// split the string
@@ -64,13 +65,21 @@ public class Char2MetaChar extends RegexMutator {
 				}
 				return Collections.EMPTY_LIST;
 			}
-			result.addAll(checkRepeat(r, "+"));
-			result.addAll(checkRepeat(r, "*"));
-			result.addAll(checkRepeat(r, "?"));
+			result.addAll(checkMetaChar(r, "+"));
+			result.addAll(checkMetaChar(r, "*"));
+			result.addAll(checkMetaChar(r, "?"));
+			/* .	(any single character)	
+				|	#	(the empty language)	[OPTIONAL]
+				|	@	(any string)	[OPTIONAL]
+			*/
+			result.addAll(checkMetaChar(r, "."));
+			result.addAll(checkMetaChar(r, "#"));
+			result.addAll(checkMetaChar(r, "@"));
 			return result;
 		}
 
-		private List<ooregex> checkRepeat(oosimpleexp r, String rsymb) {
+		private List<ooregex> checkMetaChar(oosimpleexp r, String rsymb) {
+			assert rsymb.length() == 1;
 			if (r.s.contains(rsymb)) {
 				//System.err.println(r + " " + rsymb);
 				List<ooregex> result = new ArrayList<>();
@@ -89,7 +98,8 @@ public class Char2MetaChar extends RegexMutator {
 				}
 				if(prefix.length() > 0) {
 					ooregex prefixOOr = oosimpleexp.createoosimpleexp(prefix);
-					REGEXP_REPEAT rp = null;
+					// 
+					ooregex rp = null;
 					switch (rsymb) {
 					case "+":
 						rp = REGEXP_REPEAT.REGEXP_REPEAT_MIN(prefixOOr);
@@ -100,8 +110,13 @@ public class Char2MetaChar extends RegexMutator {
 					case "?":
 						rp = REGEXP_REPEAT.REGEXP_OPTIONAL(prefixOOr);
 						break;
+					case ".":
+					case "#":
+					case "@":
+						rp = new REGEXP_CONCATENATION(prefixOOr,new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
+						break;
 					default:
-						assert false;
+						assert false : " Char" + rsymb;
 					}
 					if (postfix.length()>0)
 						result.add(new REGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
