@@ -9,6 +9,7 @@ import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
 import dk.brics.automaton.oo.ooregex;
+import dk.brics.automaton.oo.oosimpleexp;
 
 /**
  * the expression contains a metachar that is substituted by a char. The error
@@ -51,7 +52,8 @@ public class MetaChar2Char extends RegexMutator {
 				for (char a : charQuantifier) {
 					if (q.charAt(0) == a) {
 						List<ooregex> insideMutations = r.getContentExpr().accept(this);
-						REGEXP_CHAR rc = new REGEXP_CHAR(a);
+						// escape the quantifier
+						ooregex rc = oosimpleexp.createoosimpleexp(Character.toString(a));
 						for (ooregex rm : insideMutations) {
 							result.add(new REGEXP_CONCATENATION(rm, rc));
 						}

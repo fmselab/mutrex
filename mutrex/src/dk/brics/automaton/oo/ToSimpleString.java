@@ -101,7 +101,7 @@ public class ToSimpleString extends ToRegexString {
 
 		@Override
 		public Integer visit(REGEXP_REPEAT r) {
-			return 3;
+			return 4;
 		}
 
 		@Override
@@ -111,7 +111,7 @@ public class ToSimpleString extends ToRegexString {
 
 		@Override
 		public Integer visit(REGEXP_CHAR_RANGE r) {
-			return 5;
+			return 3;
 		}
 
 		@Override

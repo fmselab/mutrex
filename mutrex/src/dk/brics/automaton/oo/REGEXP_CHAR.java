@@ -2,6 +2,7 @@ package dk.brics.automaton.oo;
 
 /**charexp	::=	<Unicode character>	(a single non-reserved character)	
 	|	\ <Unicode character> 	(a single character)*/
+// it can be a metachar in thsi cas eis intended as not metachar
 public class REGEXP_CHAR extends ooregex {
 	public char c;
 

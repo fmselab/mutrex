@@ -18,18 +18,8 @@ import dk.brics.automaton.oo.ooregex;
  */
 public class CharacterClassAddition extends RegexMutator {
 	public static CharacterClassAddition mutator = new CharacterClassAddition();
-	private static Logger logger = Logger.getLogger(CharacterClassAddition.class.getName());
-	/*
-	 * private static REGEXP_CHAR_RANGE[] intervals = new REGEXP_CHAR_RANGE[] {
-	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
-	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
-	 * (REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
-	 */
 
-	private static REGEXP_CHAR_RANGE[] ALLintervals = new REGEXP_CHAR_RANGE[] {
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[a-z]")),
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[A-Z]")),
-			(REGEXP_CHAR_RANGE) OORegexConverter.getOORegex(new RegExp("[0-9]")) };
+	private static Logger logger = Logger.getLogger(CharacterClassAddition.class.getName());
 
 	private CharacterClassAddition() {
 		super(new CharacterClassAdditionVisitor());

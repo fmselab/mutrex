@@ -10,7 +10,7 @@ import regex.utils.JoinedIterator;
 import regex.utils.JoinedRandomIterator;
 
 public class AllMutators extends RegexMutator {
-	
+
 	public static AllMutators mutator = new AllMutators();
 
 	protected AllMutators() {
@@ -70,6 +70,7 @@ public class AllMutators extends RegexMutator {
 		return "ALL";
 	}
 
+	/** enable only these operators */
 	public static void enableOnly(String[] operators) {
 		allMutators.clear();
 		// if null or none, put all
@@ -83,4 +84,14 @@ public class AllMutators extends RegexMutator {
 			}
 		}
 	}
+
+	/** disable this operator */
+	public static void disable(String op) {
+		for (Iterator<RegexMutator> iterator = allMutators.iterator(); iterator.hasNext();) {
+			RegexMutator m = iterator.next();
+			if (op.equals(m.getCode()))
+				iterator.remove();
+		}
+	}
+
 }

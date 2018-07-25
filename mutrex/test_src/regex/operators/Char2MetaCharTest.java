@@ -30,7 +30,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 
 	@Test
 	public void testAPlus() {
-		ooregex oor = OORegexConverter.getOOExtRegex("a+");
+		ooregex oor = OORegexConverter.getOOExtRegex("a\\+");
 		System.out.println(ToSimpleString.convertToReadableString(oor));
 		System.out.println(oor.getClass());
 		//Iterator<MutatedRegExp> res = mutator.mutate(oor);
@@ -212,6 +212,35 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		assertEquals(1, mutants.size());
 		// in string
 		re = new RegExp("a\\@");
+		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		assertEquals(1, mutants.size());
+		assertEquals("a@", ToSimpleString.convertToReadableString(mutants.get(0).mutatedRexExp));
+		re = new RegExp("[a-z]\\+@");
+		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));		
+		assertEquals(1, mutants.size());
+		assertEquals("[a-z]+@", ToSimpleString.convertToReadableString(mutants.get(0).mutatedRexExp));
+		re = new RegExp("[a-z]+\\@");
+		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		assertEquals(1, mutants.size());
+		assertEquals("[a-z]+@", ToSimpleString.convertToReadableString(mutants.get(0).mutatedRexExp));
+	}
+
+	@Test
+	public void testExampleAT2() {
+		// as char
+		RegExp re = new RegExp("[a-z]\\+\\@");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+		assertEquals(2, mutants.size());
+	}
+	@Test
+	public void testSpecialChars() {
+		RegExp re = new RegExp("\\+");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		assertEquals(0, mutants.size());
+		re = new RegExp("\\+\\@");
 		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
 		for(MutatedRegExp m: mutants) {
 			System.out.println(m);

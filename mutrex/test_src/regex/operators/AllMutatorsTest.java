@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import dk.brics.automaton.ExtendedRegex;
@@ -14,11 +15,22 @@ import dk.brics.automaton.oo.ToSimpleString;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 public class AllMutatorsTest {
+
 	RegexComparatorByAutomata comparator = new RegexComparatorByAutomata();
 
+	@BeforeClass
+	static public void setUp() {
+		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
+		AllMutators.disable("PA");
+		// once a class has been removed there is no way to get it back
+		//AllMutators.disable("CCR");
+		//AllMutators.disable("CCA");
+		//AllMutators.disable("CA");
+		//AllMutators.disable("CCN");
+	}
+	
 	@Test
 	public void testMutate() {
-		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 		testWithRegex("a{2,2}");
 		testWithRegex("a{2,3}");
 		testWithRegex("a{2}");
@@ -28,7 +40,6 @@ public class AllMutatorsTest {
 
 	@Test
 	public void testMutateClassInterval() {
-		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 		testWithRegex("[a-z]{2,3}");
 	}
 
@@ -44,6 +55,7 @@ public class AllMutatorsTest {
 		testWithRegex("a+");
 		testWithRegex("a?");
 		testWithRegex("a*");
+		testWithRegex("[a-z]+\\@");
 		testWithRegex("\\w+\\@[a-zA-Z_]");
 	}
 

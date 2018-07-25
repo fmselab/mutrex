@@ -17,7 +17,8 @@ public class ToSimpleStringTest {
 		checkOmoTrasformation("a*");		
 		checkOmoTrasformation("ab*");		
 		checkOmoTrasformation("(ab)*");		
-		checkOmoTrasformation("[a-zA-Z]*");		
+		checkOmoTrasformation("[a-zA-Z]*");	
+		checkOmoTrasformation("[a-b]+");	
 	}
 
 	@Test

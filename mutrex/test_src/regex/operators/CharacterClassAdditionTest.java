@@ -41,6 +41,14 @@ public class CharacterClassAdditionTest extends RegexMutationTest {
 	}
 
 	@Test
+	public void test_a_f() {
+		RegExp re = new RegExp("[a-f]");
+		List<MutatedRegExp> m = IteratorUtils.iteratorToList(mutator.mutate(re));
+		System.out.println(m);
+	}
+
+	
+	@Test
 	public void testExamplePaperSI_mutation2017() {
 		RegExp re = new RegExp("[a-z]");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));

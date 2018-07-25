@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import dk.brics.automaton.RegExp.Kind;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.ooregex;
@@ -131,6 +132,14 @@ public class OORegexConverterTest {
 		assertEquals("\\\"aaa\\\"AAA",escapeDq("\"aaa\"AAA", true)); 
 		assertEquals("\\\"aaa\\\"",escapeDq("\"aaa\"", true));	
 		assertEquals("\\\"aaa\\\"",escapeDq("\\\"aaa\"", true));	
+
+	}
+	
+	@Test
+	public void testStringwEsc(){
+		RegExp re = new RegExp("1\\+1=2");
+		assertTrue(re.kind == Kind.REGEXP_STRING);
+		System.out.println(re.s);
 
 	}
 	

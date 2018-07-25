@@ -129,4 +129,29 @@ public class MetaChar2CharTest extends RegexMutationTest {
 		accept(m.mutatedRexExp, "a+");
 		acceptNot(m.mutatedRexExp, "aaa");
 	}
+	
+	@Test
+	public void testUVA18() {
+		// metachar 
+		RegExp re = new RegExp("[a-z]+@");
+		accept(re, "aaa", "bbX","bbsss@");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		assertEquals(2, mutants.size());
+		//
+		re = new RegExp("[a-z]+\\@");
+		accept(re, "aaa@");
+		mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		for(MutatedRegExp m: mutants) {
+			System.out.println(m);
+		}
+		assertEquals(1, mutants.size());
+	}
+	
+	@Test
+	public void testSpecialChars() {
+		RegExp re = new RegExp("++@#");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(MetaChar2Char.mutator.mutate(re));
+		assertEquals(3, mutants.size());
+	}
+
 }

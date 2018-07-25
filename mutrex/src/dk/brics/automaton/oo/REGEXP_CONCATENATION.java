@@ -8,6 +8,8 @@ public class REGEXP_CONCATENATION extends oobinregex {
 
 	public REGEXP_CONCATENATION(ooregex ooRegex, ooregex ooRegex2) {
 		super(ooRegex, ooRegex2);
+		// do not concatenate two strings
+		assert ! (ooRegex instanceof oosimpleexp && ooRegex2 instanceof oosimpleexp);
 	}
 
 	@Override

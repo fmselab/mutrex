@@ -5,11 +5,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import dk.brics.automaton.OORegexConverter;
+import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.REGEXP_CHAR;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_CONCATENATION;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
+import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;
 
@@ -43,7 +46,7 @@ public class Char2MetaChar extends RegexMutator {
 		@Override
 		public List<ooregex> visit(oosimpleexp r) {
 			List<ooregex> result = new ArrayList<>();
-			// chek when "a-b" as string 
+			// chek when "a-b" as string
 			int minusI = r.s.indexOf('-');
 			if (minusI > 0 && minusI < r.s.length() - 1) {
 				// split the string
@@ -68,27 +71,53 @@ public class Char2MetaChar extends RegexMutator {
 			result.addAll(checkMetaChar(r, "+"));
 			result.addAll(checkMetaChar(r, "*"));
 			result.addAll(checkMetaChar(r, "?"));
-			/* .	(any single character)	
-				|	#	(the empty language)	[OPTIONAL]
-				|	@	(any string)	[OPTIONAL]
-			*/
+			/*
+			 * . (any single character) | # (the empty language) [OPTIONAL] | @ (any string)
+			 * [OPTIONAL]
+			 */
 			result.addAll(checkMetaChar(r, "."));
 			result.addAll(checkMetaChar(r, "#"));
 			result.addAll(checkMetaChar(r, "@"));
 			return result;
 		}
 
+		@Override
+		public List<ooregex> visit(REGEXP_CONCATENATION c) {
+			List<ooregex> result = new ArrayList<>();
+			// char range followed by a char or string whose first char is a metachar
+			if (c.exp1 instanceof REGEXP_CHAR_RANGE) {
+				// second part is a string beginning with a metachar
+				// what if the metachar is escaped???
+				// easiest way: convert to string
+				String e2 = ToSimpleString.convertToReadableString(c.exp2);
+				System.out.println(e2);
+				for (String sc : new String[] { "+", "*", "?" }) {
+					if (e2.startsWith(sc)) {
+						ooregex buildRegexPluSC = buildRegexPluSC(c.exp1, sc.substring(0));
+						ooregex other = OORegexConverter.getOOExtRegex(e2.substring(1));
+						result.add(new REGEXP_CONCATENATION(buildRegexPluSC,other));
+						break;
+					} 
+				}
+			}
+			result.addAll(super.visit(c));
+			return result;
+		}
+
 		private List<ooregex> checkMetaChar(oosimpleexp r, String rsymb) {
 			assert rsymb.length() == 1;
-			if (r.s.contains(rsymb)) {
-				//System.err.println(r + " " + rsymb);
+			String rstring = r.s;
+			System.out.print(rsymb + " in " + rstring + " -> ");
+			if (rstring.contains(rsymb)) {
+				// System.err.println(r + " " + rsymb);
 				List<ooregex> result = new ArrayList<>();
 				// quantifier in the string
 				// split the string
-				String prefix = r.s.substring(0, r.s.indexOf(rsymb));
-				String postfix = r.s.substring(r.s.indexOf(rsymb) + 1, r.s.length());
+				String prefix = rstring.substring(0, rstring.indexOf(rsymb));
+				String postfix = rstring.substring(rstring.indexOf(rsymb) + 1, rstring.length());
+				System.out.print(" pre " + prefix + " postfix " + postfix);
 				// visit the second half - in case there are more
-				if(postfix.length() > 0) {
+				if (postfix.length() > 0) {
 					ooregex rest = oosimpleexp.createoosimpleexp(postfix);
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
@@ -96,38 +125,45 @@ public class Char2MetaChar extends RegexMutator {
 						result.add(new REGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
 					}
 				}
-				if(prefix.length() > 0) {
+				if (prefix.length() > 0) {
 					ooregex prefixOOr = oosimpleexp.createoosimpleexp(prefix);
-					// 
-					ooregex rp = null;
-					switch (rsymb) {
-					case "+":
-						rp = REGEXP_REPEAT.REGEXP_REPEAT_MIN(prefixOOr);
-						break;
-					case "*":
-						rp = REGEXP_REPEAT.REGEXP_REPEAT(prefixOOr);
-						break;
-					case "?":
-						rp = REGEXP_REPEAT.REGEXP_OPTIONAL(prefixOOr);
-						break;
-					case ".":
-					case "#":
-					case "@":
-						rp = new REGEXP_CONCATENATION(prefixOOr,new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
-						break;
-					default:
-						assert false : " Char" + rsymb;
-					}
-					if (postfix.length()>0)
+					//
+					ooregex rp = buildRegexPluSC(prefixOOr, rsymb);
+					if (postfix.length() > 0)
 						result.add(new REGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
 					else
 						result.add(rp);
 				}
-				// System.out.println(result);
+				System.out.println(result + " " + result.get(0).getClass().getSimpleName());
 				return result;
 			} else {
+				System.out.println("{}");
 				return Collections.EMPTY_LIST;
 			}
+		}
+
+		// the pefix is followed by rsymb
+		private ooregex buildRegexPluSC(ooregex prefixOOr, String rsymb) {
+			ooregex rp = null;
+			switch (rsymb) {
+			case "+":
+				rp = REGEXP_REPEAT.REGEXP_REPEAT_MIN(prefixOOr);
+				break;
+			case "*":
+				rp = REGEXP_REPEAT.REGEXP_REPEAT(prefixOOr);
+				break;
+			case "?":
+				rp = REGEXP_REPEAT.REGEXP_OPTIONAL(prefixOOr);
+				break;
+			case ".":
+			case "#":
+			case "@":
+				rp = new REGEXP_CONCATENATION(prefixOOr, new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
+				break;
+			default:
+				assert false : "character '" + rsymb+ "' not recognized";
+			}
+			return rp;
 		}
 
 		@Override
