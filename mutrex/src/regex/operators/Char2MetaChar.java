@@ -119,6 +119,7 @@ public class Char2MetaChar extends RegexMutator {
 				// visit the second half - in case there are more
 				if (postfix.length() > 0) {
 					ooregex rest = oosimpleexp.createoosimpleexp(postfix);
+					// attenzione quest duplica i mutanti uno qui e uno al prossimo giro 
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
 						// re add the symbol
