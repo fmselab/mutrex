@@ -135,7 +135,7 @@ public class Char2MetaChar extends RegexMutator {
 					else
 						result.add(rp);
 				}
-				System.out.println(result + " " + result.get(0).getClass().getSimpleName());
+				System.out.println(result + " " + (result.size()>0?result.get(0).getClass().getSimpleName():"EMPTY"));
 				return result;
 			} else {
 				System.out.println("{}");
