@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
@@ -24,6 +26,7 @@ import dk.brics.automaton.oo.oosimpleexp;
  * 
  */
 public class Char2MetaChar extends RegexMutator {
+	private static Logger logger = Logger.getLogger(Char2MetaChar.class.getName());
 	public static Char2MetaChar mutator = new Char2MetaChar();
 
 	private Char2MetaChar() {
@@ -46,7 +49,7 @@ public class Char2MetaChar extends RegexMutator {
 		@Override
 		public List<ooregex> visit(oosimpleexp r) {
 			List<ooregex> result = new ArrayList<>();
-			// chek when "a-b" as string
+			// check when "a-b" as string
 			int minusI = r.s.indexOf('-');
 			if (minusI > 0 && minusI < r.s.length() - 1) {
 				// split the string
@@ -90,14 +93,14 @@ public class Char2MetaChar extends RegexMutator {
 				// what if the metachar is escaped???
 				// easiest way: convert to string
 				String e2 = ToSimpleString.convertToReadableString(c.exp2);
-				System.out.println(e2);
+				logger.log(Level.SEVERE, e2);
 				for (String sc : new String[] { "+", "*", "?" }) {
 					if (e2.startsWith(sc)) {
 						ooregex buildRegexPluSC = buildRegexPluSC(c.exp1, sc.substring(0));
 						ooregex other = OORegexConverter.getOOExtRegex(e2.substring(1));
-						result.add(new REGEXP_CONCATENATION(buildRegexPluSC,other));
+						result.add(new REGEXP_CONCATENATION(buildRegexPluSC, other));
 						break;
-					} 
+					}
 				}
 			}
 			result.addAll(super.visit(c));
@@ -107,7 +110,7 @@ public class Char2MetaChar extends RegexMutator {
 		private List<ooregex> checkMetaChar(oosimpleexp r, String rsymb) {
 			assert rsymb.length() == 1;
 			String rstring = r.s;
-			System.out.print(rsymb + " in " + rstring + " -> ");
+			logger.log(Level.SEVERE, rsymb + " in " + rstring + " -> ");
 			if (rstring.contains(rsymb)) {
 				// System.err.println(r + " " + rsymb);
 				List<ooregex> result = new ArrayList<>();
@@ -115,11 +118,11 @@ public class Char2MetaChar extends RegexMutator {
 				// split the string
 				String prefix = rstring.substring(0, rstring.indexOf(rsymb));
 				String postfix = rstring.substring(rstring.indexOf(rsymb) + 1, rstring.length());
-				System.out.print(" pre " + prefix + " postfix " + postfix);
+				logger.log(Level.SEVERE, " pre " + prefix + " postfix " + postfix);
 				// visit the second half - in case there are more
 				if (postfix.length() > 0) {
 					ooregex rest = oosimpleexp.createoosimpleexp(postfix);
-					// attenzione quest duplica i mutanti uno qui e uno al prossimo giro 
+					// attenzione quest duplica i mutanti uno qui e uno al prossimo giro
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
 						// re add the symbol
@@ -135,7 +138,8 @@ public class Char2MetaChar extends RegexMutator {
 					else
 						result.add(rp);
 				}
-				System.out.println(result + " " + (result.size()>0?result.get(0).getClass().getSimpleName():"EMPTY"));
+				logger.log(Level.SEVERE, 
+						result + " " + (result.size() > 0 ? result.get(0).getClass().getSimpleName() : "EMPTY"));
 				return result;
 			} else {
 				System.out.println("{}");
@@ -162,7 +166,7 @@ public class Char2MetaChar extends RegexMutator {
 				rp = new REGEXP_CONCATENATION(prefixOOr, new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
 				break;
 			default:
-				assert false : "character '" + rsymb+ "' not recognized";
+				assert false : "character '" + rsymb + "' not recognized";
 			}
 			return rp;
 		}
