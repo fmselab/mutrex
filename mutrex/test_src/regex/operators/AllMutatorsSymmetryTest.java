@@ -14,7 +14,8 @@ import dk.brics.automaton.RegexComparatorByAutomata;
 import dk.brics.automaton.oo.ToSimpleString;
 import regex.operators.RegexMutator.MutatedRegExp;
 
-public class AllMutatorsTest {
+/** che the simmetry of the mutation*/
+public class AllMutatorsSymmetryTest {
 
 	RegexComparatorByAutomata comparator = new RegexComparatorByAutomata();
 
@@ -22,11 +23,12 @@ public class AllMutatorsTest {
 	static public void setUp() {
 		Logger.getLogger(OORegexConverter.class.getName()).setLevel(Level.OFF);
 		AllMutators.disable("PA");
-		// once a class has been removed there is no way to get it back
-		//AllMutators.disable("CCR");
-		//AllMutators.disable("CCA");
-		//AllMutators.disable("CA");
-		//AllMutators.disable("CCN");
+		// once a class has been removed there is no way to get it back from CA
+		// if a disable that, I cannot repair the 
+		AllMutators.disable("CCR");
+		AllMutators.disable("CCA");		
+		AllMutators.disable("CA");
+		AllMutators.disable("CCN");
 	}
 	
 	@Test
