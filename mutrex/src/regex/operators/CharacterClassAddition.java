@@ -18,7 +18,6 @@ import dk.brics.automaton.oo.ooregex;
  */
 public class CharacterClassAddition extends RegexMutator {
 	public static CharacterClassAddition mutator = new CharacterClassAddition();
-
 	private static Logger logger = Logger.getLogger(CharacterClassAddition.class.getName());
 
 	private CharacterClassAddition() {
