@@ -1,14 +1,12 @@
 package regex.operators;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dk.brics.automaton.OORegexConverter;
-import dk.brics.automaton.RegExp;
 import dk.brics.automaton.oo.REGEXP_CHAR;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_CONCATENATION;

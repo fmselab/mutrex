@@ -25,7 +25,6 @@ import dk.brics.automaton.oo.oosimpleexp;
  * 
  */
 public class OORegexConverter {
-
 	public static Logger logger = Logger.getLogger(OORegexConverter.class.getName());
 
 	// take a regex and build its objects
