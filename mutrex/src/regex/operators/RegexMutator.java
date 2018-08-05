@@ -26,7 +26,6 @@ public abstract class RegexMutator {
 		return mutate(re,true);
 	}
 
-	
 	private Iterator<MutatedRegExp> mutate(RegExp re, boolean shuffle) {
 		List<ooregex> results = OORegexConverter.getOORegex(re).accept(mutator);
 		if (shuffle) Collections.shuffle(results);

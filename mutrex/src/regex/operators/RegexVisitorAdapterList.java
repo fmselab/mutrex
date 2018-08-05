@@ -57,7 +57,12 @@ class RegexVisitorAdapterList implements RegexVisitor<List<ooregex>> {
 			return m1;
 		List<ooregex> result = new ArrayList<>();
 		for (ooregex r1 : m1) {
-			result.add(oobinregex.makeBinExpression(clazz, r1, r.exp2));
+			if(clazz == REGEXP_CONCATENATION.class && r1 instanceof oosimpleexp && r.exp2 instanceof oosimpleexp) {
+				result.add(oosimpleexp.createoosimpleexp(((oosimpleexp)r1).s + ((oosimpleexp)r.exp2).s));
+			}
+			else {
+				result.add(oobinregex.makeBinExpression(clazz, r1, r.exp2));
+			}
 		}
 		for (ooregex r2 : m2) {
 			result.add(oobinregex.makeBinExpression(clazz, r.exp1, r2));
