@@ -2,6 +2,7 @@ package regex.distinguishing;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -17,7 +18,7 @@ import dk.brics.automaton.Transition;
  * @author garganti
  */
 public class DistStringCreator {
-
+	public static boolean SHORTEST_EXAMPLE = true;
 	/** The Constant SEARCH_MEANINGFUL. */
 	public static boolean SEARCH_MEANINGFUL = true;
 
@@ -40,14 +41,10 @@ public class DistStringCreator {
 	/**
 	 * Gets the ds.
 	 *
-	 * @param r1
-	 *            the r 1
-	 * @param r2
-	 *            the r 2
-	 * @param dsGenPolicy
-	 *            the ds gen policy
-	 * @param forbiddenWords
-	 *            the forbidden words
+	 * @param r1             the r 1
+	 * @param r2             the r 2
+	 * @param dsGenPolicy    the ds gen policy
+	 * @param forbiddenWords the forbidden words
 	 * @return the ds
 	 */
 	public static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy,
@@ -111,12 +108,9 @@ public class DistStringCreator {
 	/**
 	 * Gets the ds.
 	 *
-	 * @param r1
-	 *            the r 1
-	 * @param r2
-	 *            the r 2
-	 * @param dsGenPolicy
-	 *            the ds gen policy
+	 * @param r1          the r 1
+	 * @param r2          the r 2
+	 * @param dsGenPolicy the ds gen policy
 	 * @return the ds
 	 */
 	public static DistinguishingString getDS(RegExp r1, RegExp r2, DSgenPolicy dsGenPolicy) {
@@ -130,10 +124,8 @@ public class DistStringCreator {
 	/**
 	 * Gets the ds.
 	 *
-	 * @param r1
-	 *            the r 1
-	 * @param r2
-	 *            the r 2
+	 * @param r1 the r 1
+	 * @param r2 the r 2
 	 * @return the ds
 	 */
 	public static String getDS(RegExp r1, RegExp r2) {
@@ -143,12 +135,9 @@ public class DistStringCreator {
 	/**
 	 * Gets the ds.
 	 *
-	 * @param r1
-	 *            the r 1
-	 * @param r2
-	 *            the r 2
-	 * @param forbiddenWords
-	 *            the forbidden words
+	 * @param r1             the r 1
+	 * @param r2             the r 2
+	 * @param forbiddenWords the forbidden words
 	 * @return the ds
 	 */
 	public static String getDS(RegExp r1, RegExp r2, Set<String> forbiddenWords) {
@@ -194,10 +183,8 @@ public class DistStringCreator {
 	/**
 	 * build the ds between two regexes.
 	 *
-	 * @param r1
-	 *            the r 1
-	 * @param r2
-	 *            the r 2
+	 * @param r1 the r 1
+	 * @param r2 the r 2
 	 * @return the ds couple
 	 */
 	public static DistinguishingStringsCouple getDScouple(RegExp r1, RegExp r2) {
@@ -271,16 +258,18 @@ public class DistStringCreator {
 	/**
 	 * Gets the example.
 	 *
-	 * @param a
-	 *            the a
+	 * @param a the a
 	 * @return the example
 	 */
 	// the accepted string
 	public static String getExample(Automaton a) {
 		// get the first example provided by the library
-		String result = a.getShortestExample(true);
-		// String ex = getExample(a, a.getInitialState(), new HashSet<State>(), new
-		// ArrayList<Transition>());
+		String result = null;
+		if (SHORTEST_EXAMPLE) {
+			result = a.getShortestExample(true);
+		} else {
+			result = getExample(a, a.getInitialState(), new HashSet<State>(), new ArrayList<Transition>());
+		}
 		// System.out.println(result);
 		// System.out.println(ex);
 		// System.out.println();
