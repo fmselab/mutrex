@@ -16,10 +16,11 @@ public abstract class oobinregex extends ooregex {
 		exp2 = ooRegex2;
 	}
 
-	public static <T extends oobinregex> T makeBinExpression(Class<? extends ooregex> clazz, ooregex e1, ooregex e2) {
+	/** in case of concattion also non concattaion can be rstunred (for example two strings*/
+	public static ooregex makeBinExpression(Class<? extends ooregex> clazz, ooregex e1, ooregex e2) {
 		if (clazz == REGEXP_CONCATENATION.class) {
-			
-			return (T) REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(e1, e2);
+			// the concatenation could actually generate ONE regex that is not binary
+			return REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(e1, e2);
 			//PA 2018/08/05
 			//it doesn't work because of the return type
 			/*if(e1 instanceof oosimpleexp && e2 instanceof oosimpleexp) {
@@ -29,9 +30,9 @@ public abstract class oobinregex extends ooregex {
 				return (T) new REGEXP_CONCATENATION(e1, e2);
 			}*/
 		} else if (clazz == REGEXP_UNION.class) {
-			return (T) new REGEXP_UNION(e1, e2);
+			return new REGEXP_UNION(e1, e2);
 		} else if (clazz == REGEXP_INTERSECTION.class) {
-			return (T) new REGEXP_INTERSECTION(e1, e2);
+			return new REGEXP_INTERSECTION(e1, e2);
 		}
 		throw new RuntimeException("class of binary " + clazz.getName());
 	}
@@ -42,7 +43,7 @@ public abstract class oobinregex extends ooregex {
 	 * @param regexpes
 	 * @return
 	 */
-	public static <T extends oobinregex> T makeBinExpression(Class<? extends ooregex> clazz, List<ooregex> regexpes) {
+	public static ooregex makeBinExpression(Class<? extends ooregex> clazz, List<ooregex> regexpes) {
 		assert regexpes.size() >= 2;
 		int last = regexpes.size() - 1;
 		ooregex result = regexpes.get(last);
@@ -50,7 +51,7 @@ public abstract class oobinregex extends ooregex {
 		for (int i = last - 1; i >= 0; i--) {
 			result = makeBinExpression(clazz, regexpes.get(i), result);
 		}
-		return (T) result;
+		return result;
 	}
 
 	// split in case there are a concatenation of same opratoro
