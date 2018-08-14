@@ -54,7 +54,7 @@ public class PrefixAddition extends RegexMutator {
 				return Collections.EMPTY_LIST;
 			}
 			for (ooregex p : prefixes) {
-				result.add(new REGEXP_CONCATENATION(p, newRepeat));
+				result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(p, newRepeat));
 			}
 			// messo debug per vedere dove cambia 10/8/17 
 			// solo se min == 0 e viene prodotto almeno un mutante (ad esempio se ?) non viene prodotto lo stesso

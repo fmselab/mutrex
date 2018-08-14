@@ -19,7 +19,7 @@ public abstract class oobinregex extends ooregex {
 	public static <T extends oobinregex> T makeBinExpression(Class<? extends ooregex> clazz, ooregex e1, ooregex e2) {
 		if (clazz == REGEXP_CONCATENATION.class) {
 			
-			return (T) new REGEXP_CONCATENATION(e1, e2);
+			return (T) REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(e1, e2);
 			//PA 2018/08/05
 			//it doesn't work because of the return type
 			/*if(e1 instanceof oosimpleexp && e2 instanceof oosimpleexp) {

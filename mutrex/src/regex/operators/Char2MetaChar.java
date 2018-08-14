@@ -62,9 +62,9 @@ public class Char2MetaChar extends RegexMutator {
 				if (p2 > p1) {
 					ooregex range = new REGEXP_CHAR_RANGE(p1, p2);
 					if (p0.length() > 0)
-						range = new REGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(p0), range);
+						range = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(p0), range);
 					if (p3.length() > 0)
-						range = new REGEXP_CONCATENATION(range, oosimpleexp.createoosimpleexp(p3));
+						range = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(range, oosimpleexp.createoosimpleexp(p3));
 					return Collections.singletonList(range);
 				}
 				return Collections.EMPTY_LIST;
@@ -96,7 +96,7 @@ public class Char2MetaChar extends RegexMutator {
 					if (e2.startsWith(sc)) {
 						ooregex buildRegexPluSC = buildRegexPluSC(c.exp1, sc.substring(0));
 						ooregex other = OORegexConverter.getOOExtRegex(e2.substring(1));
-						result.add(new REGEXP_CONCATENATION(buildRegexPluSC, other));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(buildRegexPluSC, other));
 						break;
 					}
 				}
@@ -124,7 +124,7 @@ public class Char2MetaChar extends RegexMutator {
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
 						// re add the symbol
-						result.add(new REGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
 					}
 				}
 				if (prefix.length() > 0) {
@@ -132,7 +132,7 @@ public class Char2MetaChar extends RegexMutator {
 					//
 					ooregex rp = buildRegexPluSC(prefixOOr, rsymb);
 					if (postfix.length() > 0)
-						result.add(new REGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
 					else
 						result.add(rp);
 				}
@@ -161,7 +161,7 @@ public class Char2MetaChar extends RegexMutator {
 			case ".":
 			case "#":
 			case "@":
-				rp = new REGEXP_CONCATENATION(prefixOOr, new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
+				rp = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(prefixOOr, new REGEXP_SPECIALCHAR(rsymb.charAt(0)));
 				break;
 			default:
 				assert false : "character '" + rsymb + "' not recognized";

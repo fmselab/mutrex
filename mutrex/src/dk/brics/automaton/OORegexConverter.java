@@ -89,7 +89,7 @@ public class OORegexConverter {
 			result = new REGEXP_UNION(getOORegex(reg.exp1), getOORegex(reg.exp2));
 			break;
 		case REGEXP_CONCATENATION:
-			result = new REGEXP_CONCATENATION(getOORegex(reg.exp1), getOORegex(reg.exp2));
+			result = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(getOORegex(reg.exp1), getOORegex(reg.exp2));
 			break;
 		case REGEXP_INTERSECTION:
 			result = new REGEXP_INTERSECTION(getOORegex(reg.exp1), getOORegex(reg.exp2));

@@ -49,19 +49,19 @@ public class WrongPrecedenceClosure extends RegexMutator {
 				if (result == null)
 					result = epres.get(i);
 				else
-					result = new REGEXP_CONCATENATION(result, epres.get(i));
+					result = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(result, epres.get(i));
 			}
 			// copy epres
 			if (result == null)
 				result = br;
 			else
-				result = new REGEXP_CONCATENATION(result, br);
+				result = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(result, br);
 			// copy on the right
 			for (int i = mid + 2; i < epres.size(); i++) {
 				if (result == null)
 					result = epres.get(i);
 				else
-					result = new REGEXP_CONCATENATION(result, epres.get(i));
+					result = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(result, epres.get(i));
 			}
 			return result;
 		}
@@ -76,9 +76,9 @@ public class WrongPrecedenceClosure extends RegexMutator {
 					List<ooregex> result = new ArrayList<>();
 					List<ooregex> recursive = left.accept(this);
 					for (ooregex i : recursive) {
-						result.add(new REGEXP_CONCATENATION(i, right));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(i, right));
 					}
-					ooregex concatenate = new REGEXP_CONCATENATION(left, rr.getContentExpr());
+					ooregex concatenate = REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(left, rr.getContentExpr());
 					result.add(REGEXP_REPEAT.sameREPEAT_Type(rr, concatenate));
 					return result;
 				}

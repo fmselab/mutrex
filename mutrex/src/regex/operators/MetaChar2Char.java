@@ -55,9 +55,9 @@ public class MetaChar2Char extends RegexMutator {
 						// escape the quantifier
 						ooregex rc = oosimpleexp.createoosimpleexp(Character.toString(a));
 						for (ooregex rm : insideMutations) {
-							result.add(new REGEXP_CONCATENATION(rm, rc));
+							result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(rm, rc));
 						}
-						result.add(new REGEXP_CONCATENATION(r.getContentExpr(), rc));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(r.getContentExpr(), rc));
 					}
 				}
 				return result;
