@@ -30,10 +30,12 @@ public class RangeModification extends RegexMutator {
 			// System.out.println(r.from + " " + r.to + " " +
 			// Arrays.toString(fromV));
 			for (char c : fromV) {
-				result.add(new REGEXP_CHAR_RANGE(c, r.to));
+				if (c <= r.to)
+					result.add(new REGEXP_CHAR_RANGE(c, r.to));
 			}
 			for (char c : toV) {
-				result.add(new REGEXP_CHAR_RANGE(r.from, c));
+				if (r.from <= c)
+					result.add(new REGEXP_CHAR_RANGE(r.from, c));
 			}
 			return result;
 		}
