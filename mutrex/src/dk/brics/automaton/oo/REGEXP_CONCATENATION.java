@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dk.brics.automaton.RegExp;
-
 /** a copncatenation bewteen two ooregexes */
 public class REGEXP_CONCATENATION extends oobinregex {
 
