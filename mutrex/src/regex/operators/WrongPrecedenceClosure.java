@@ -28,7 +28,7 @@ public class WrongPrecedenceClosure extends RegexMutator {
 		@Override
 		public List<ooregex> visit(REGEXP_CONCATENATION r) {
 			List<ooregex> epres = oobinregex.split(r, REGEXP_CONCATENATION.class);
-			//System.out.println(epres);
+			// System.out.println(epres);
 			List<ooregex> result = new ArrayList<>();
 			for (int i = 0; i < epres.size() - 1; i++) {
 				List<ooregex> checkPair = checkPair(epres.get(i), epres.get(i + 1));
@@ -42,7 +42,7 @@ public class WrongPrecedenceClosure extends RegexMutator {
 		}
 
 		private ooregex unite(List<ooregex> epres, int mid, ooregex br) {
-			//System.out.println("unite " + epres + " mid " + mid + " br" + br);
+			// System.out.println("unite " + epres + " mid " + mid + " br" + br);
 			ooregex result = null;
 			// copy those on the left
 			for (int i = 0; i < mid; i++) {

@@ -62,15 +62,16 @@ public class JoinedRandomIterator<T> implements Iterator<T> {
 
 	@Override
 	public T next() {
-		// chose one random which has next
+		// choose one random which has next
 		while (!iterators.isEmpty()) {
 			// choose one
 			int take = rnd.nextInt(iterators.size());
 			Iterator<T> rnditerator = iterators.get(take);
-			if (rnditerator.hasNext())
+			if (rnditerator.hasNext()) {
 				return rnditerator.next();
-			else
+			} else {
 				iterators.remove(take);
+			}
 		}
 		throw new NoSuchElementException();
 	}

@@ -23,20 +23,20 @@ public class AllMutators extends RegexMutator {
 
 	// probably a file or a plugin mechanism or reflection could be better
 	static {
-		add(CaseChange.mutator);
 		add(CaseAddition.mutator);
-		add(MetaChar2Char.mutator);
+		add(CaseChange.mutator);
 		add(Char2MetaChar.mutator);
-		add(CharacterClassCreation.mutator);
 		add(CharacterClassAddition.mutator);
+		add(CharacterClassCreation.mutator);
 		add(CharacterClassModification.mutator);
-		add(RangeModification.mutator);
-		add(CharacterClassRestriction.mutator);
-		add(PrefixAddition.mutator);
 		add(CharacterClassNegation.mutator);
+		add(CharacterClassRestriction.mutator);
+		add(MetaChar2Char.mutator);
 		add(NegatedCharacterClassToOptional.mutator);
 		add(NegationAddition.mutator);
+		add(PrefixAddition.mutator);
 		add(QuantifierChange.mutator);
+		add(RangeModification.mutator);
 	}
 
 	@Override
@@ -92,5 +92,4 @@ public class AllMutators extends RegexMutator {
 				iterator.remove();
 		}
 	}
-
 }

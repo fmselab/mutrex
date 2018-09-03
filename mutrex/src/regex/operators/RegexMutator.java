@@ -10,7 +10,7 @@ import dk.brics.automaton.oo.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 
 public abstract class RegexMutator {
-	
+
 	private RegexVisitorAdapterList mutator;
 
 	protected RegexMutator(RegexVisitorAdapterList v) {
@@ -19,16 +19,18 @@ public abstract class RegexMutator {
 
 	/** given a regex, it builds all the possible mutations */
 	public Iterator<MutatedRegExp> mutate(RegExp re) {
-		return mutate(re,false);
+		return mutate(re, false);
 	}
 
 	public Iterator<MutatedRegExp> mutateRandom(RegExp re) {
-		return mutate(re,true);
+		return mutate(re, true);
 	}
 
 	private Iterator<MutatedRegExp> mutate(RegExp re, boolean shuffle) {
 		List<ooregex> results = OORegexConverter.getOORegex(re).accept(mutator);
-		if (shuffle) Collections.shuffle(results);
+		if (shuffle) {
+			Collections.shuffle(results);
+		}
 		final Iterator<ooregex> resultsOO = results.iterator();
 		return new Iterator<MutatedRegExp>() {
 
@@ -47,7 +49,6 @@ public abstract class RegexMutator {
 			}
 		};
 	}
-
 
 	static public class MutatedRegExp {// extends RegExp{
 		public String description;
