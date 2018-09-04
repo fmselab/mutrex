@@ -42,6 +42,9 @@ public class OORegexConverter {
 	// escape a double quote if it is not already escaped and it is not at the end
 	// or beginning of a string
 	public static String escapeDq(String reg, boolean includingDelimiter) {
+		if(reg == null || reg.isEmpty()) {
+			return reg;
+		}
 		int start = includingDelimiter ? 0 : 1;
 		// if it is the first char and 
 		if (start == 0 && reg.charAt(0) == '"') {
