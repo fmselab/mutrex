@@ -94,10 +94,17 @@ public class Char2MetaChar extends RegexMutator {
 				logger.log(Level.SEVERE, e2);
 				for (String sc : new String[] { "+", "*", "?" }) {
 					if (e2.startsWith(sc)) {
-						ooregex buildRegexPluSC = buildRegexPluSC(c.exp1, sc.substring(0));
-						ooregex other = OORegexConverter.getOOExtRegex(e2.substring(1));
-						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(buildRegexPluSC, other));
-						break;
+						try {
+							ooregex buildRegexPluSC = buildRegexPluSC(c.exp1, sc.substring(0));//TODO PA 2018/09/08 Why "sc.substring(0)" and not "sc"?
+							//TODO PA 2018/09/08 this code sometimes raises the exception "java.lang.IllegalArgumentException: end-of-string expected at position"
+							ooregex other = OORegexConverter.getOOExtRegex(e2.substring(1));
+							result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(buildRegexPluSC, other));
+							break;
+						} catch (Exception e) {
+							System.err.println("sc " + sc);
+							System.err.println("e2" + e2);
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -124,7 +131,8 @@ public class Char2MetaChar extends RegexMutator {
 					List<ooregex> resultRest = rest.accept(this);
 					for (ooregex mr : resultRest) {
 						// re add the symbol
-						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
+						result.add(REGEXP_CONCATENATION
+								.makeREGEXP_CONCATENATION(oosimpleexp.createoosimpleexp(prefix + rsymb), mr));
 					}
 				}
 				if (prefix.length() > 0) {
@@ -132,15 +140,16 @@ public class Char2MetaChar extends RegexMutator {
 					//
 					ooregex rp = buildRegexPluSC(prefixOOr, rsymb);
 					if (postfix.length() > 0)
-						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(rp, oosimpleexp.createoosimpleexp(postfix)));
+						result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(rp,
+								oosimpleexp.createoosimpleexp(postfix)));
 					else
 						result.add(rp);
 				}
-				logger.log(Level.SEVERE, 
+				logger.log(Level.SEVERE,
 						result + " " + (result.size() > 0 ? result.get(0).getClass().getSimpleName() : "EMPTY"));
 				return result;
 			} else {
-				//System.out.println("{}");
+				// System.out.println("{}");
 				return Collections.EMPTY_LIST;
 			}
 		}

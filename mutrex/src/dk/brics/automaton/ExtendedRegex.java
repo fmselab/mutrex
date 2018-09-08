@@ -40,7 +40,7 @@ public class ExtendedRegex {
 		s = s.replaceAll("\\\\w", "[a-zA-Z0-9_]");
 		// \d is replaced by [0-9]
 		s = s.replaceAll("\\\\d", "[0-9]");
-		// \s is replaces by [ \t\r\n\f]
+		// \s is replaced by [ \t\r\n\f]
 		s = s.replaceAll("\\\\s", "[ \t\r\n\f]");
 		// TODO other metachars
 		return s;
