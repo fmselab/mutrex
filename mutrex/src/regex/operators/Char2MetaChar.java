@@ -101,8 +101,8 @@ public class Char2MetaChar extends RegexMutator {
 							result.add(REGEXP_CONCATENATION.makeREGEXP_CONCATENATION(buildRegexPluSC, other));
 							break;
 						} catch (Exception e) {
-							System.err.println("sc " + sc);
-							System.err.println("e2" + e2);
+							System.err.println("sc: " + sc);
+							System.err.println("e2: " + e2);
 							e.printStackTrace();
 						}
 					}

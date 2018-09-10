@@ -33,11 +33,9 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		ooregex oor = OORegexConverter.getOOExtRegex("a\\+");
 		System.out.println(ToSimpleString.convertToReadableString(oor));
 		System.out.println(oor.getClass());
-		//Iterator<MutatedRegExp> res = mutator.mutate(oor);
-	
+		// Iterator<MutatedRegExp> res = mutator.mutate(oor);
 	}
-	
-	
+
 	@Test
 	public void testMutateDot() {
 		RegExp re = new RegExp("-|\\.");
@@ -198,12 +196,12 @@ public class Char2MetaCharTest extends RegexMutationTest {
 	public void testExamplePaperSI_mutation2017() {
 		RegExp re = new RegExp("\\.{3}");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
-		for(MutatedRegExp m: mutants) {
+		for (MutatedRegExp m : mutants) {
 			System.out.println(m);
 		}
 		assertEquals(1, mutants.size());
 	}
-	
+
 	@Test
 	public void testExampleAT() {
 		// as char
@@ -216,7 +214,7 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		assertEquals(1, mutants.size());
 		assertEquals("a@", ToSimpleString.convertToReadableString(mutants.get(0).mutatedRexExp));
 		re = new RegExp("[a-z]\\+@");
-		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));		
+		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
 		assertEquals(1, mutants.size());
 		assertEquals("[a-z]+@", ToSimpleString.convertToReadableString(mutants.get(0).mutatedRexExp));
 		re = new RegExp("[a-z]+\\@");
@@ -230,11 +228,12 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		// as char
 		RegExp re = new RegExp("[a-z]\\+\\@");
 		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
-		for(MutatedRegExp m: mutants) {
+		for (MutatedRegExp m : mutants) {
 			System.out.println(m);
 		}
 		assertEquals(2, mutants.size());
 	}
+
 	@Test
 	public void testSpecialChars() {
 		RegExp re = new RegExp("\\+");
@@ -242,10 +241,19 @@ public class Char2MetaCharTest extends RegexMutationTest {
 		assertEquals(0, mutants.size());
 		re = new RegExp("\\+\\@");
 		mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
-		for(MutatedRegExp m: mutants) {
+		for (MutatedRegExp m : mutants) {
 			System.out.println(m);
 		}
 		assertEquals(1, mutants.size());
+	}
+
+	@Test
+	public void test() {
+		RegExp re = new RegExp("(((~(\\d)|([\\a-\\f]|[\\A-\\f]))){2}\\:){0,5}((\\d|(~([\\A-\\F])|[\\A-\\F]))){0,2}");
+		List<MutatedRegExp> mutants = IteratorUtils.iteratorToList(mutator.mutate(re));
+		for (MutatedRegExp m : mutants) {
+			System.out.println(m);
+		}
 	}
 
 }
