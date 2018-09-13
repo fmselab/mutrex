@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** a copncatenation bewteen two ooregexes */
+/** a concatenation between two ooregexes */
 public class REGEXP_CONCATENATION extends oobinregex {
 
 	private REGEXP_CONCATENATION(ooregex ooRegex, ooregex ooRegex2) {
 		super(ooRegex, ooRegex2);
-		// cannot two string or chars combied
+		// cannot two strings or chars combined
 		assert !(ooRegex instanceof oosimpleexp && ooRegex2 instanceof oosimpleexp) : "ooRegex: "
 				+ ((oosimpleexp) ooRegex).s + "\nooRegex2: " + ((oosimpleexp) ooRegex2).s;
 		assert !(ooRegex instanceof oosimpleexp && ooRegex2 instanceof REGEXP_CHAR) : "ooRegex: "
@@ -40,17 +40,20 @@ public class REGEXP_CONCATENATION extends oobinregex {
 		}
 	}
 
-	/** concatenaet two regex : if can be anything */
+	/** concatenate two regex : it can be anything */
 	public static ooregex makeREGEXP_CONCATENATION(ooregex r1, ooregex r2) {
 		// see method static RegExp makeConcatenation(RegExp exp1, RegExp exp2) {
 		// if ((exp1.kind == Kind.REGEXP_CHAR || exp1.kind == Kind.REGEXP_STRING) &&
 		// (exp2.kind == Kind.REGEXP_CHAR || exp2.kind == Kind.REGEXP_STRING))
 		// return makeString(exp1, exp2);
+		
+		//TODO: this can violate assertions
 		ooregex result = tryConcatenationTwoString(r1, r2);
-		if (result != null)
+		if (result != null) {
 			return result;
+		}
 
-//		// if one is a concatation and in between there is string
+//		// if one is a concatenation and in between there is string
 //		//	r.kind = Kind.REGEXP_CONCATENATION;
 //		//	if (exp1.kind == Kind.REGEXP_CONCATENATION && 
 //		//		(exp1.exp2.kind == Kind.REGEXP_CHAR || exp1.exp2.kind == Kind.REGEXP_STRING) && 
@@ -65,7 +68,7 @@ public class REGEXP_CONCATENATION extends oobinregex {
 //			} else {
 
 		if (r1 instanceof REGEXP_CONCATENATION) {
-			// CONC(CONC(A,B),C) => CONC(A, B+ C) 
+			// CONC(CONC(A,B),C) => CONC(A, B+ C)
 			ooregex res1 = tryConcatenationTwoString(((REGEXP_CONCATENATION) r1).exp2, r2);
 			if (res1 != null) {
 				return new REGEXP_CONCATENATION(((REGEXP_CONCATENATION) r1).exp1, res1);
