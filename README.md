@@ -34,5 +34,4 @@ Other publication:
 in 12th International Workshop on Mutation Analysis (Mutation 2017), Tokyo, Japan, March 13, 2017
 [download the pdf](http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf)
 
-Mutrex is used also for regular expression repairs. See [here](https://foselab.unibg.it/tearrex/) and the paper
-<https://cs.unibg.it/gargantini/research/papers/regexRepair_ICTSS2018.pdf>
+Mutrex is used also for regular expression repairs. See [here](https://foselab.unibg.it/tearrex/) and the [paper](https://cs.unibg.it/gargantini/research/papers/regexRepair_ICTSS2018.pdf)
