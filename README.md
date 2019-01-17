@@ -4,7 +4,22 @@
 
 Web interface: [http://foselab.unibg.it/mutrex/](http://foselab.unibg.it/mutrex/)
 
-Cite as:
+There is also a simple CLI version. You can download the jar from here <https://github.com/fmselab/mutrex/raw/master/mutrex.cli/mutrex.jar>
+```
+$ java -jar  mutrex.jar "aB([a-z]*)"
+tests for regular expression aB([a-z]*)
+([\a-\z])*
+"aBb" (CONF) kills [aB((\a|\z))*]
+"AB" (REJECT) kills [AB([\a-\z])*, (\a|\A)\B([\a-\z])*]
+"ab" (REJECT) kills [\a(\B|\b)([\a-\z])*]
+...
+```
+## Licence
+
+Mutrex is released under the under the terms of the BSD license. 
+Copyright (C) Paolo Arcaini, Angelo Gargantini, Elvinia Riccobene
+
+## Cite as:
 [P. Arcaini](http://group-mmm.org/~arcaini/), [A. Gargantini](http://cs.unibg.it/gargantini/), [E. Riccobene](https://homes.di.unimi.it/riccobene/)
 *Fault‐based test generation for regular expressions by mutation*
 in Software Testing, Verification and Reliability, March 2018
