@@ -19,6 +19,10 @@ tests for regular expression aB([a-z]*)
 Mutrex is released under the under the terms of the BSD license. 
 Copyright (C) Paolo Arcaini, Angelo Gargantini, Elvinia Riccobene
 
+## Build
+
+You can build mutrex by using eclipse. Import the projects in eclipse.
+
 ## Cite as:
 [P. Arcaini](http://group-mmm.org/~arcaini/), [A. Gargantini](http://cs.unibg.it/gargantini/), [E. Riccobene](https://homes.di.unimi.it/riccobene/)
 *Fault‐based test generation for regular expressions by mutation*
