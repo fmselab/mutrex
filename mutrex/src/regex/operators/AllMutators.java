@@ -37,6 +37,7 @@ public class AllMutators extends RegexMutator {
 		add(PrefixAddition.mutator);
 		add(QuantifierChange.mutator);
 		add(RangeModification.mutator);
+		add(WrongPrecedenceClosure.mutator);
 	}
 
 	@Override
