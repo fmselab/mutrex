@@ -8,7 +8,6 @@ There is also a simple CLI version. You can download the jar from here <https://
 ```
 $ java -jar  mutrex.jar "aB([a-z]*)"
 tests for regular expression aB([a-z]*)
-([\a-\z])*
 "aBb" (CONF) kills [aB((\a|\z))*]
 "AB" (REJECT) kills [AB([\a-\z])*, (\a|\A)\B([\a-\z])*]
 "ab" (REJECT) kills [\a(\B|\b)([\a-\z])*]
