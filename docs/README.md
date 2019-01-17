@@ -1,3 +1,7 @@
+<script language="javascript">
+    window.location.href = "http://example.com"
+</script>
+
 # MutRex: a mutation-based generator of fault detecting strings for regular expressions
 
 ![mutrex logo](https://raw.githubusercontent.com/fmselab/mutrex/master/mutrexweb/WebContent/icon/mutrex_mid.png)
