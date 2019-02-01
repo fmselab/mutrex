@@ -57,6 +57,7 @@ public class MutRexTest {
 	public void testGeneratePoint() {
 		generate("a\\.");
 	}
+		
 
 	@Test
 	public void testString() {
