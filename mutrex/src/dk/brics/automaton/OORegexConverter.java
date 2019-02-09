@@ -15,7 +15,6 @@ import dk.brics.automaton.oo.REGEXP_INTERVAL;
 import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
 import dk.brics.automaton.oo.REGEXP_UNION;
-import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;
 

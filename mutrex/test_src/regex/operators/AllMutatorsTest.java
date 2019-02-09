@@ -11,7 +11,7 @@ import dk.brics.automaton.ExtendedRegex;
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RegexComparatorByAutomata;
-import dk.brics.automaton.oo.ToSimpleString;
+import dk.brics.automaton.ToSimpleString;
 import regex.operators.RegexMutator.MutatedRegExp;
 
 /** che the simmetry of the mutation*/

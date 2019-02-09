@@ -2,7 +2,7 @@ package dk.brics.automaton.oo;
 
 // 	< <identifier> >	(named automaton)	[OPTIONAL]
 public class REGEXP_AUTOMATON extends ooregex {
-	String namedAutomaton;
+	public String namedAutomaton;
 
 	public REGEXP_AUTOMATON(String s) {
 	}

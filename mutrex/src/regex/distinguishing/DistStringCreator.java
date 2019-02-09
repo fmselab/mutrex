@@ -128,7 +128,7 @@ public class DistStringCreator {
 	 * @param r2 the r 2
 	 * @return the ds
 	 */
-	public static String getDS(RegExp r1, RegExp r2) {
+	static String getDS(RegExp r1, RegExp r2) {
 		return getDS(r1, r2, Collections.EMPTY_SET);
 	}
 
@@ -140,7 +140,7 @@ public class DistStringCreator {
 	 * @param forbiddenWords the forbidden words
 	 * @return the ds
 	 */
-	public static String getDS(RegExp r1, RegExp r2, Set<String> forbiddenWords) {
+	static String getDS(RegExp r1, RegExp r2, Set<String> forbiddenWords) {
 		return getDS(r1.toAutomaton(), r2.toAutomaton(), forbiddenWords);
 	}
 
@@ -206,7 +206,7 @@ public class DistStringCreator {
 	 * @param r2
 	 * @return
 	 */
-	public static boolean isGeneralization(RegExp r1, RegExp r2) {
+	private static boolean isGeneralization(RegExp r1, RegExp r2) {
 		DistinguishingString pos = getDS(r1, r2, DSgenPolicy.ONLY_POSITIVE);
 		if (pos != null) {
 			DistinguishingString neg = getDS(r1, r2, DSgenPolicy.ONLY_NEGATIVE);
@@ -303,7 +303,7 @@ public class DistStringCreator {
 		// return ex;
 	}
 
-	public static String getExample(Automaton a, State s, Set<State> visited, List<Transition> test) {
+	private static String getExample(Automaton a, State s, Set<State> visited, List<Transition> test) {
 		visited.add(s);
 		if (s.isAccept()) {
 			StringBuilder sb = new StringBuilder();

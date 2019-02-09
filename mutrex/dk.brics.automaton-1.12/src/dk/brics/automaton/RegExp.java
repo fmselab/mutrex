@@ -531,40 +531,6 @@ public class RegExp implements java.io.Serializable{
 		return b;
 	}
 
-	public int countOperators() {
-		int counter = 0;
-		switch (kind) {
-		case REGEXP_UNION:
-		case REGEXP_CONCATENATION:
-		case REGEXP_INTERSECTION:
-			counter = 1;
-			counter += exp1.countOperators();
-			counter += exp2.countOperators();
-			break;
-		case REGEXP_OPTIONAL:
-		case REGEXP_REPEAT:
-		case REGEXP_REPEAT_MIN:
-		case REGEXP_REPEAT_MINMAX:
-		case REGEXP_COMPLEMENT:
-			counter = 1 + exp1.countOperators();
-			break;
-		case REGEXP_CHAR_RANGE:
-		case REGEXP_ANYCHAR:
-		case REGEXP_EMPTY:
-		case REGEXP_ANYSTRING:
-		case REGEXP_INTERVAL:
-			counter = 1;
-			break;
-		case REGEXP_AUTOMATON:
-			break;
-		case REGEXP_CHAR:
-			break;
-		case REGEXP_STRING:
-			break;
-		}
-		return counter;
-	}
-
 	/** 
 	 * Returns set of automaton identifiers that occur in this regular expression. 
 	 */

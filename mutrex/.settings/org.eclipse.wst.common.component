@@ -2,6 +2,5 @@
     <wb-module deploy-name="mutrex">
         <wb-resource deploy-path="/" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/test_src"/>
-        <wb-resource deploy-path="/" source-path="/dk.brics.automaton-1.12/src"/>
     </wb-module>
 </project-modules>

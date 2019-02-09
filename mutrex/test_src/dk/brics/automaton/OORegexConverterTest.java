@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import dk.brics.automaton.RegExp.Kind;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
-import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;
 

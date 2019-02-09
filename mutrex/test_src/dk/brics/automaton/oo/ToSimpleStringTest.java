@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import dk.brics.automaton.ExtendedRegex;
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.ToSimpleString;
 
 public class ToSimpleStringTest {
 

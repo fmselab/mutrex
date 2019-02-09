@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import dk.brics.automaton.ToRegexString;
 import dk.brics.automaton.oo.REGEXP_AUTOMATON;
 import dk.brics.automaton.oo.REGEXP_CHAR;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
@@ -15,7 +16,6 @@ import dk.brics.automaton.oo.REGEXP_REPEAT;
 import dk.brics.automaton.oo.REGEXP_SPECIALCHAR;
 import dk.brics.automaton.oo.REGEXP_UNION;
 import dk.brics.automaton.oo.RegexVisitor;
-import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.oobinregex;
 import dk.brics.automaton.oo.ooregex;
 import dk.brics.automaton.oo.oosimpleexp;

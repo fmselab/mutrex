@@ -6,9 +6,9 @@ import java.util.List;
 
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.ToRegexString;
 import dk.brics.automaton.oo.REGEXP_CHAR_RANGE;
 import dk.brics.automaton.oo.REGEXP_UNION;
-import dk.brics.automaton.oo.ToRegexString;
 import dk.brics.automaton.oo.ooregex;
 
 /**

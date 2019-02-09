@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.ToRegexString;
 
 public class ToRegexStringTest {
 

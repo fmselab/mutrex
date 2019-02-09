@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dk.brics.automaton.RegExp;
-import dk.brics.automaton.oo.ToSimpleString;
+import dk.brics.automaton.ToSimpleString;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingStringsCouple;
 import regex.operators.RegexMutator.MutatedRegExp;

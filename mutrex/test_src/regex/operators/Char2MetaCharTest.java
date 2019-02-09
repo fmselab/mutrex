@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
-import dk.brics.automaton.oo.ToRegexString;
-import dk.brics.automaton.oo.ToSimpleString;
+import dk.brics.automaton.ToRegexString;
+import dk.brics.automaton.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 import regex.distinguishing.DistStringCreator;
 import regex.distinguishing.DistinguishingStringsCouple;

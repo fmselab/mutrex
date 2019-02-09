@@ -6,7 +6,7 @@ import java.util.List;
 
 import dk.brics.automaton.OORegexConverter;
 import dk.brics.automaton.RegExp;
-import dk.brics.automaton.oo.ToSimpleString;
+import dk.brics.automaton.ToSimpleString;
 import dk.brics.automaton.oo.ooregex;
 
 public abstract class RegexMutator {
