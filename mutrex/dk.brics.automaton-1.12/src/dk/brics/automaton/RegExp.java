@@ -240,18 +240,6 @@ public class RegExp implements java.io.Serializable{
 		return toAutomatonAllowMutate(null, null, true);
 	}
 
-	public static Automaton toAutomatonTimeout(final RegExp rgx, int millisTimout) throws InterruptedException, ExecutionException, TimeoutException {
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Automaton> future = executor.submit(new Callable() {
-		    @Override
-		    public Automaton call() throws Exception {
-		    	return rgx.toAutomaton();
-		    }
-		});
-        Automaton f = future.get(millisTimout, TimeUnit.MILLISECONDS);
-        return f;
-	}
-
 	/** 
 	 * Constructs new <code>Automaton</code> from this <code>RegExp</code>. 
 	 * Same as <code>toAutomaton(null,minimize)</code> (empty automaton map).
