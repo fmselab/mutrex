@@ -81,6 +81,8 @@ public class MeasuredRunner{
 				bb = bb_other;
 				bb_other = tb;
 			}
+			// NOT finished yet
+			assert false;
 			// TODO use a number
 			return new RunResult(accept, 0);
 		}
