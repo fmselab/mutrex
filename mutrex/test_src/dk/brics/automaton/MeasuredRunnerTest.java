@@ -14,22 +14,22 @@ public class MeasuredRunnerTest {
 		assert a.isSingleton();
 		// accepted
 		RunResult res = MeasuredRunner.run(a , "aaa");
-		assertTrue(res.accept);
-		assertEquals(3, res.nChar);
+		assertTrue(res.isAccept());
+		assertEquals(3, res.getnChar());
 		// rejected for length
 		res = MeasuredRunner.run(a , "aa");
-		assertFalse(res.accept);
-		assertEquals(2, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(2, res.getnChar());
 		res = MeasuredRunner.run(a , "aaaaa");
-		assertFalse(res.accept);
-		assertEquals(3, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(3, res.getnChar());
 		//
 		res = MeasuredRunner.run(a , "b");
-		assertFalse(res.accept);
-		assertEquals(0, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(0, res.getnChar());
 		res = MeasuredRunner.run(a , "aabc");
-		assertFalse(res.accept);
-		assertEquals(2, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(2, res.getnChar());
 	}
 	@Test
 	public void testDeterministic() {
@@ -37,22 +37,22 @@ public class MeasuredRunnerTest {
 		assert a.isSingleton();
 		// accepted
 		RunResult res = MeasuredRunner.run(a , "aaa");
-		assertTrue(res.accept);
-		assertEquals(3, res.nChar);
+		assertTrue(res.isAccept());
+		assertEquals(3, res.getnChar());
 		// rejected for length
 		res = MeasuredRunner.run(a , "aa");
-		assertFalse(res.accept);
-		assertEquals(2, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(2, res.getnChar());
 		res = MeasuredRunner.run(a , "aaaaa");
-		assertFalse(res.accept);
-		assertEquals(3, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(3, res.getnChar());
 		//
 		res = MeasuredRunner.run(a , "b");
-		assertFalse(res.accept);
-		assertEquals(0, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(0, res.getnChar());
 		res = MeasuredRunner.run(a , "aabc");
-		assertFalse(res.accept);
-		assertEquals(2, res.nChar);
+		assertFalse(res.isAccept());
+		assertEquals(2, res.getnChar());
 	}
 
 }

@@ -5,44 +5,58 @@ import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-/** runs a string with an automaton and returns the integer that indicates how many chars (or states?) has visited 
+/**
+ * runs a string with an automaton and returns the integer that indicates how
+ * many chars (or states?) has visited
  * 
  * @author garganti
  *
  */
-public class MeasuredRunner{
+public class MeasuredRunner {
 
-	/*+ results from running a string with an automaton*/
-	static class RunResult{
-		boolean accept;
-		int nChar;
+	/* + results from running a string with an automaton */
+	public static class RunResult {
+		private boolean accept;
+		private int nChar;
+
 		public RunResult(boolean accepted, int nChar) {
 			this.accept = accepted;
 			this.nChar = nChar;
-		}}
-		
-	/**like BasicOperations.run
+		}
+
+		public boolean isAccept() {
+			return accept;
+		}
+
+		public int getnChar() {
+			return nChar;
+		}
+	}
+
+	/**
+	 * like BasicOperations.run
 	 */
 	static public RunResult run(Automaton a, String s) {
 		if (a.isSingleton()) {
 			String singleton = a.singleton;
 			int i = 0;
-			for(; i < Integer.min(s.length(), singleton.length()); i++) {				
+			for (; i < Integer.min(s.length(), singleton.length()); i++) {
 				if (singleton.charAt(i) != s.charAt(i))
-					return new RunResult(false,i);
+					return new RunResult(false, i);
 			}
 			// same length ??
 			if (s.length() == singleton.length())
 				return new RunResult(true, i);
-			else 
+			else
 				return new RunResult(false, i);
-		}if (a.deterministic) {
+		}
+		if (a.deterministic) {
 			State p = a.initial;
 			int i = 0;
 			for (; i < s.length(); i++) {
 				State q = p.step(s.charAt(i));
 				if (q == null)
-					return new RunResult(false,i);
+					return new RunResult(false, i);
 				p = q;
 			}
 			// mah
