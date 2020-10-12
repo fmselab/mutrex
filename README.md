@@ -26,12 +26,12 @@ You can build mutrex by using eclipse. Import the projects in eclipse.
 [P. Arcaini](http://group-mmm.org/~arcaini/), [A. Gargantini](http://cs.unibg.it/gargantini/), [E. Riccobene](https://homes.di.unimi.it/riccobene/)
 *Fault‐based test generation for regular expressions by mutation*
 in Software Testing, Verification and Reliability, March 2018
-[download the pdf](https://cs.unibg.it/gargantini/research/papers/mutrexSIstvr2017.pdf)
+[download the pdf](https://cs.unibg.it/gargantini/research/papers/mutrexSIstvr2017.pdf), [doi](https://doi.org/10.1002/stvr.1664)
 
 Other publication:
 [P. Arcaini](http://group-mmm.org/~arcaini/), [A. Gargantini](http://cs.unibg.it/gargantini/), [E. Riccobene](https://homes.di.unimi.it/riccobene/)
 *MutRex: a mutation-based generator of fault detecting strings for regular expressions*
 in 12th International Workshop on Mutation Analysis (Mutation 2017), Tokyo, Japan, March 13, 2017
-[download the pdf](http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf)
+[download the pdf](http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf), [doi](https://doi.org/10.1109/ICSTW.2017.23)
 
-Mutrex is used also for regular expression repairs. See [here](https://foselab.unibg.it/tearrex/) and the [paper](https://cs.unibg.it/gargantini/research/papers/regexRepair_ICTSS2018.pdf)
+MutRex is used also for regular expression repairs. See [here](https://foselab.unibg.it/tearrex/) and the [paper](https://cs.unibg.it/gargantini/research/papers/regexRepair_ICTSS2018.pdf)
