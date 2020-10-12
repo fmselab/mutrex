@@ -171,7 +171,7 @@ td {
 			}
 			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 				ip = request.getRemoteAddr();
-			}			
+			}
 			Ipapi.saveData(getServletContext().getRealPath("/"), request.getParameter("regex"), ip);
 			// build the tests
 			String option = request.getParameter("option");
@@ -209,20 +209,23 @@ td {
 		}
 	%>
 	<hr>
-	mutrex is still experimental - see paper:
+	MutRex is still experimental - see papers:
 	<br> P. Arcaini, A. Gargantini, E. Riccobene
 	<br>
-	<i>MutRex: a mutation-based generator of fault detecting strings
-		for regular expressions</i>
-	<br> in 12th International Workshop on Mutation Analysis (Mutation
-	2017), Tokyo, Japan, March 13, 2017
+	<i>Fault-based test generation for regular expressions by mutation</i>
+	<br> in Software Testing, Verification and Reliability, 2019
 	<br>
-	<a
-		href="http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf">[download
-		the pdf]</a>
+	<a href="https://cs.unibg.it/gargantini/research/papers/mutrexSIstvr2017.pdf">[download the pdf]</a>, <a href="https://doi.org/10.1002/stvr.1664">[doi]</a>
+	<br>
+	<br>
+	<br> P. Arcaini, A. Gargantini, E. Riccobene
+	<br>
+	<i>MutRex: a mutation-based generator of fault detecting strings for regular expressions</i>
+	<br> in 12th International Workshop on Mutation Analysis (Mutation 2017), Tokyo, Japan, March 13, 2017
+	<br>
+	<a href="http://cs.unibg.it/gargantini/research/papers/mutrex_mutation17.pdf">[download the pdf]</a>, <a href="https://doi.org/10.1109/ICSTW.2017.23">[doi]</a>
 	<hr>
 	Source code is available
 	<a href="https://github.com/fmselab/mutrex"> on github</a>
-
 </body>
 </html>
