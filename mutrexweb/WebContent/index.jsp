@@ -54,7 +54,7 @@ td {
 </script>
 </head>
 <body>
-	<%!public void printDs(javax.servlet.jsp.JspWriter out, DSSet ds, boolean confirming) throws java.io.IOException {
+	<%!public void printDs(JspWriter out, DSSet ds, boolean confirming) throws java.io.IOException {
 		for (DistinguishingString d : ds) {
 			if (d.isConfirming() == confirming) {
 				out.println("<tr>");
