@@ -10,8 +10,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>21</source>
+          <target>21</target>
         </configuration>
       </plugin>
     </plugins>
@@ -20,7 +20,7 @@
   	<dependency>
   		<groupId>dk.brics</groupId>
   		<artifactId>automaton</artifactId>
-  		<version>1.12-1</version>
+  		<version>1.12-4</version>
   	</dependency>
   </dependencies>
 </project>
